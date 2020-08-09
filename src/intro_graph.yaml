@@ -1,0 +1,9 @@
+vertices:
+  - name: example_1
+    pos: [0, 0]
+  - name: example_2
+    pos: [1, 1]
+edges:
+  - name: example_edge
+    from: example_1
+    to: example_2
