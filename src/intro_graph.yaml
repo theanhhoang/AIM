@@ -1,9 +1,562 @@
 vertices:
-  - name: example_1
-    pos: [0, 0]
-  - name: example_2
-    pos: [1, 1]
+- name: WEL_WNL
+  pos:
+  - 0
+  - 0
+- name: WER_WSR
+  pos:
+  - 0
+  - 0
+- name: WEL_NSR
+  pos:
+  - 0
+  - 0
+- name: WER_NSR
+  pos:
+  - 0
+  - 0
+- name: WEL_NSL
+  pos:
+  - 0
+  - 0
+- name: WER_NSL
+  pos:
+  - 0
+  - 0
+- name: WEL_SWL
+  pos:
+  - 0
+  - 0
+- name: WER_ESL
+  pos:
+  - 0
+  - 0
+- name: WER_SWL
+  pos:
+  - 0
+  - 0
+- name: WEL_ESL
+  pos:
+  - 0
+  - 0
+- name: WEL_NEL
+  pos:
+  - 0
+  - 0
+- name: WER_SER
+  pos:
+  - 0
+  - 0
+- name: WNL_SWL
+  pos:
+  - 0
+  - 0
+- name: NSL_NEL
+  pos:
+  - 0
+  - 0
+- name: NSR_NWR
+  pos:
+  - 0
+  - 0
+- name: NSL_EWR
+  pos:
+  - 0
+  - 0
+- name: NSR_EWR
+  pos:
+  - 0
+  - 0
+- name: NSL_EWL
+  pos:
+  - 0
+  - 0
+- name: NSR_EWL
+  pos:
+  - 0
+  - 0
+- name: NSL_WNL
+  pos:
+  - 0
+  - 0
+- name: NSR_SWL
+  pos:
+  - 0
+  - 0
+- name: NSR_WNL
+  pos:
+  - 0
+  - 0
+- name: NSL_SWL
+  pos:
+  - 0
+  - 0
+- name: NSL_ESL
+  pos:
+  - 0
+  - 0
+- name: NSR_WSR
+  pos:
+  - 0
+  - 0
+- name: NEL_WNL
+  pos:
+  - 0
+  - 0
+- name: EWL_ESL
+  pos:
+  - 0
+  - 0
+- name: EWR_ENR
+  pos:
+  - 0
+  - 0
+- name: EWL_SNR
+  pos:
+  - 0
+  - 0
+- name: EWR_SNR
+  pos:
+  - 0
+  - 0
+- name: EWL_SNL
+  pos:
+  - 0
+  - 0
+- name: EWR_SNL
+  pos:
+  - 0
+  - 0
+- name: EWL_NEL
+  pos:
+  - 0
+  - 0
+- name: EWR_WNL
+  pos:
+  - 0
+  - 0
+- name: EWR_NEL
+  pos:
+  - 0
+  - 0
+- name: EWL_WNL
+  pos:
+  - 0
+  - 0
+- name: EWL_SWL
+  pos:
+  - 0
+  - 0
+- name: EWR_NWR
+  pos:
+  - 0
+  - 0
+- name: ESL_NEL
+  pos:
+  - 0
+  - 0
+- name: SNL_SWL
+  pos:
+  - 0
+  - 0
+- name: SNR_SER
+  pos:
+  - 0
+  - 0
+- name: SNL_WER
+  pos:
+  - 0
+  - 0
+- name: SNR_WER
+  pos:
+  - 0
+  - 0
+- name: SNL_WEL
+  pos:
+  - 0
+  - 0
+- name: SNR_WEL
+  pos:
+  - 0
+  - 0
+- name: SNL_ESL
+  pos:
+  - 0
+  - 0
+- name: SNR_NEL
+  pos:
+  - 0
+  - 0
+- name: SNR_ESL
+  pos:
+  - 0
+  - 0
+- name: SNL_NEL
+  pos:
+  - 0
+  - 0
+- name: SNL_WNL
+  pos:
+  - 0
+  - 0
+- name: SNR_ENR
+  pos:
+  - 0
+  - 0
+- name: SWL_ESL
+  pos:
+  - 0
+  - 0
 edges:
-  - name: example_edge
-    from: example_1
-    to: example_2
+- name: WSR_0_1
+  fro: WER_WSR
+  to: NSR_WSR
+  value: 50.26548245743669
+- name: WER_0_1
+  fro: WER_WSR
+  to: WER_NSR
+  value: 32
+- name: WER_1_2
+  fro: WER_NSR
+  to: WER_NSL
+  value: 10
+- name: WER_2_3
+  fro: WER_NSL
+  to: WER_ESL
+  value: 8.57437415779593
+- name: WER_3_4
+  fro: WER_ESL
+  to: WER_SWL
+  value: 4.85125168440814
+- name: WER_4_5
+  fro: WER_SWL
+  to: SNL_WER
+  value: 8.57437415779593
+- name: WER_5_6
+  fro: SNL_WER
+  to: SNR_WER
+  value: 10
+- name: WER_6_7
+  fro: SNR_WER
+  to: WER_SER
+  value: 32
+- name: WEL_0_1
+  fro: WEL_WNL
+  to: WEL_NSR
+  value: 32
+- name: WEL_1_2
+  fro: WEL_NSR
+  to: WEL_NSL
+  value: 10
+- name: WEL_2_3
+  fro: WEL_NSL
+  to: WEL_SWL
+  value: 6.2907858705985475
+- name: WEL_3_4
+  fro: WEL_SWL
+  to: WEL_ESL
+  value: 9.418428258802905
+- name: WEL_4_5
+  fro: WEL_ESL
+  to: SNL_WEL
+  value: 6.2907858705985475
+- name: WEL_5_6
+  fro: SNL_WEL
+  to: SNR_WEL
+  value: 10
+- name: WEL_6_7
+  fro: SNR_WEL
+  to: WEL_NEL
+  value: 32
+- name: WNL_0_1
+  fro: WEL_WNL
+  to: NSR_WNL
+  value: 33.51032163829113
+- name: WNL_1_2
+  fro: NSR_WNL
+  to: WNL_SWL
+  value: 4.572361422671683
+- name: WNL_2_3
+  fro: WNL_SWL
+  to: NSL_WNL
+  value: 7.7309527934443025
+- name: WNL_3_4
+  fro: NSL_WNL
+  to: EWL_WNL
+  value: 8.903693206059145
+- name: WNL_4_5
+  fro: EWL_WNL
+  to: NEL_WNL
+  value: 7.73095279344431
+- name: WNL_5_6
+  fro: NEL_WNL
+  to: EWR_WNL
+  value: 4.57236142267169
+- name: WNL_6_7
+  fro: EWR_WNL
+  to: SNL_WNL
+  value: 33.51032163829112
+- name: NWR_0_1
+  fro: NSR_NWR
+  to: EWR_NWR
+  value: 50.26548245743669
+- name: NSR_0_1
+  fro: NSR_NWR
+  to: NSR_EWR
+  value: 32
+- name: NSR_1_2
+  fro: NSR_EWR
+  to: NSR_EWL
+  value: 10
+- name: NSR_2_3
+  fro: NSR_EWL
+  to: NSR_SWL
+  value: 8.57437415779593
+- name: NSR_3_4
+  fro: NSR_SWL
+  to: NSR_WNL
+  value: 4.85125168440814
+- name: NSR_4_5
+  fro: NSR_WNL
+  to: WEL_NSR
+  value: 8.57437415779593
+- name: NSR_5_6
+  fro: WEL_NSR
+  to: WER_NSR
+  value: 10
+- name: NSR_6_7
+  fro: WER_NSR
+  to: NSR_WSR
+  value: 32
+- name: NSL_0_1
+  fro: NSL_NEL
+  to: NSL_EWR
+  value: 32
+- name: NSL_1_2
+  fro: NSL_EWR
+  to: NSL_EWL
+  value: 10
+- name: NSL_2_3
+  fro: NSL_EWL
+  to: NSL_WNL
+  value: 6.2907858705985475
+- name: NSL_3_4
+  fro: NSL_WNL
+  to: NSL_SWL
+  value: 9.418428258802905
+- name: NSL_4_5
+  fro: NSL_SWL
+  to: WEL_NSL
+  value: 6.2907858705985475
+- name: NSL_5_6
+  fro: WEL_NSL
+  to: WER_NSL
+  value: 10
+- name: NSL_6_7
+  fro: WER_NSL
+  to: NSL_ESL
+  value: 32
+- name: NEL_0_1
+  fro: NSL_NEL
+  to: EWR_NEL
+  value: 33.51032163829113
+- name: NEL_1_2
+  fro: EWR_NEL
+  to: NEL_WNL
+  value: 4.572361422671683
+- name: NEL_2_3
+  fro: NEL_WNL
+  to: EWL_NEL
+  value: 7.7309527934443025
+- name: NEL_3_4
+  fro: EWL_NEL
+  to: SNL_NEL
+  value: 8.903693206059145
+- name: NEL_4_5
+  fro: SNL_NEL
+  to: ESL_NEL
+  value: 7.73095279344431
+- name: NEL_5_6
+  fro: ESL_NEL
+  to: SNR_NEL
+  value: 4.57236142267169
+- name: NEL_6_7
+  fro: SNR_NEL
+  to: WEL_NEL
+  value: 33.51032163829112
+- name: ENR_0_1
+  fro: EWR_ENR
+  to: SNR_ENR
+  value: 50.26548245743669
+- name: EWR_0_1
+  fro: EWR_ENR
+  to: EWR_SNR
+  value: 32
+- name: EWR_1_2
+  fro: EWR_SNR
+  to: EWR_SNL
+  value: 10
+- name: EWR_2_3
+  fro: EWR_SNL
+  to: EWR_WNL
+  value: 8.57437415779593
+- name: EWR_3_4
+  fro: EWR_WNL
+  to: EWR_NEL
+  value: 4.85125168440814
+- name: EWR_4_5
+  fro: EWR_NEL
+  to: NSL_EWR
+  value: 8.57437415779593
+- name: EWR_5_6
+  fro: NSL_EWR
+  to: NSR_EWR
+  value: 10
+- name: EWR_6_7
+  fro: NSR_EWR
+  to: EWR_NWR
+  value: 32
+- name: EWL_0_1
+  fro: EWL_ESL
+  to: EWL_SNR
+  value: 32
+- name: EWL_1_2
+  fro: EWL_SNR
+  to: EWL_SNL
+  value: 10
+- name: EWL_2_3
+  fro: EWL_SNL
+  to: EWL_NEL
+  value: 6.2907858705985475
+- name: EWL_3_4
+  fro: EWL_NEL
+  to: EWL_WNL
+  value: 9.418428258802905
+- name: EWL_4_5
+  fro: EWL_WNL
+  to: NSL_EWL
+  value: 6.2907858705985475
+- name: EWL_5_6
+  fro: NSL_EWL
+  to: NSR_EWL
+  value: 10
+- name: EWL_6_7
+  fro: NSR_EWL
+  to: EWL_SWL
+  value: 32
+- name: ESL_0_1
+  fro: EWL_ESL
+  to: SNR_ESL
+  value: 33.51032163829113
+- name: ESL_1_2
+  fro: SNR_ESL
+  to: ESL_NEL
+  value: 4.572361422671683
+- name: ESL_2_3
+  fro: ESL_NEL
+  to: SNL_ESL
+  value: 7.7309527934443025
+- name: ESL_3_4
+  fro: SNL_ESL
+  to: WEL_ESL
+  value: 8.903693206059145
+- name: ESL_4_5
+  fro: WEL_ESL
+  to: SWL_ESL
+  value: 7.73095279344431
+- name: ESL_5_6
+  fro: SWL_ESL
+  to: WER_ESL
+  value: 4.57236142267169
+- name: ESL_6_7
+  fro: WER_ESL
+  to: NSL_ESL
+  value: 33.51032163829112
+- name: SER_0_1
+  fro: SNR_SER
+  to: WER_SER
+  value: 50.26548245743669
+- name: SNR_0_1
+  fro: SNR_SER
+  to: SNR_WER
+  value: 32
+- name: SNR_1_2
+  fro: SNR_WER
+  to: SNR_WEL
+  value: 10
+- name: SNR_2_3
+  fro: SNR_WEL
+  to: SNR_NEL
+  value: 8.57437415779593
+- name: SNR_3_4
+  fro: SNR_NEL
+  to: SNR_ESL
+  value: 4.85125168440814
+- name: SNR_4_5
+  fro: SNR_ESL
+  to: EWL_SNR
+  value: 8.57437415779593
+- name: SNR_5_6
+  fro: EWL_SNR
+  to: EWR_SNR
+  value: 10
+- name: SNR_6_7
+  fro: EWR_SNR
+  to: SNR_ENR
+  value: 32
+- name: SNL_0_1
+  fro: SNL_SWL
+  to: SNL_WER
+  value: 32
+- name: SNL_1_2
+  fro: SNL_WER
+  to: SNL_WEL
+  value: 10
+- name: SNL_2_3
+  fro: SNL_WEL
+  to: SNL_ESL
+  value: 6.2907858705985475
+- name: SNL_3_4
+  fro: SNL_ESL
+  to: SNL_NEL
+  value: 9.418428258802905
+- name: SNL_4_5
+  fro: SNL_NEL
+  to: EWL_SNL
+  value: 6.2907858705985475
+- name: SNL_5_6
+  fro: EWL_SNL
+  to: EWR_SNL
+  value: 10
+- name: SNL_6_7
+  fro: EWR_SNL
+  to: SNL_WNL
+  value: 32
+- name: SWL_0_1
+  fro: SNL_SWL
+  to: WER_SWL
+  value: 33.51032163829113
+- name: SWL_1_2
+  fro: WER_SWL
+  to: SWL_ESL
+  value: 4.572361422671683
+- name: SWL_2_3
+  fro: SWL_ESL
+  to: WEL_SWL
+  value: 7.7309527934443025
+- name: SWL_3_4
+  fro: WEL_SWL
+  to: NSL_SWL
+  value: 8.903693206059145
+- name: SWL_4_5
+  fro: NSL_SWL
+  to: WNL_SWL
+  value: 7.73095279344431
+- name: SWL_5_6
+  fro: WNL_SWL
+  to: NSR_SWL
+  value: 4.57236142267169
+- name: SWL_6_7
+  fro: NSR_SWL
+  to: EWL_SWL
+  value: 33.51032163829112
