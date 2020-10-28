@@ -5,7 +5,11 @@
 #include "rapidjson/document.h"
 #include "rapidjson/filereadstream.h"
 #include <cstdio>
+#include <math.h>
 #include <ilcplex/ilocplex.h>
+
+float turnRadius = 100;
+float vehicleLength = 50;
 
 position_t nodeAsPos(const float x, const float y)
 {  
@@ -98,6 +102,11 @@ void loadSearchGraph(
     fclose(pdfile);
 }
 
+float Li(){
+    std::cout << "debuggggG:\n";
+    std::cout << 4*turnRadius*asin(vehicleLength/(2*turnRadius)) << "\n";
+    return 4*turnRadius*asin(vehicleLength/(2*turnRadius));
+}
 
 int main(int argc, char *argv[])
 {
@@ -119,6 +128,8 @@ int main(int argc, char *argv[])
     std::vector<vertex_t> v0, v1, v2;
     v0.push_back(vNameToV.find("WSR_0")->second);
     v0.push_back(vNameToV.find("WSR_1")->second);
+    vehicles.push_back(v0);
+    /*
     v1.push_back(vNameToV.find("WER_0")->second);
     v1.push_back(vNameToV.find("WER_1")->second);
     v1.push_back(vNameToV.find("WER_2")->second);
@@ -127,7 +138,9 @@ int main(int argc, char *argv[])
     v1.push_back(vNameToV.find("WER_5")->second);
     v1.push_back(vNameToV.find("WER_6")->second);
     v1.push_back(vNameToV.find("WER_7")->second);
-    v2.push_back(vNameToV.find("NSR_0")->second);
+    vehicles.push_back(v1);
+    */
+    /*v2.push_back(vNameToV.find("NSR_0")->second);
     v2.push_back(vNameToV.find("NSR_1")->second);
     v2.push_back(vNameToV.find("NSR_2")->second);
     v2.push_back(vNameToV.find("NSR_3")->second);
@@ -138,7 +151,7 @@ int main(int argc, char *argv[])
     vehicles.push_back(v0);
     vehicles.push_back(v1);
     vehicles.push_back(v2);
-
+    */
 /*
     std::set<vertex_t> conflicts = searchGraph[vehicles[0][0]].generalizedVertexConflicts;
     for(auto it = conflicts.begin(); it != conflicts.end(); ++it){
@@ -161,7 +174,7 @@ int main(int argc, char *argv[])
 
 
     double minSpeed = 1;
-    double maxSpeed = 10;
+    double maxSpeed = 500;
     double e[3] = {1,2,3};
     double Mij[vehicles.size()][vehicles.size()];
 
@@ -184,8 +197,8 @@ int main(int argc, char *argv[])
     int offset = 0;
     for(int i = 0; i < vehicles.size(); ++i){//for each vehicle
         for(int j = 0; j < vehicles[i].size(); ++j){
-            var.add(IloNumVar(env, 0, maxNode, ILOFLOAT));
-            var.add(IloNumVar(env, 0, maxNode, ILOFLOAT));
+            var.add(IloNumVar(env, 0, maxNode, ILOFLOAT));  //t
+            var.add(IloNumVar(env, 0, maxNode, ILOFLOAT));  //T
             offset += 2;
         }
     }
@@ -193,7 +206,6 @@ int main(int argc, char *argv[])
     for(int i = 0; i < vehicles.size(); ++i)
         for(int j = 0; j < vehicles.size(); ++j)
             var.add(IloNumVar(env, 0, 1, ILOINT));
-
     //15
 
     std::cout << "15\n";
@@ -201,7 +213,8 @@ int main(int argc, char *argv[])
         int last = vehicles[i].size() - 1;
         sum_obj += var[c*2 + last*2];
         sum_obj += var[c*2 + last*2 + 1];
-    }
+    }  
+    //std::cout << sum_obj << "\n";
     model.add(IloMinimize(env, sum_obj));
 
     //16
@@ -209,7 +222,7 @@ int main(int argc, char *argv[])
     for(int i = 0, c = 0; i < vehicles.size(); c += vehicles[i].size(), ++i){
         con.add(var[c*2] >= e[i]);
     }
-
+    //std::cout << con << "\n";
     //17
     std::cout << "17\n";
     for(int i = 0, ci = 0; i < vehicles.size(); ci += vehicles[i].size(), ++i){
@@ -221,18 +234,20 @@ int main(int argc, char *argv[])
             }
         }
     }
-
-    //18 without w and Li
+    std::cout << con << "\n";
+    //18 without w and Li (buggggggggggggggg)
     std::cout << "18\n";
     for(int i = 0, c = 0; i < vehicles.size(); c += vehicles[i].size(), ++i){
         int last = vehicles[i].size() - 1;
         for(int j = 0; j < vehicles[i].size(); ++j){
             con.add(
                 (var[c*2 + last*2 ] - var[c*2])
-                /(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble())
-                - var[c*2 + j*2 + 1] == 0);
+                *Li()
+                - (pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble())
+                * var[c*2 + j*2 + 1] == 0);
         }
     }
+    std::cout << con << "\n";
 
     //19
     std::cout << "19\n";
@@ -241,17 +256,34 @@ int main(int argc, char *argv[])
         con.add(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble()/maxSpeed <= var[c*2 + last*2 ] - var[c*2]);
         con.add(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble()/minSpeed >= var[c*2 + last*2 ] - var[c*2]);
     }
+    std::cout << con << "\n";
 
     //20
     std::cout << "20\n";
     for(int i = 0, c = 0; i < vehicles.size(); c += vehicles[i].size(), ++i){
         int last = vehicles[i].size() - 1;
-        for(int j = 0; j < vehicles[i].size(); ++j){
+        for(int j = 1; j < vehicles[i].size() - 1; ++j){//not including r- and r+
+            /*
+            std::cout<< var[c*2 + j*2] <<"\n";
+            std::cout<< var[c*2] <<"\n";
+            std::cout<< pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i][j]].name.c_str()].GetDouble() <<"\n";
+
+
+            std::cout << "\n\ndebug\n";
+            std::cout << var[c*2 + last*2];
+            std::cout << var[c*2] << "\n";
+            std::cout << searchGraph[vehicles[i].front()].name.c_str() << "\n";
+            std::cout << searchGraph[vehicles[i][j]].name.c_str() << "\n";
+            std::cout << pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i][j]].name.c_str()].GetDouble() << "\n";
+            std::cout << "\ndebug\n\n";
+            */
             con.add(
-                (var[c*2 + j*2] - var[c*2])/
-                pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i][j]].name.c_str()].GetDouble()
-              - (var[c*2 + last*2 ] - var[c*2])/pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble() == 0
+                (var[c*2 + j*2] - var[c*2])
+                    *pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble()
+                    -(var[c*2 + last*2 ] - var[c*2])
+                    *pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i][j]].name.c_str()].GetDouble() == 0
                 );
+            //std::cout << con << "\n";
         }
     }
 
@@ -275,7 +307,6 @@ int main(int argc, char *argv[])
             }
         }
     }
-
     //22
     std::cout << "22\n";
     for(int i = 0, ci = 0; i < vehicles.size(); ci += vehicles[i].size(), ++i){
@@ -289,7 +320,7 @@ int main(int argc, char *argv[])
                                 con.add(var[ci*2 + vi*2] 
                                   + var[ci*2+ vi*2 + 1] 
                                   - var[cj*2 + vj*2]
-                                  - (1 - var[offset + i*vehicles.size() + j])/Mij[i][j]<= 0);
+                                  - (1 - var[offset + i*vehicles.size() + j])*Mij[i][j]<= 0);
                             }
                         }
                     }
@@ -320,25 +351,44 @@ int main(int argc, char *argv[])
             }
         }
     }
-
+    
+    std::cout << "\n\nsumobj:\n" << sum_obj << "\n\n";
+    std::cout << "variables:\n" << var << "\n\n";
+    std::cout << "constraints:\n" << con << "\n\n\n";
     model.add(con);
+    std::cout << model << "\n";
     //IloCplex cplex(env);
     double result = 0;
-    
     IloCplex cplex(env);
+    //std::cout << env.out() << "\n";
+    //cplex.extract(model);
+    //cplex.exportModel("model.lp");
+    //std::cout<< "0:" << var[23] << "\n";
     if (cplex.solve()){
         
         result = cplex.getObjValue();
-        IloNumArray v(env);
+        
+        cplex.writeSolution("solution");
+        std::cout << "\nstatus: " << cplex.getStatus() << "\n";
+        std::cout << "result: " << result << "\n";
+        
 
+        cplex.extract(model);
+        cplex.exportModel("model.lp");
 
-
-        cplex.getValues(v, var);
+        try{
+            IloNumArray v(env);
+            cplex.getValues(v, var);
+        }
+        catch(IloCplex::Exception e){
+            std::cout << "exception: " << e << "\n";
+        }
         
         
+        /*
         for(int i = 0; i < offset; ++i)
             std::cout << v[i] << "\n";
-        cplex.exportModel("model.lp");
+            */
     }
     else
     {
@@ -347,10 +397,11 @@ int main(int argc, char *argv[])
 
     env.end();
 
-    std::cout << result << "\n";
+    //std::cout << result << "\n";
 
 
     
 
     return 0;
 }
+
