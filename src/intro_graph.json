@@ -97,7 +97,7 @@
                 -21.0
             ],
             "vertex_conflicts": [
-                "ENR_1"
+                "SER_1"
             ]
         },
         {
@@ -357,7 +357,7 @@
                 -53.0
             ],
             "vertex_conflicts": [
-                "SER_1"
+                "WSR_1"
             ]
         },
         {
@@ -617,7 +617,7 @@
                 21.0
             ],
             "vertex_conflicts": [
-                "WSR_1"
+                "NWR_1"
             ]
         },
         {
@@ -877,7 +877,7 @@
                 53.0
             ],
             "vertex_conflicts": [
-                "NWR_1"
+                "ENR_1"
             ]
         },
         {

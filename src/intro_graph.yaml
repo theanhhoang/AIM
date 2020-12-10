@@ -58,7 +58,7 @@ vertices:
   - 53.0
   - -21.0
   vertex_conflicts:
-  - ENR_1
+  - SER_1
 - name: WEL_0
   pos:
   - -53.0
@@ -214,7 +214,7 @@ vertices:
   - 21.0
   - 53.0
   vertex_conflicts:
-  - SER_1
+  - WSR_1
 - name: NSL_0
   pos:
   - 11.0
@@ -370,7 +370,7 @@ vertices:
   - -53.0
   - 21.0
   vertex_conflicts:
-  - WSR_1
+  - NWR_1
 - name: EWL_0
   pos:
   - 53.0
@@ -526,7 +526,7 @@ vertices:
   - -21.0
   - -53.0
   vertex_conflicts:
-  - NWR_1
+  - ENR_1
 - name: SNL_0
   pos:
   - -11.0
