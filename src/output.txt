@@ -1,0 +1,20 @@
+In Point;Out Point;Length;Earliest Arrival;In Time;Out Time;Time spend;Speed
+Time;0
+WER_0;WER_7;31.8;4;4;7.18;3.18;10
+    Vertex no.0 arrive at time: 4
+    Vertex no.1 arrive at time: 4.96
+    Vertex no.2 arrive at time: 5.26
+    Vertex no.3 arrive at time: 5.51723
+    Vertex no.4 arrive at time: 5.66277
+    Vertex no.5 arrive at time: 5.92
+    Vertex no.6 arrive at time: 6.22
+    Vertex no.7 arrive at time: 7.18
+SNR_0;SNR_7;31.8;5.26;6.76;9.94;3.18;10
+    Vertex no.0 arrive at time: 6.76
+    Vertex no.1 arrive at time: 7.72
+    Vertex no.2 arrive at time: 8.02
+    Vertex no.3 arrive at time: 8.27723
+    Vertex no.4 arrive at time: 8.42277
+    Vertex no.5 arrive at time: 8.68
+    Vertex no.6 arrive at time: 8.98
+    Vertex no.7 arrive at time: 9.94

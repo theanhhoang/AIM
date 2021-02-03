@@ -76,6 +76,6 @@ anim = animation.FuncAnimation(fig, animate, init_func=init,
                                frames=100, interval=20, blit=False)
 Writer = animation.FFMpegWriter(fps=30)
 
-anim.save('basic_animation.mp4', writer=Writer)
+anim.save('/home/theanhhoang/Desktop/AIM/src/basic_animation.mp4', writer=Writer)
 
 plt.show()
