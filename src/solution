@@ -4,7 +4,7 @@
    problemName="IloCplex"
    solutionName="incumbent"
    solutionIndex="-1"
-   objectiveValue="45.065893470764159"
+   objectiveValue="20.119999100000001"
    solutionTypeValue="3"
    solutionTypeString="primal"
    solutionStatusValue="101"
@@ -13,82 +13,56 @@
    primalFeasible="1"
    dualFeasible="1"
    MIPNodes="0"
-   MIPIterations="0"
+   MIPIterations="5"
    writeLevel="1"/>
  <quality
    epInt="1.0000000000000001e-05"
    epRHS="9.9999999999999995e-07"
    maxIntInfeas="0"
-   maxPrimalInfeas="2.9103830456733704e-11"
-   maxX="24.472000000000001"
-   maxSlack="11213.528"/>
+   maxPrimalInfeas="5.6843418860808015e-14"
+   maxX="9.9399993999999996"
+   maxSlack="9997"/>
  <linearConstraints>
   <constraint index="0" slack="0"/>
-  <constraint index="1" slack="0"/>
-  <constraint index="2" slack="0"/>
-  <constraint index="3" slack="0"/>
-  <constraint index="4" slack="0.27105326461791979"/>
-  <constraint index="5" slack="0"/>
-  <constraint index="6" slack="1053.8879999999999"/>
-  <constraint index="7" slack="0"/>
-  <constraint index="8" slack="11213.528"/>
-  <constraint index="9" slack="-1.9428902930940239e-16"/>
-  <constraint index="10" slack="105.788"/>
+  <constraint index="1" slack="-1.4999997"/>
+  <constraint index="2" slack="4.4408920985006262e-16"/>
+  <constraint index="3" slack="7.4199993000000006"/>
+  <constraint index="4" slack="4.4408920985006262e-16"/>
+  <constraint index="5" slack="7.4199993000000006"/>
+  <constraint index="6" slack="2.8421709430404007e-14"/>
+  <constraint index="7" slack="2.8421709430404007e-14"/>
+  <constraint index="8" slack="0"/>
+  <constraint index="9" slack="0"/>
+  <constraint index="10" slack="0"/>
   <constraint index="11" slack="0"/>
-  <constraint index="12" slack="1053.8879999999999"/>
-  <constraint index="13" slack="0"/>
-  <constraint index="14" slack="-7.2759576141834259e-12"/>
-  <constraint index="15" slack="0"/>
-  <constraint index="16" slack="-1.4551915228366852e-11"/>
-  <constraint index="17" slack="0"/>
-  <constraint index="18" slack="2.9103830456733704e-11"/>
-  <constraint index="19" slack="5.6843418860808015e-14"/>
-  <constraint index="20" slack="-5.6843418860808015e-14"/>
-  <constraint index="21" slack="0"/>
-  <constraint index="22" slack="0"/>
-  <constraint index="23" slack="0"/>
-  <constraint index="24" slack="0"/>
-  <constraint index="25" slack="9998.2710532646179"/>
-  <constraint index="26" slack="9997.3710532646182"/>
-  <constraint index="27" slack="9997.75"/>
-  <constraint index="28" slack="10000.65"/>
-  <constraint index="29" slack="10001.549999999999"/>
-  <constraint index="30" slack="0"/>
-  <constraint index="31" slack="0"/>
-  <constraint index="32" slack="0"/>
-  <constraint index="33" slack="0"/>
-  <constraint index="34" slack="0"/>
+  <constraint index="12" slack="0"/>
+  <constraint index="13" slack="2.8421709430404007e-14"/>
+  <constraint index="14" slack="-5.6843418860808015e-14"/>
+  <constraint index="15" slack="5.6843418860808015e-14"/>
+  <constraint index="16" slack="0"/>
+  <constraint index="17" slack="-5.6843418860808015e-14"/>
+  <constraint index="18" slack="0"/>
+  <constraint index="19" slack="9997"/>
+  <constraint index="20" slack="0"/>
  </linearConstraints>
  <variables>
-  <variable index="0" value="3.1120000000000001"/>
-  <variable index="1" value="1"/>
-  <variable index="2" value="24.472000000000001"/>
-  <variable index="3" value="2"/>
-  <variable index="4" value="3.2120000000000002"/>
-  <variable index="5" value="3"/>
-  <variable index="6" value="6.1120000000000001"/>
-  <variable index="7" value="4"/>
-  <variable index="8" value="4.048"/>
-  <variable index="9" value="5.5280000000000005"/>
-  <variable index="10" value="7.1155338000000006"/>
-  <variable index="11" value="8.1440009200000016"/>
-  <variable index="12" value="10.192"/>
-  <variable index="13" value="12.952"/>
-  <variable index="14" value="3.0639999999999996"/>
-  <variable index="15" value="3.0840000000000005"/>
-  <variable index="16" value="3.1011487400000002"/>
-  <variable index="17" value="3.11085126"/>
-  <variable index="18" value="3.1280000000000001"/>
-  <variable index="19" value="3.1479999999999997"/>
-  <variable index="20" value="0"/>
-  <variable index="21" value="0"/>
-  <variable index="22" value="0"/>
-  <variable index="23" value="0"/>
-  <variable index="24" value="0"/>
-  <variable index="25" value="1"/>
-  <variable index="26" value="1"/>
-  <variable index="27" value="1"/>
-  <variable index="28" value="1"/>
-  <variable index="29" value="1"/>
+  <variable index="0" value="7.1799996999999998"/>
+  <variable index="1" value="4"/>
+  <variable index="2" value="9.9399993999999996"/>
+  <variable index="3" value="6.7599996999999998"/>
+  <variable index="4" value="4.96"/>
+  <variable index="5" value="5.2599999999999998"/>
+  <variable index="6" value="5.5172311000000001"/>
+  <variable index="7" value="5.6627685999999997"/>
+  <variable index="8" value="5.9199997"/>
+  <variable index="9" value="6.2199996999999998"/>
+  <variable index="10" value="7.7199997000000007"/>
+  <variable index="11" value="8.0199996999999996"/>
+  <variable index="12" value="8.2772307999999999"/>
+  <variable index="13" value="8.4227682999999995"/>
+  <variable index="14" value="8.6799993999999998"/>
+  <variable index="15" value="8.9799994000000005"/>
+  <variable index="16" value="1"/>
+  <variable index="17" value="-0"/>
  </variables>
 </CPLEXSolution>
