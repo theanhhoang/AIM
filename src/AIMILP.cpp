@@ -253,7 +253,7 @@ int main(int argc, char *argv[])
     {
         outputFile << "In Point;Out Point;Length;Earliest Arrival;In Time;Out Time;Time spend;Speed\n";
     }
-    for (int step = 0; step <= 0; step++){
+    for (int step = 0; step <= 5; step++){
         
         int currentTime = timeStep * step;
         int F = timeStep * step + timeHorizon;
@@ -264,36 +264,36 @@ int main(int argc, char *argv[])
 
         vehicles = nextTimeStepVehicles;
         e = nextTimeStepE;
-        // loadVehicleArriving(lanes, vNameToV, step, arrivalFile, vehicles, e);
+        loadVehicleArriving(lanes, vNameToV, step, arrivalFile, vehicles, e);
 
 
-        //initialize vehicles
-        std::vector<vertex_t> v1, v2;
+        // initialize vehicles
+        // std::vector<vertex_t> v1, v2;
         
-        v1.push_back(vNameToV.find("WER_0")->second);
-        v1.push_back(vNameToV.find("WER_1")->second);
-        v1.push_back(vNameToV.find("WER_2")->second);
-        v1.push_back(vNameToV.find("WER_3")->second);
-        v1.push_back(vNameToV.find("WER_4")->second);
-        v1.push_back(vNameToV.find("WER_5")->second);
-        v1.push_back(vNameToV.find("WER_6")->second);
-        v1.push_back(vNameToV.find("WER_7")->second);
+        // v1.push_back(vNameToV.find("WER_0")->second);
+        // v1.push_back(vNameToV.find("WER_1")->second);
+        // v1.push_back(vNameToV.find("WER_2")->second);
+        // v1.push_back(vNameToV.find("WER_3")->second);
+        // v1.push_back(vNameToV.find("WER_4")->second);
+        // v1.push_back(vNameToV.find("WER_5")->second);
+        // v1.push_back(vNameToV.find("WER_6")->second);
+        // v1.push_back(vNameToV.find("WER_7")->second);
         
 
-        v2.push_back(vNameToV.find("SNR_0")->second);
-        v2.push_back(vNameToV.find("SNR_1")->second);
-        v2.push_back(vNameToV.find("SNR_2")->second);
-        v2.push_back(vNameToV.find("SNR_3")->second);
-        v2.push_back(vNameToV.find("SNR_4")->second);
-        v2.push_back(vNameToV.find("SNR_5")->second);
-        v2.push_back(vNameToV.find("SNR_6")->second);
-        v2.push_back(vNameToV.find("SNR_7")->second);
+        // v2.push_back(vNameToV.find("SNR_0")->second);
+        // v2.push_back(vNameToV.find("SNR_1")->second);
+        // v2.push_back(vNameToV.find("SNR_2")->second);
+        // v2.push_back(vNameToV.find("SNR_3")->second);
+        // v2.push_back(vNameToV.find("SNR_4")->second);
+        // v2.push_back(vNameToV.find("SNR_5")->second);
+        // v2.push_back(vNameToV.find("SNR_6")->second);
+        // v2.push_back(vNameToV.find("SNR_7")->second);
 
 
-        vehicles.push_back(v1);
-        vehicles.push_back(v2);
-        e.push_back(4);
-        e.push_back(5.26);
+        // vehicles.push_back(v1);
+        // vehicles.push_back(v2);
+        // e.push_back(4);
+        // e.push_back(5.26);
 
         std::cout << "current time: " << currentTime <<" second"<< ". vehicles: "<< vehicles.size()<< ". nextTimeStepVehicles: "<< nextTimeStepVehicles.size() << std::endl;
         nextTimeStepVehicles.clear();
@@ -304,7 +304,7 @@ int main(int argc, char *argv[])
         // print_map(vNameToV);
 
         //initialize vehicles
-        // std::vector<vertex_t> v0, v1, v2, v3;
+        // std::vector<vertex_t> v3;
         // v0.push_back(vNameToV.find("WSR_0")->second);
         // v0.push_back(vNameToV.find("WSR_1")->second);
         
@@ -330,10 +330,21 @@ int main(int argc, char *argv[])
         // v3.push_back(vNameToV.find("WSR_0")->second);
         // v3.push_back(vNameToV.find("WSR_1")->second);
 
+
+        // v3.push_back(vNameToV.find("WNL_0")->second);
+        // v3.push_back(vNameToV.find("WNL_1")->second);
+        // v3.push_back(vNameToV.find("WNL_2")->second);
+        // v3.push_back(vNameToV.find("WNL_3")->second);
+        // v3.push_back(vNameToV.find("WNL_4")->second);
+        // v3.push_back(vNameToV.find("WNL_5")->second);
+        // v3.push_back(vNameToV.find("WNL_6")->second);
+        // v3.push_back(vNameToV.find("WNL_7")->second);
+
         // vehicles.push_back(v0);
         // vehicles.push_back(v1);
         // vehicles.push_back(v2);
         // vehicles.push_back(v3);
+        // e.push_back(4.01);
 
     /*
         std::set<vertex_t> conflicts = searchGraph[vehicles[0][0]].generalizedVertexConflicts;
@@ -595,7 +606,7 @@ int main(int argc, char *argv[])
                 //     std::cout << "Var no " << i << ":  Value = " << cplex.getValue(var[i]) << std::endl;
                 // }
                 IloInt printOffset = 0;
-                outputFile << "Time;" << currentTime << "\n";
+                // outputFile << "Time;" << currentTime << "\n";
                 for(int i = 0; i < vehicles.size(); ++i){//for each vehicle
                     // std::cout << "Vehicle no." << i << ":" << std::endl;
                     for(int j = 0; j < vehicles[i].size(); ++j){  // for each vetice
@@ -629,7 +640,7 @@ int main(int argc, char *argv[])
                             //     outputFile << "DIFF HERE: " << cplex.getValue(var[printOffset]) - e[i] << "\n";
                             // }
                         }
-                        outputFile << "    Vertex no." << j << " arrive at time: " << cplex.getValue(var[printOffset]) << "\n";
+                        // outputFile << "    Vertex no." << j << " arrive at time: " << cplex.getValue(var[printOffset]) << "\n";
                         
                         printOffset += 1;
                     }
