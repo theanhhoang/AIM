@@ -7,6 +7,10 @@ struct Agent
     int start_location;
     int goal_location;
     double earliest_start_time;
+    double v_min;
+    double v_max;
+    double length; // length of the vehicle
+
     double velocity;
 };
 

@@ -17,8 +17,8 @@ using boost::unordered_set;
 struct PathEntry
 {
     int vertex;
-    double arrival_time;
-    double leaving_time;
+    double arrival_time; // arrival time of the head of the vehicle
+    double leaving_time; // leaving time of the tail of the vehicle
 };
 typedef vector<PathEntry> Path;
 
