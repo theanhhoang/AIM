@@ -1,12 +1,57 @@
 #pragma once
+#include <set>
+#include <unordered_map>
+#include <iostream>
+#include <boost/graph/adjacency_list.hpp>
 #include "Common.h"
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
+
+typedef boost::adjacency_list_traits<boost::vecS, boost::vecS, boost::undirectedS > searchGraphTraits_t;
+typedef searchGraphTraits_t::vertex_descriptor vertex_t;
+typedef searchGraphTraits_t::edge_descriptor edge_t;
+
+struct position_t
+{
+	float x;
+	float y;
+	position_t(){};
+	position_t(float a, float b) {
+		x = a;
+		y = b;
+	};
+};
+
+struct Vertex
+{
+	std::string name;
+	position_t pos;
+	std::set<vertex_t> generalizedVertexConflicts;
+};
+
+struct Edge
+{
+	std::string name;
+	float length;
+};
+
+typedef boost::adjacency_list<
+	boost::vecS, boost::vecS, boost::undirectedS,
+	Vertex, Edge>
+	searchGraph_t;
+
 
 struct Agent
 {
     int id;
     int start_location;
     int goal_location;
+    std::vector<int> trajectory;
+
+    // pairDistances[point1][point2]
+
     double earliest_start_time;
+
     double v_min;
     double v_max;
     double length; // length of the vehicle
@@ -21,5 +66,5 @@ public:
     vector<Agent> agents;
     int getNumOfVertices() const;
     Instance(const string& map_name);
-};
 
+};
