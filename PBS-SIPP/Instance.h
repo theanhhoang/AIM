@@ -26,7 +26,8 @@ struct Vertex
 {
 	std::string name;
 	position_t pos;
-	std::set<vertex_t> generalizedVertexConflicts;
+	std::set<int> generalizedVertexConflicts;
+    int id;
 };
 
 struct Edge
@@ -66,5 +67,30 @@ public:
     vector<Agent> agents;
     int getNumOfVertices() const;
     Instance(const string& map_name);
+    void loadSearchGraph(
+        searchGraph_t& searchGraph,
+        std::unordered_map<std::string, int>& vNameToID,
+        std::vector<vertex_t>& vNameToV,
+        std::vector<int>& vNameToDirection,
+        std::unordered_map<std::string, edge_t>& eNameToE,
+        const std::string& fileName, 
+        rapidjson::Document& pairDistances,
+        std::map<int, std::map<int, double> >& pairDistancesMap,
+        const std::string& pDFileName);
+    position_t nodeAsPos(const float x, const float y);
+// private:
+//     std::string fileName = "intro_graph.json";
+//     std::string pDFileName = "pairDistance2.json";
+//     searchGraph_t searchGraph;
 
+//     std::unordered_map<std::string, int> vNameToID;
+
+//     std::vector<vertex_t> vNameToV;
+
+//     std::vector<int> vNameToDirection;
+
+//     std::unordered_map<std::string, edge_t> eNameToE;
+//     // std::vector<std::vector<vertex_t>> vehicles;
+//     rapidjson::Document pairDistances;
+//     std::map<int, std::map<int, double> > pairDistancesMap;
 };
