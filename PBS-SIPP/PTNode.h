@@ -5,8 +5,8 @@
 #include <set>
 #include <tuple>
 #include <vector>
-#include "Common.h"
-#include "Instance.h"
+#include <Common.h>
+#include <Instance.h>
 
 
 class PTNode{
@@ -22,3 +22,4 @@ public:
 	std::list<int> topologicalSort();
 	std::tuple<int, int, int> getFirstCollision(Instance&);
 };
+
