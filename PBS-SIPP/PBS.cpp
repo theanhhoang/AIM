@@ -19,7 +19,7 @@ bool PBS::UpdatePlan(PTNode node, int index)
 					//it3 is path entries of the agent index
 					//if collision
 					if(it2->vertex == it3->vertex){
-						if((it2->arrival_time >= it3->arrival_time && it2->arrival_time <= it3->leaving_time) || (it2->leaving_time >= it3->arrival_time && it2->leaving_time <= it3->leaving_time) || (it2->arrival_time <= it3->arrival_time && it2->leaving_time >=it3->leaving_time)){
+						if((it2->arrival_time >= it3->arrival_time && it2->arrival_time <= it3->leaving_time_tail) || (it2->leaving_time_tail >= it3->arrival_time && it2->leaving_time_tail <= it3->leaving_time_tail) || (it2->arrival_time <= it3->arrival_time && it2->leaving_time_tail >=it3->leaving_time_tail)){
 							Path path = sipp.run(*it, rt);
 							node.plan[*it] = path;
 						}
@@ -36,7 +36,7 @@ bool PBS::UpdatePlan(PTNode node, int index)
 		for(auto it2 = node.plan[*it].begin(); it2 != node.plan[*it].end(); ++it2){
 			//it2 is the path entries
 			TimeInterval newTI;
-			newTI.t_max = it2->leaving_time;
+			newTI.t_max = it2->leaving_time_tail;
 			newTI.t_min = it2->arrival_time;
 			newTI.agent_id = *it;
 			rt[it2->vertex].push_back(newTI);
