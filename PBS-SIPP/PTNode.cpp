@@ -44,7 +44,7 @@ std::list<int> PTNode::topologicalSort(){
 void PTNode::calculateCost(){
 	double c = 0;
 	for(auto it = plan.begin(); it != plan.end(); ++it){
-		c += it->back().leaving_time;
+		c += it->back().leaving_time_tail;
 	}
 	cost = c;
 }
@@ -64,7 +64,7 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 			for(auto it3 = vertexTimeTable.begin(); it3 != vertexTimeTable.end(); ++it3){
 				//if  collision
 				if((it2->arrival_time >= it3->t_min && it2->arrival_time <= it3->t_max)
-					|| (it2->leaving_time >= it3->t_min && it2->leaving_time <= it3->t_max) || (it2->arrival_time <= it3->t_min && it2->leaving_time >= it3->t_max)){
+					|| (it2->leaving_time_tail >= it3->t_min && it2->leaving_time_tail <= it3->t_max) || (it2->arrival_time <= it3->t_min && it2->leaving_time_tail >= it3->t_max)){
 					result = std::make_tuple(aid, it3->agent_id, it2->vertex);
 					break;
 				}

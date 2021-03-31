@@ -11,10 +11,15 @@
 
 using std::vector;
 
-struct PossibleSuccessor
+
+
+
+struct Node
 {
     int current_point;
     int next_point;
+    int previous_point;
+    
     double arrival_time_min; // arrival time of the head of the vehicle
     double arrival_time_max; // arrival time of the head of the vehicle
 
@@ -23,8 +28,18 @@ struct PossibleSuccessor
     
     double cost_min;
     double cost_max;
+
+
+	int g;      // khoang cach tu dinh ban dau den dinh hien ta
+	int f;      // f = h + g;
+	int h;      // duong di ngan nhat
+	int color;  // danh dau dinh di qua
 };
-typedef vector<PossibleSuccessor> Successors;
+
+
+
+
+typedef vector<Node> Successors;
 
 
 class SIPP {
@@ -35,17 +50,27 @@ public:
     float Li(int direction, double agent_length);
     double estimate_cost(int start_point, int end_point, double speed);
 
+    int find_min(std::vector<Node>& open);
+    int find(std::vector<Node>& open);
+    int find_point(int n ,Node* p, int current_point);
 
-
+    // Successors get_successors( 
+    //     int current_point,
+    //     int next_point, 
+    //     double v_min, 
+    //     double v_max, 
+    //     double length,
+    //     double arrival_time_min, 
+    //     double arrival_time_max, 
+    //     const ReservationTable& rt);
 
     Successors get_successors( 
-        int current_point,
-        int next_point, 
+        Node p[],
+        int current_position,
+        int trajectory_size,
         double v_min, 
         double v_max, 
         double length,
-        double arrival_time_min, 
-        double arrival_time_max, 
         const ReservationTable& rt);
 
 
@@ -54,7 +79,6 @@ public:
         std::unordered_map<std::string, int>& vNameToID,
         std::vector<vertex_t>& vNameToV,
         std::vector<int>& vNameToDirection,
-        std::unordered_map<std::string, edge_t>& eNameToE,
         const std::string& fileName, 
         rapidjson::Document& pairDistances,
         std::map<int, std::map<int, double> >& pairDistancesMap,
@@ -67,20 +91,19 @@ private:
     float w = 5;
 
 
-    std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
-    std::string fileName = "intro_graph.json";
-    std::string pDFileName = "pairDistance2.json";
-    searchGraph_t searchGraph;
+    // std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
+    // std::string fileName = "intro_graph.json";
+    // std::string pDFileName = "pairDistance2.json";
+    // searchGraph_t searchGraph;
 
     std::unordered_map<std::string, int> vNameToID;
 
-    std::vector<vertex_t> vNameToV;
+    // std::vector<vertex_t> vNameToV;
 
     std::vector<int> vNameToDirection;
 
-    std::unordered_map<std::string, edge_t> eNameToE;
-    // std::vector<std::vector<vertex_t>> vehicles;
-    rapidjson::Document pairDistances;
+    // std::unordered_map<std::string, edge_t> eNameToE;
+    // rapidjson::Document pairDistances;
     std::map<int, std::map<int, double> > pairDistancesMap;
     //e = time i reach the intersection
 

@@ -72,25 +72,27 @@ public:
         std::unordered_map<std::string, int>& vNameToID,
         std::vector<vertex_t>& vNameToV,
         std::vector<int>& vNameToDirection,
-        std::unordered_map<std::string, edge_t>& eNameToE,
         const std::string& fileName, 
         rapidjson::Document& pairDistances,
         std::map<int, std::map<int, double> >& pairDistancesMap,
         const std::string& pDFileName);
     position_t nodeAsPos(const float x, const float y);
-// private:
-//     std::string fileName = "intro_graph.json";
-//     std::string pDFileName = "pairDistance2.json";
-//     searchGraph_t searchGraph;
 
-//     std::unordered_map<std::string, int> vNameToID;
+    std::map<int, std::map<int, double> > getPairDistancesMap();
+    std::vector<int> getVNameToDirection();
+    std::unordered_map<std::string, int> getVNameToID();
 
-//     std::vector<vertex_t> vNameToV;
+private:
+    std::string fileName;
+    std::string pDFileName = "pairDistance2.json";
+    searchGraph_t searchGraph;
 
-//     std::vector<int> vNameToDirection;
+    std::unordered_map<std::string, int> vNameToID;
 
-//     std::unordered_map<std::string, edge_t> eNameToE;
-//     // std::vector<std::vector<vertex_t>> vehicles;
-//     rapidjson::Document pairDistances;
-//     std::map<int, std::map<int, double> > pairDistancesMap;
+    std::vector<vertex_t> vNameToV;
+
+    std::vector<int> vNameToDirection;
+
+    rapidjson::Document pairDistances;
+    std::map<int, std::map<int, double> > pairDistancesMap;
 };

@@ -6,18 +6,21 @@
 #include "rapidjson/filereadstream.h"
 #include <cstdio>
 #include <math.h>
+#include <unordered_map>
 
 Instance::Instance(const string& map_name)
 {
+    fileName = map_name;
+    loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, fileName, pairDistances, pairDistancesMap, pDFileName);
+    // std::cout << "getNumOfVertices(): " << getNumOfVertices() << std::endl;
 }
 
 
 int Instance::getNumOfVertices() const
 {
-    return 0;
+    return vNameToID.size();
 }
 
-// NEED ATTENTION HERE: CHANGE THE SEARCH_GRAPH TO INT KEY RATHER THAN THE NAME
 void Instance::loadSearchGraph(
     searchGraph_t& searchGraph,
 
@@ -27,7 +30,6 @@ void Instance::loadSearchGraph(
 
     std::vector<int>& vNameToDirection,
 
-    std::unordered_map<std::string, edge_t>& eNameToE,
     const std::string& fileName, 
     rapidjson::Document& pairDistances,
     std::map<int, std::map<int, double> >& pairDistancesMap,
@@ -113,35 +115,6 @@ void Instance::loadSearchGraph(
         }
     }
 
-    //add edge
-    for (rapidjson::Value::ConstValueIterator itr = doc["edges"].Begin();
-                                             itr != doc["edges"].End(); ++itr) {
-        if (itr->HasMember("name")) {
-            std::string name = (*itr)["name"].GetString();
-            std::string fromName = (*itr)["fro"].GetString();
-            std::string toName = (*itr)["to"].GetString();
-
-            auto fromIter = vNameToID.find(fromName);
-            auto toIter = vNameToID.find(toName);
-
-            // auto fromIter = vNameToV.find(fromName);
-            // auto toIter = vNameToV.find(toName);
-
-
-            if (fromIter == vNameToID.end()
-                || toIter == vNameToID.end() 
-                || fromIter->second == toIter->second) {
-                std::cerr << "invalid edge! " << name << std::endl;
-                continue;
-            }
-            auto e = boost::add_edge(fromIter->second, toIter->second, searchGraph);
-
-            searchGraph[e.first].name = name;
-            searchGraph[e.first].length = (*itr)["value"].GetDouble();
-
-            eNameToE[name] = e.first;
-        }
-    }
 
     //read pair distance
     FILE* pdfile = fopen(pDFileName.c_str(), "r"); // non-Windows use "r"
@@ -186,4 +159,16 @@ void Instance::loadSearchGraph(
 position_t Instance::nodeAsPos(const float x, const float y)
 {  
     return position_t(x,y);
+}
+
+std::map<int, std::map<int, double> > Instance::getPairDistancesMap(){
+    return pairDistancesMap;
+}
+
+std::vector<int> Instance::getVNameToDirection(){
+    return vNameToDirection;
+}
+
+std::unordered_map<std::string, int> Instance::getVNameToID(){
+    return vNameToID;
 }
