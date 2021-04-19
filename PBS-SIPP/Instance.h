@@ -13,33 +13,33 @@ typedef searchGraphTraits_t::edge_descriptor edge_t;
 
 struct position_t
 {
-	float x;
-	float y;
-	position_t(){};
-	position_t(float a, float b) {
-		x = a;
-		y = b;
-	};
+    float x;
+    float y;
+    position_t(){};
+    position_t(float a, float b) {
+        x = a;
+        y = b;
+    };
 };
 
 struct Vertex
 {
-	std::string name;
-	position_t pos;
-	std::set<int> generalizedVertexConflicts;
+    std::string name;
+    position_t pos;
+    std::set<int> generalizedVertexConflicts;
     int id;
 };
 
 struct Edge
 {
-	std::string name;
-	float length;
+    std::string name;
+    float length;
 };
 
 typedef boost::adjacency_list<
-	boost::vecS, boost::vecS, boost::undirectedS,
-	Vertex, Edge>
-	searchGraph_t;
+    boost::vecS, boost::vecS, boost::undirectedS,
+    Vertex, Edge>
+    searchGraph_t;
 
 
 struct Agent
@@ -66,6 +66,7 @@ class Instance
 public:
     vector<Agent> agents;
     int getNumOfVertices() const;
+    void loadVehicles(std::string&);
     Instance(const string& map_name);
     void loadSearchGraph(
         searchGraph_t& searchGraph,

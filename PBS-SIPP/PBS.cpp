@@ -9,43 +9,48 @@ bool PBS::UpdatePlan(PTNode node, int index)
 {
 	std::list<int> list = node.topologicalSort();
 	bool replanned = false;
-	ReservationTable rt(instance.getNumOfVertices());
 	for(auto it = list.begin(); it != list.end(); ++it){
 		//it is the index of agents that will be in the rt
 		if(replanned){
 			for(auto it2 = node.plan[*it].begin(); it2 != node.plan[*it].end(); ++it2){
 				//it2 is the path entries of the agent it
-				for(auto it3 = node.plan[index].begin(); it3 != node.plan[index].end(); ++it3){
-					//it3 is path entries of the agent index
-					//if collision
-					if(it2->vertex == it3->vertex){
-						if((it2->arrival_time >= it3->arrival_time && it2->arrival_time <= it3->leaving_time_tail) || (it2->leaving_time_tail >= it3->arrival_time && it2->leaving_time_tail <= it3->leaving_time_tail) || (it2->arrival_time <= it3->arrival_time && it2->leaving_time_tail >=it3->leaving_time_tail)){
-							Path path = sipp.run(*it, rt);
-							node.plan[*it] = path;
+				for(size_t i = index; i < *it; ++i){
+					//iterating from index to one before it
+					for(auto it3 = node.plan[i].begin(); it3 != node.plan[i].end(); ++it3){
+						//it3 is path entries of the agent index
+						//if collision
+						if(it2->vertex == it3->vertex){
+							if((it2->arrival_time >= it3->arrival_time && it2->arrival_time <= it3->leaving_time_tail) || (it2->leaving_time_tail >= it3->arrival_time && it2->leaving_time_tail <= it3->leaving_time_tail) || (it2->arrival_time <= it3->arrival_time && it2->leaving_time_tail >=it3->leaving_time_tail)){
+								ReservationTable rt(instance.getNumOfVertices());
+								//node.getRT(rt, *it);
+								std::set<int> rtp;
+								node.getRTP(rtp, *it);;
+								node.getRTFromP(rt, rtp);
+								Path path = sipp.run(*it, rt);
+								if(path.empty()) return false;
+								node.plan[*it] = path;
+							}
 						}
 					}
 				}
 			}
 		}
 		if(index == *it){
-			//get reservation table
+			ReservationTable rt(instance.getNumOfVertices());
+			std::set<int> rtp;
+			node.getRTP(rtp, *it);;
+			//node.getRT(rt, *it);
+			node.getRTFromP(rt, rtp);
 			Path path = sipp.run(*it, rt);
+			if(path.empty()) return false;
 			node.plan[index] = path;
 			replanned = true;
 		}
-		for(auto it2 = node.plan[*it].begin(); it2 != node.plan[*it].end(); ++it2){
-			//it2 is the path entries
-			TimeInterval newTI;
-			newTI.t_max = it2->leaving_time_tail;
-			newTI.t_min = it2->arrival_time;
-			newTI.agent_id = *it;
-			rt[it2->vertex].push_back(newTI);
-		}		
 	}
 	return true;
 }
 
-void PBS::run()
+void PBS::run(const string& outputFileName)
 {
     std::stack<PTNode> POStack;
 
@@ -70,7 +75,10 @@ void PBS::run()
 
 		//use list 12 13 14 agent1 agent2 point
 		std::tuple<int, int, int> C = N.getFirstCollision(instance);
-		if(std::get<0>(N.getFirstCollision(instance)) == -1) std::cout << "found solution\n";
+		if(std::get<0>(N.getFirstCollision(instance)) == -1){
+			N.writeToFile(outputFileName);
+			break;
+		}
 
 		//16 17 19
 		std::map<int, std::set<int> > newPriority = N.priority;
@@ -100,8 +108,3 @@ void PBS::run()
 	std::cout << "no solution\n";
 }
 
-
-void PBS::writeToFile(const string& file_name)
-{
-
-}

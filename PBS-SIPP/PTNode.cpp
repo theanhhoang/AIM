@@ -1,8 +1,22 @@
 #include "PTNode.h"
+#include <fstream>
 
 PTNode::PTNode(vector<Path> pl, std::map<int, std::set<int> > pr){
 	plan = pl;
 	priority = pr;
+}
+
+void PTNode::writeToFile(const string& file_name)
+{
+	std::ofstream file;
+	file.open(file_name);
+	if(file.is_open()){
+		for(auto agent = plan.begin(); agent != plan.end(); ++agent){
+			file <<  (*agent)[0].vertex << ";" << (*agent)[0].arrival_time << '\n';
+		}
+	}
+	else std::cout << "unable to open file";
+	file.close();
 }
 
 void PTNode::topologicalSortUtil(int v, bool visited[], std::list<int>& List)
@@ -73,4 +87,43 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 	}
 	
 	return result;
+}
+
+/*
+void PTNode::getRT(ReservationTable &rt, int index){
+	for (int i = 0; i < plan.size(); ++i){
+		if(priority[i].find(index) != priority[i].end()){
+			for(auto it = plan[i].begin(); it != plan[i].end(); ++it){
+				TimeInterval newTI;
+				newTI.t_max = it->leaving_time_tail;
+				newTI.t_min = it->arrival_time;
+				newTI.agent_id = i;
+				rt[it->vertex].push_back(newTI);
+			}
+			getRT(rt, i);
+		}
+	}
+}*/
+
+void PTNode::getRTP(std::set<int> &p, int index){
+	for (int i = 0; i < plan.size(); ++i){
+		if(p.find(i) == p.end()){ //not already in the list
+			if(priority[i].find(index) != priority[i].end()){
+				p.insert(i);
+				getRTP(p, i);
+			}
+		}
+	}
+}
+
+void PTNode::getRTFromP(ReservationTable rt, std::set<int> p){
+	for(auto it = p.begin(); it != p.end(); ++it){
+		for(auto it2 = plan[*it].begin(); it2 != plan[*it].end(); ++it2){
+				TimeInterval newTI;
+				newTI.t_max = it2->leaving_time_tail;
+				newTI.t_min = it2->arrival_time;
+				newTI.agent_id = *it;
+				rt[it2->vertex].push_back(newTI);
+		}
+	}
 }
