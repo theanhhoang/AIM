@@ -30,10 +30,17 @@ struct Node
     double cost_max;
 
 
-	int g;      // khoang cach tu dinh ban dau den dinh hien ta
+	int g;      // 
 	int f;      // f = h + g;
-	int h;      // duong di ngan nhat
-	int color;  // danh dau dinh di qua
+	int h;      // 
+	int color;  // marking the point to see whether it was visited or not
+
+    int interval_index;
+    double interval_t_min;
+    double interval_t_max;
+
+    int index;
+    Node *parent;
 };
 
 
@@ -53,7 +60,7 @@ public:
     int find_min(std::vector<Node>& open);
     int find(std::vector<Node>& open);
     int find_point(int n ,Node* p, int current_point);
-
+    std::list<TimeInterval> getSafeIntervals(std::list<TimeInterval> rt);
     // Successors get_successors( 
     //     int current_point,
     //     int next_point, 
@@ -65,8 +72,8 @@ public:
     //     const ReservationTable& rt);
 
     Successors get_successors( 
-        Node p[],
-        int current_position,
+        std::vector<Node> p[],
+        Node s,
         int trajectory_size,
         double v_min, 
         double v_max, 

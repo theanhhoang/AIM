@@ -21,40 +21,6 @@ int Instance::getNumOfVertices() const
     return vNameToID.size();
 }
 
-void Instance::loadVehicles(std::string& arrivalFile)
-{
-	std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
-    FILE* fp = fopen(arrivalFile.c_str(), "r"); // non-Windows use "r"
-    char readBuffer[65536];
-    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-    rapidjson::Document doc;
-    doc.ParseStream(is);
-    fclose(fp);
-
-    for (int laneNo=0; laneNo < 8; laneNo++){
-        std::string laneName = lanes[laneNo];
-        auto lane = doc[laneName.c_str()].GetObject();
-        
-        std::string timeString = std::to_string(step);
-        if (lane.HasMember(timeString.c_str())) {
-            auto arrivalsArray = lane[timeString.c_str()].GetArray();
-            for (rapidjson::Value::ConstValueIterator itr = arrivalsArray.Begin();
-                                            itr != arrivalsArray.End(); ++itr){
-                Agent ag = {};
-                ag.id = (*itr)["id"].GetString();
-                ag.earliest_start_time = (*itr)["arrivalTime"].GetDouble();
-                auto trajectoryArray = (*itr)["trajectory"].GetArray();
-                for (rapidjson::Value::ConstValueIterator itr2 = trajectoryArray.Begin();
-                    itr2 != trajectoryArray.End(); ++itr2){
-                    ag.trajectory.push_back(vNameToV.find((*itr2).GetString())->second);
-                }
-                agents.push_back(ag);
-            }
-        }
-
-    }
-}
-
 void Instance::loadSearchGraph(
     searchGraph_t& searchGraph,
 
