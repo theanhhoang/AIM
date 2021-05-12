@@ -55,6 +55,7 @@ void Instance::loadVehicles(std::string& arrivalFile)
     }
 }
 
+
 void Instance::loadSearchGraph(
     searchGraph_t& searchGraph,
 
