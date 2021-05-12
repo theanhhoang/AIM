@@ -24,10 +24,8 @@ struct Node
     double arrival_time_max; // arrival time of the head of the vehicle
 
     double speed_for_arrival_time_min;
-    double speed_for_arrival_time_max;
     
     double cost_min;
-    double cost_max;
 
 
 	int g;      // 
@@ -78,7 +76,8 @@ public:
         double v_min, 
         double v_max, 
         double length,
-        const ReservationTable& rt);
+        const ReservationTable& rt,
+        int first_conflict_point_counter);
 
 
     void loadSearchGraph(

@@ -17,27 +17,27 @@ int main(int argc, char** argv)
     // ReservationTable
     TimeInterval ti2;
     ti2.t_min = 2;
-    ti2.t_max = 5;
+    ti2.t_max = 500;
     ti2.agent_id = 10;
     rt[2].push_back(ti2);
 
 
     TimeInterval ti3_2;
-    ti3_2.t_min = 0.98;
-    ti3_2.t_max = 1;
+    ti3_2.t_min = 0;
+    ti3_2.t_max = 5;
     ti3_2.agent_id = 10;
     rt[3].push_back(ti3_2);
 
 
-    ti3_2.t_min = 1.01;
-    ti3_2.t_max = 3;
-    ti3_2.agent_id = 10;
-    rt[3].push_back(ti3_2);
+    // ti3_2.t_min = 1.01;
+    // ti3_2.t_max = 3;
+    // ti3_2.agent_id = 10;
+    // rt[3].push_back(ti3_2);
 
 
     TimeInterval ti3;
-    ti3.t_min = 15;
-    ti3.t_max = 20;
+    ti3.t_min = 6;
+    ti3.t_max = 50;
     ti3.agent_id = 10;
     rt[3].push_back(ti3);
 

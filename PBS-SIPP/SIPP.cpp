@@ -69,36 +69,39 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
 
     list<TimeInterval> safe_intervals = getSafeIntervals( rt[trajectory[0]] );
     int interval_idx = 0;
+    // cout << "safe_intervals: " << safe_intervals.size() << endl;
     for (list<TimeInterval>::const_iterator it = safe_intervals.begin(); it!= safe_intervals.end(); ++it){
-        Node a_new_node;
-        a_new_node.current_point = trajectory[0];
+        if (earliest_start_time <= it->t_max)
+        {
+            Node a_new_node;
+            a_new_node.current_point = trajectory[0];
 
-        a_new_node.speed_for_arrival_time_min = v_max;
-        a_new_node.speed_for_arrival_time_max = v_min;
-        a_new_node.cost_min = 0;
-        a_new_node.cost_max = 0;
+            a_new_node.speed_for_arrival_time_min = v_max;
+            a_new_node.cost_min = 0;
 
-        a_new_node.g = 0;
-        a_new_node.h = estimate_cost(trajectory[0], trajectory.back(), v_min);
-        a_new_node.f = 0;
+            a_new_node.g = 0;
+            a_new_node.h = estimate_cost(trajectory[0], trajectory.back(), v_min);
+            a_new_node.f = 0;
 
-        a_new_node.color = 1;
+            a_new_node.color = 1;
 
 
-        a_new_node.previous_point = -1;
-        a_new_node.arrival_time_min = earliest_start_time;
-        a_new_node.arrival_time_max = earliest_start_time + 0; // 2 seconds
-        a_new_node.next_point = trajectory[1];
-        a_new_node.index = 0;
-        
-        a_new_node.interval_index = interval_idx;
-        a_new_node.interval_t_min = it->t_min;
-        a_new_node.interval_t_max = it->t_max;
-        
-        a_new_node.index = 0;
-        p[0].push_back(a_new_node);                      
+            a_new_node.previous_point = -1;
+            a_new_node.arrival_time_min = max(earliest_start_time, it->t_min);
+            a_new_node.arrival_time_max = max(earliest_start_time, it->t_min) + 0; // 2 seconds
+            a_new_node.next_point = trajectory[1];
+            a_new_node.index = 0;
+            
+            a_new_node.interval_index = interval_idx;
+            a_new_node.interval_t_min = it->t_min;
+            a_new_node.interval_t_max = it->t_max;
+            
+            a_new_node.index = 0;
+            p[0].push_back(a_new_node);                      
 
-        interval_idx ++;
+            interval_idx ++;
+
+        }
   
     }
 
@@ -119,9 +122,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             a_new_node.arrival_time_min = 0;
             a_new_node.arrival_time_max = 0;
             a_new_node.speed_for_arrival_time_min = 0;
-            a_new_node.speed_for_arrival_time_max = 0;
             a_new_node.cost_min = 0;
-            a_new_node.cost_max = 0;
 
             a_new_node.g = 0;
             a_new_node.h = estimate_cost(trajectory[i], trajectory.back(), v_min);
@@ -160,14 +161,16 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
     // }
 
     open.push_back(p[0][0]);
-
+    int first_conflict_point_counter = 0;
     // int i = 0;
     // while s is not s_goal:
-    int count = 10;
     Path result_path;
-    while (open.size() != 0){
-    // while (count != 0){
-        count--;
+    while (open.size() != 0 || first_conflict_point_counter!= p[0].size()-1  ){
+
+        if (open.size() == 0){
+            first_conflict_point_counter++;
+            open.push_back(p[0][first_conflict_point_counter]);
+        }
         //    remove s with the smallest f-value from OPEN
 
         int k = find_min(open);
@@ -183,14 +186,15 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
 
 
 
-        cout << "s.index: " << s.index << ", s.current_point: " << s.current_point << endl;
+        // cout << "s.index: " << s.index << ", s.current_point: " << s.current_point << endl;
 
         open.erase(open.begin() + k);
 
         // cout << s.index << ". trajectory.size() - 1: " << trajectory.size() -1 << endl;
 
         if (s.index == trajectory.size() - 1 ){
-           // // NOW WE HAVE A VECTOR OF POSSIBLE_SUCCESSOR (SUCCESSORS), WE NEED TO CONVERT IT INTO THE VECTOR OF PATH_ENTRY (PATH)  
+            // cout << "hello" << endl;
+            // // NOW WE HAVE A VECTOR OF POSSIBLE_SUCCESSOR (SUCCESSORS), WE NEED TO CONVERT IT INTO THE VECTOR OF PATH_ENTRY (PATH)  
             result_nodes.clear();
             Node res = s;
             // cout << res.current_point << " " << (res.parent)->current_point << endl;
@@ -215,7 +219,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             if (speed_min > speed_max){
                 cout << "Could not find an optimal plan" << endl;
                 // return empty_path;
-                break;
+                // break;
             }else{
 
                 for (int i =0; i < trajectory.size(); i++){
@@ -277,7 +281,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
         else
         {
             // int current_position = find_point(trajectory.size(), p, open[k].current_point);
-            Successors successors = get_successors(p, s, trajectory.size(), v_min, v_max, length, rt);
+            Successors successors = get_successors(p, s, trajectory.size(), v_min, v_max, length, rt, first_conflict_point_counter);
             // cout << "Successors size: " << successors.size() << endl;
 
             for (int j = 0; j < successors.size(); ++j){
@@ -295,11 +299,11 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                 if (p[next_position][interval_idx].g > p[s.index][s.interval_index].g + successors[j].cost_min) // if p[next_position] has already been in Open
                 {
                     successors[j].parent = &(p[s.index][s.interval_index]);
+                    // cout << successors[j].speed_for_arrival_time_min << "-----" << (successors[j].parent)->speed_for_arrival_time_min << endl;
 
                     if (successors[j].speed_for_arrival_time_min > s.speed_for_arrival_time_min){
                         successors[j].speed_for_arrival_time_min = s.speed_for_arrival_time_min;
                     }
-                    // cout << successors[j].current_point << "-----" << (successors[j].parent)->current_point << endl;
 
 
                     p[next_position][interval_idx] = successors[j];
@@ -334,7 +338,8 @@ Successors SIPP::get_successors(
         double v_min, 
         double v_max, 
         double length, 
-        const ReservationTable& rt
+        const ReservationTable& rt,
+        int first_conflict_point_counter
     ){
     // empty successors, type vector
     Successors successors;
@@ -398,13 +403,9 @@ Successors SIPP::get_successors(
         possible_successor.arrival_time_min = t_min;
         possible_successor.arrival_time_max = t_max;
 
-        possible_successor.speed_for_arrival_time_min = pairDistancesMap[p[0][0].current_point][possible_successor.current_point]/(t_min-p[0][0].arrival_time_min);
-        // possible_successor.speed_for_arrival_time_max = pairDistancesMap[p[0][0].current_point][possible_successor.current_point]/(t_max-p[0][0].arrival_time_min);
-
-        // cout << possible_successor.speed_for_arrival_time_min << " >>> " << possible_successor.speed_for_arrival_time_max << endl;
+        possible_successor.speed_for_arrival_time_min = pairDistancesMap[p[0][first_conflict_point_counter].current_point][possible_successor.current_point]/(t_min-p[0][first_conflict_point_counter].arrival_time_min);
         // NEED TO MODIFY HERE!!!
         possible_successor.cost_min = t_min - s.arrival_time_min;
-        // possible_successor.cost_max = t_max - s.arrival_time_min;
 
         successors.push_back(possible_successor);
     }
