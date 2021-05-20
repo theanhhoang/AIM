@@ -22,8 +22,6 @@ struct Node
     
     double arrival_time_min; // arrival time of the head of the vehicle
     double arrival_time_max; // arrival time of the head of the vehicle
-
-    double speed_for_arrival_time_min;
     
     double cost_min;
 
@@ -59,15 +57,6 @@ public:
     int find(std::vector<Node>& open);
     int find_point(int n ,Node* p, int current_point);
     std::list<TimeInterval> getSafeIntervals(std::list<TimeInterval> rt);
-    // Successors get_successors( 
-    //     int current_point,
-    //     int next_point, 
-    //     double v_min, 
-    //     double v_max, 
-    //     double length,
-    //     double arrival_time_min, 
-    //     double arrival_time_max, 
-    //     const ReservationTable& rt);
 
     Successors get_successors( 
         std::vector<Node> p[],

@@ -6,6 +6,7 @@
 #include "rapidjson/filereadstream.h"
 #include <cstdio>
 #include <math.h>
+#include <ilcplex/ilocplex.h>
 
 using namespace std;
 
@@ -76,7 +77,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             Node a_new_node;
             a_new_node.current_point = trajectory[0];
 
-            a_new_node.speed_for_arrival_time_min = v_max;
+
             a_new_node.cost_min = 0;
 
             a_new_node.g = 0;
@@ -88,7 +89,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
 
             a_new_node.previous_point = -1;
             a_new_node.arrival_time_min = max(earliest_start_time, it->t_min);
-            a_new_node.arrival_time_max = max(earliest_start_time, it->t_min) + 0; // 2 seconds
+            a_new_node.arrival_time_max = it->t_max;
             a_new_node.next_point = trajectory[1];
             a_new_node.index = 0;
             
@@ -121,7 +122,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
 
             a_new_node.arrival_time_min = 0;
             a_new_node.arrival_time_max = 0;
-            a_new_node.speed_for_arrival_time_min = 0;
+
             a_new_node.cost_min = 0;
 
             a_new_node.g = 0;
@@ -209,77 +210,81 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                 res = *(res.parent);
             }
 
-            double speed_min = v_min; 
-            double speed_max = result_nodes.back().speed_for_arrival_time_min;
+            IloEnv env = IloEnv();
+            IloModel model = IloModel(env);
+            IloExpr sum_obj = IloExpr(env);
+            IloNumVarArray var(env);
+            IloRangeArray con(env);
+
+            //speed
+            var.add(IloNumVar(env, 1/v_max,1/v_min, ILOFLOAT));  //t
+            //start time
+            var.add(IloNumVar(env, result_nodes[0].interval_t_min, result_nodes[0].interval_t_max, ILOFLOAT));  //t
+
+            // sum_obj = var[1];
+            int final_conflict_point_direction = vNameToDirection[result_nodes.back().current_point];
+            sum_obj = var[1] + pairDistancesMap[result_nodes[0].current_point][result_nodes.back().current_point]*var[0] + Li(final_conflict_point_direction, length)/w + Li(final_conflict_point_direction, length)*var[0];
+
+            model.add(IloMinimize(env, sum_obj));
+
+            
+            // con.add(var[c] >= e[i]);
+
+
+            for (int i =0; i < trajectory.size(); i++){
+                IloExpr node_arrival_time_min = var[1] + pairDistancesMap[result_nodes[0].current_point][result_nodes[i].current_point]*var[0];
+
+                int direction = vNameToDirection[result_nodes[i].current_point]; 
+                IloExpr node_leaving_time_tail = node_arrival_time_min + Li(direction, length)/w + Li(direction, length)*var[0];
+
+                if ( i > 0){
+                    con.add(  node_arrival_time_min - result_nodes[i].arrival_time_min  >=0);
+
+                }
+                con.add(node_leaving_time_tail - result_nodes[i].arrival_time_max  <=0);                
+            }
+
+            model.add(con);
+            IloCplex cplex(model);
+            cplex.setOut(env.getNullStream());
+            cplex.extract(model);
+            cplex.exportModel("model.lp");
+
+            // cout << cplex.solve() << endl;
             result_path.clear();
-            Path empty_path;
+            if (cplex.solve()){
+            
+                // result = cplex.getObjValue();
+                
+                cplex.writeSolution("solution");
 
-            cout << "Speed max: " << speed_max << endl;
-
-            if (speed_min > speed_max){
-                cout << "Could not find an optimal plan" << endl;
-                // return empty_path;
-                // break;
-            }else{
-
+                // cout << cplex.getValue(var[0]) << "---" << cplex.getValue(var[1]) << endl;
                 for (int i =0; i < trajectory.size(); i++){
                     PathEntry a_path;
 
                     a_path.conflict_point = result_nodes[i].current_point;
 
-                    if (i == 0){
-                        a_path.arrival_time = result_nodes[i].arrival_time_min;
-                        int direction = vNameToDirection[result_nodes[i].current_point]; 
-                        a_path.leaving_time_tail = a_path.arrival_time + Li(direction, length)/w + Li(direction, length)/speed_max;
-                        cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
-                        result_path.push_back(a_path);
-                    }
-                    else
-                    {
-                        a_path.arrival_time = result_nodes[0].arrival_time_min + pairDistancesMap[result_nodes[0].current_point][result_nodes[i].current_point]/speed_max;
+                    a_path.arrival_time = cplex.getValue(var[1]) + pairDistancesMap[result_nodes[0].current_point][result_nodes[i].current_point]*cplex.getValue(var[0]);
 
-                        int direction = vNameToDirection[result_nodes[i].current_point]; 
-                        a_path.leaving_time_tail = a_path.arrival_time + Li(direction, length)/w + Li(direction, length)/speed_max;
+                    int direction = vNameToDirection[result_nodes[i].current_point]; 
+                    a_path.leaving_time_tail = a_path.arrival_time + Li(direction, length)/w + Li(direction, length)*cplex.getValue(var[0]);
 
-                        // cout << result_nodes[i].arrival_time_min << "____" << result_nodes[i].arrival_time_max << endl;
-                        if (a_path.arrival_time < result_nodes[i].arrival_time_min || a_path.leaving_time_tail > result_nodes[i].arrival_time_max){
-                            // exit here
-                            cout << "Not possible here!!\n" << endl;
-                            // return empty_path;
-                            break;
-                        }else
-                        {
-                            cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
-                            result_path.push_back(a_path);
-                        }
-                        
-                        
-                    }
-                    
-                    // cout << result_nodes[i].arrival_time_min << " " << result_nodes[i].arrival_time_max << " " << a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
-                    // cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
-                    // cout << endl;
-                    
-                }
-            }
-            // break;
-            cout << "result_path.size(): "<< result_path.size() << endl;
-
-            if (result_path.size() == trajectory.size()){
+                    cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
+                    result_path.push_back(a_path);
+                }                
+                cout << "result_path.size(): "<< result_path.size() << endl;
                 return result_path;
             }
-            else
-            {
+            else{
                 for (int i = 0; i < trajectory.size(); i++){
                     for (int j = 0; j < p[i].size(); j++){
                         p[i][j].color = 0;
                     }
                 }
             }
-            
+
         }
-        else
-        {
+        else{
             // int current_position = find_point(trajectory.size(), p, open[k].current_point);
             Successors successors = get_successors(p, s, trajectory.size(), v_min, v_max, length, rt, first_conflict_point_counter);
             // cout << "Successors size: " << successors.size() << endl;
@@ -299,11 +304,9 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                 if (p[next_position][interval_idx].g > p[s.index][s.interval_index].g + successors[j].cost_min) // if p[next_position] has already been in Open
                 {
                     successors[j].parent = &(p[s.index][s.interval_index]);
-                    // cout << successors[j].speed_for_arrival_time_min << "-----" << (successors[j].parent)->speed_for_arrival_time_min << endl;
 
-                    if (successors[j].speed_for_arrival_time_min > s.speed_for_arrival_time_min){
-                        successors[j].speed_for_arrival_time_min = s.speed_for_arrival_time_min;
-                    }
+
+
 
 
                     p[next_position][interval_idx] = successors[j];
@@ -403,7 +406,7 @@ Successors SIPP::get_successors(
         possible_successor.arrival_time_min = t_min;
         possible_successor.arrival_time_max = t_max;
 
-        possible_successor.speed_for_arrival_time_min = pairDistancesMap[p[0][first_conflict_point_counter].current_point][possible_successor.current_point]/(t_min-p[0][first_conflict_point_counter].arrival_time_min);
+
         // NEED TO MODIFY HERE!!!
         possible_successor.cost_min = t_min - s.arrival_time_min;
 

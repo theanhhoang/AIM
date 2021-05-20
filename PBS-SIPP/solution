@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes"?>
+<CPLEXSolution version="1.2">
+ <header
+   problemName="IloCplex"
+   objectiveValue="14.6799997"
+   solutionTypeValue="1"
+   solutionTypeString="basic"
+   solutionStatusValue="1"
+   solutionStatusString="optimal"
+   solutionMethodString="dual"
+   primalFeasible="1"
+   dualFeasible="1"
+   simplexIterations="0"
+   writeLevel="1"/>
+ <quality
+   epRHS="9.9999999999999995e-07"
+   epOpt="9.9999999999999995e-07"
+   maxPrimalInfeas="3.1086244689504383e-15"
+   maxDualInfeas="0"
+   maxPrimalResidual="9.1484979314326864e-16"
+   maxDualResidual="0"
+   maxX="10"
+   maxPi="0"
+   maxSlack="99998.5"
+   maxRedCost="36.799997000000005"
+   kappa="1"/>
+ <linearConstraints>
+  <constraint index="0" status="BS" slack="99998.5" dual="0"/>
+  <constraint index="1" status="BS" slack="8.8817841970012523e-16" dual="-0"/>
+  <constraint index="2" status="BS" slack="2.54" dual="0"/>
+  <constraint index="3" status="BS" slack="1.5543122344752192e-15" dual="-0"/>
+  <constraint index="4" status="BS" slack="5.9066666666666681" dual="0"/>
+  <constraint index="5" status="BS" slack="1.7763568394002505e-15" dual="-0"/>
+  <constraint index="6" status="BS" slack="6.9827688999999999" dual="0"/>
+  <constraint index="7" status="BS" slack="1.3322676295501878e-15" dual="-0"/>
+  <constraint index="8" status="BS" slack="6.8372314000000003" dual="0"/>
+  <constraint index="9" status="BS" slack="1.7763568394002505e-15" dual="-0"/>
+  <constraint index="10" status="BS" slack="6.5800003" dual="0"/>
+  <constraint index="11" status="BS" slack="2.2204460492503131e-15" dual="-0"/>
+  <constraint index="12" status="BS" slack="6.2800002999999993" dual="0"/>
+  <constraint index="13" status="BS" slack="3.1086244689504383e-15" dual="-0"/>
+  <constraint index="14" status="BS" slack="5.3200002999999993" dual="0"/>
+ </linearConstraints>
+ <variables>
+  <variable index="0" status="LL" value="10" reducedCost="1"/>
+  <variable index="1" status="LL" value="0.10000000000000001" reducedCost="36.799997000000005"/>
+ </variables>
+</CPLEXSolution>
