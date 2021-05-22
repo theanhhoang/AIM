@@ -159,6 +159,10 @@ AIMPBS: CMakeFiles/AIMPBS.dir/build.make
 AIMPBS: /usr/lib/x86_64-linux-gnu/libboost_program_options.so
 AIMPBS: /usr/lib/x86_64-linux-gnu/libboost_system.so
 AIMPBS: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+AIMPBS: /opt/ibm/ILOG/CPLEX_Studio1210/cplex/lib/x86-64_linux/static_pic/libilocplex.a
+AIMPBS: /opt/ibm/ILOG/CPLEX_Studio1210/concert/lib/x86-64_linux/static_pic/libconcert.a
+AIMPBS: /opt/ibm/ILOG/CPLEX_Studio1210/cplex/lib/x86-64_linux/static_pic/libcplex.a
+AIMPBS: /opt/ibm/ILOG/CPLEX_Studio1210/cplex/lib/x86-64_linux/static_pic/libcplexdistmip.a
 AIMPBS: CMakeFiles/AIMPBS.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/theanhhoang/Desktop/AIM/PBS-SIPP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable AIMPBS"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/AIMPBS.dir/link.txt --verbose=$(VERBOSE)
