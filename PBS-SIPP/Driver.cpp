@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 
     // ReservationTable
     TimeInterval ti2;
-    ti2.t_min = 2;
+    ti2.t_min = 6;
     ti2.t_max = 10;
     ti2.agent_id = 10;
     rt[2].push_back(ti2);

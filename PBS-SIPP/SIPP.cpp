@@ -201,7 +201,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             // cout << res.current_point << " " << (res.parent)->current_point << endl;
             while (true){
                 // cout << "test" << endl;
-                cout << res.current_point << "- " << res.arrival_time_min  << "- " << res.arrival_time_max << endl;
+                cout << res.current_point << "- " << res.interval_t_min << "--"<< res.arrival_time_min  << "- " << res.arrival_time_max << "--" << res.interval_t_max << endl;
 
                 result_nodes.insert(result_nodes.begin(), res);
                 if (res.previous_point  == -1){
@@ -253,7 +253,6 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             // cout << cplex.solve() << endl;
             result_path.clear();
             if (cplex.solve()){
-            
                 // result = cplex.getObjValue();
                 
                 cplex.writeSolution("solution");
