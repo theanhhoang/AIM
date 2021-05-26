@@ -21,7 +21,7 @@ int Instance::getNumOfVertices() const
     return vNameToID.size();
 }
 
-void Instance::loadVehicles(std::string& arrivalFile)
+void Instance::loadVehicles(std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, vertex_t>& vNameToV)
 {
 	std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
     FILE* fp = fopen(arrivalFile.c_str(), "r"); // non-Windows use "r"
@@ -41,14 +41,22 @@ void Instance::loadVehicles(std::string& arrivalFile)
             for (rapidjson::Value::ConstValueIterator itr = arrivalsArray.Begin();
                                             itr != arrivalsArray.End(); ++itr){
                 Agent ag = {};
-                ag.id = (*itr)["id"].GetString();
+                ag.id = (*itr)["id"].GetInt();
+                 
                 ag.earliest_start_time = (*itr)["arrivalTime"].GetDouble();
                 auto trajectoryArray = (*itr)["trajectory"].GetArray();
+                
+                ag.earliest_start_time = (*itr)["arrivalTime"].GetDouble();
+                ag.length = 5;
+                ag.v_min = 3;
+                ag.v_max = 10;
+
                 for (rapidjson::Value::ConstValueIterator itr2 = trajectoryArray.Begin();
                     itr2 != trajectoryArray.End(); ++itr2){
                     ag.trajectory.push_back(vNameToV.find((*itr2).GetString())->second);
                 }
                 agents.push_back(ag);
+                
             }
         }
 
