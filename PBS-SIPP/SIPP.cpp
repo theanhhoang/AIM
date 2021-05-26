@@ -31,8 +31,8 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
     // agent details
     Agent agent = agents[agentID];
     int id = agent.id;
-    int start_location = agent.start_location;
-    int goal_location = agent.goal_location;
+    // int start_location = agent.start_location;
+    // int goal_location = agent.goal_location;
     vector<int> trajectory = agent.trajectory;
     double earliest_start_time = agent.earliest_start_time;
     double v_min = agent.v_min;
