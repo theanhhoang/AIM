@@ -69,15 +69,6 @@ public:
         int first_conflict_point_counter);
 
 
-    void loadSearchGraph(
-        searchGraph_t& searchGraph,
-        std::unordered_map<std::string, int>& vNameToID,
-        std::vector<vertex_t>& vNameToV,
-        std::vector<int>& vNameToDirection,
-        const std::string& fileName, 
-        rapidjson::Document& pairDistances,
-        std::map<int, std::map<int, double> >& pairDistancesMap,
-        const std::string& pDFileName);
 private:
     Instance& instance;
     vector<Agent> agents = instance.agents;
