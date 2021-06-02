@@ -11,7 +11,7 @@
 Instance::Instance(const string& map_name)
 {
     fileName = map_name;
-    loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, fileName, pairDistances, pairDistancesMap, pDFileName);
+    loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, pDFileName);
     // std::cout << "getNumOfVertices(): " << getNumOfVertices() << std::endl;
 }
 
@@ -72,6 +72,9 @@ void Instance::loadSearchGraph(
     std::vector<vertex_t>& vNameToV,
 
     std::vector<int>& vNameToDirection,
+
+
+    std::unordered_map<int, std::vector<int> >& vIDToConflictPoints,
 
     const std::string& fileName, 
     rapidjson::Document& pairDistances,
@@ -154,6 +157,8 @@ void Instance::loadSearchGraph(
                 }
                 int u = cIter->second;
                 searchGraph[v].generalizedVertexConflicts.insert(u);
+
+                vIDToConflictPoints[v_idx].push_back(u);
             }
         }
     }
@@ -214,4 +219,8 @@ std::vector<int> Instance::getVNameToDirection(){
 
 std::unordered_map<std::string, int> Instance::getVNameToID(){
     return vNameToID;
+}
+
+std::unordered_map<int, std::vector<int> > Instance::getVIDToConflictPoints(){
+    return vIDToConflictPoints;
 }

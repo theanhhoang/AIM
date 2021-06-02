@@ -73,6 +73,7 @@ public:
         std::unordered_map<std::string, int>& vNameToID,
         std::vector<vertex_t>& vNameToV,
         std::vector<int>& vNameToDirection,
+        std::unordered_map<int, std::vector<int> >& vIDToConflictPoints,
         const std::string& fileName, 
         rapidjson::Document& pairDistances,
         std::map<int, std::map<int, double> >& pairDistancesMap,
@@ -82,6 +83,8 @@ public:
     std::map<int, std::map<int, double> > getPairDistancesMap();
     std::vector<int> getVNameToDirection();
     std::unordered_map<std::string, int> getVNameToID();
+
+    std::unordered_map<int, std::vector<int> > getVIDToConflictPoints();
 
 private:
     std::string fileName;
@@ -96,4 +99,7 @@ private:
 
     rapidjson::Document pairDistances;
     std::map<int, std::map<int, double> > pairDistancesMap;
+
+    std::unordered_map<int, std::vector<int> > vIDToConflictPoints;
+
 };
