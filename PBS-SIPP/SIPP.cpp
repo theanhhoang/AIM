@@ -428,32 +428,32 @@ double SIPP::estimate_cost(int start_point, int end_point, double speed){
 
 
 int SIPP::find(vector<Node>& open){
-	for (int i = 0; i < open.size(); i++)
-		if (open[i].color == 1)
-			return i;
+    for (int i = 0; i < open.size(); i++)
+        if (open[i].color == 1)
+            return i;
     return open.size() - 1;    
 }
 
 int SIPP::find_min(vector<Node>& open){
     int min_index = find(open);
-	int min = open[min_index].f;
-	for (int i = 0; i < open.size(); i++)
-	{
-		if (open[i].f < min && open[i].color == 1)
-		{
-			min_index = i;
-			min = open[i].f;
-		}
-	}
-	return min_index;
+    int min = open[min_index].f;
+    for (int i = 0; i < open.size(); i++)
+    {
+        if (open[i].f < min && open[i].color == 1)
+        {
+            min_index = i;
+            min = open[i].f;
+        }
+    }
+    return min_index;
 
 }
 
 
 int SIPP::find_point(int n, Node* p, int current_point){
     for (int i = 0; i < n; i++)
-		if (p[i].current_point == current_point)
-			return  i;
+        if (p[i].current_point == current_point)
+            return  i;
     return -1;
 }
 

@@ -10,8 +10,14 @@
 
 Instance::Instance(const string& map_name)
 {
+    string arrFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/vehicleArrival.json";
+    string PDFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/pairDistance2.json";
+    int step = 0;
     fileName = map_name;
-    loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, pDFileName);
+    loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
+    std::cout << "Instance: graph loaded\n";
+    loadVehicles(arrFile, step, agents, vNameToID);
+    std::cout << "Instance: vehicle loaded\n";
     // std::cout << "getNumOfVertices(): " << getNumOfVertices() << std::endl;
 }
 
@@ -21,16 +27,16 @@ int Instance::getNumOfVertices() const
     return vNameToID.size();
 }
 
-void Instance::loadVehicles(std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, int>& vNameToID)
+void Instance::loadVehicles(const std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, int>& vNameToID)
 {
-	std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
+    std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
     FILE* fp = fopen(arrivalFile.c_str(), "r"); // non-Windows use "r"
     char readBuffer[65536];
     rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
     rapidjson::Document doc;
     doc.ParseStream(is);
     fclose(fp);
-
+    int agentId = 0;
     for (int laneNo=0; laneNo < 8; laneNo++){
         std::string laneName = lanes[laneNo];
         auto lane = doc[laneName.c_str()].GetObject();
@@ -41,28 +47,28 @@ void Instance::loadVehicles(std::string& arrivalFile, int step, vector<Agent> &a
             for (rapidjson::Value::ConstValueIterator itr = arrivalsArray.Begin();
                                             itr != arrivalsArray.End(); ++itr){
                 Agent ag = {};
-                ag.id = (*itr)["id"].GetInt();
-                 
+                ag.id = agentId;
+                ag.name = (*itr)["id"].GetString();
                 ag.earliest_start_time = (*itr)["arrivalTime"].GetDouble();
                 auto trajectoryArray = (*itr)["trajectory"].GetArray();
                 
                 ag.earliest_start_time = (*itr)["arrivalTime"].GetDouble();
                 ag.length = 5;
                 ag.v_min = 3;
-                ag.v_max = 10;
+                ag.v_max = 5;
 
                 for (rapidjson::Value::ConstValueIterator itr2 = trajectoryArray.Begin();
                     itr2 != trajectoryArray.End(); ++itr2){
                     ag.trajectory.push_back(vNameToID.find((*itr2).GetString())->second);
                 }
                 agents.push_back(ag);
+                agentId++;
                 
             }
         }
 
     }
 }
-
 
 void Instance::loadSearchGraph(
     searchGraph_t& searchGraph,
@@ -72,8 +78,6 @@ void Instance::loadSearchGraph(
     std::vector<vertex_t>& vNameToV,
 
     std::vector<int>& vNameToDirection,
-
-
     std::unordered_map<int, std::vector<int> >& vIDToConflictPoints,
 
     const std::string& fileName, 
@@ -157,7 +161,6 @@ void Instance::loadSearchGraph(
                 }
                 int u = cIter->second;
                 searchGraph[v].generalizedVertexConflicts.insert(u);
-
                 vIDToConflictPoints[v_idx].push_back(u);
             }
         }
@@ -203,6 +206,9 @@ void Instance::loadSearchGraph(
     fclose(pdfile);
 }
 
+std::vector<int> Instance::getConflictPoints(int aid){
+    return vIDToConflictPoints[aid];
+}
 
 position_t Instance::nodeAsPos(const float x, const float y)
 {  
@@ -219,6 +225,10 @@ std::vector<int> Instance::getVNameToDirection(){
 
 std::unordered_map<std::string, int> Instance::getVNameToID(){
     return vNameToID;
+}
+
+std::vector<Agent> Instance::getAgents(){
+    return agents;
 }
 
 std::unordered_map<int, std::vector<int> > Instance::getVIDToConflictPoints(){

@@ -16,7 +16,7 @@ using boost::unordered_set;
 
 struct PathEntry
 {
-    int vertex;
+    //int vertex;
     int conflict_point;
     double arrival_time; // arrival time of the head of the vehicle
 

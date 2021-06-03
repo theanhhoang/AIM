@@ -68,7 +68,6 @@ public:
         const ReservationTable& rt,
         int first_conflict_point_counter);
 
-
 private:
     Instance& instance;
     vector<Agent> agents = instance.agents;

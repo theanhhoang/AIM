@@ -24,6 +24,6 @@ public:
 	std::tuple<int, int, int> getFirstCollision(Instance&);
 	//void getRT(ReservationTable&, int);
 	void getRTP(std::set<int>&, int);
-	void getRTFromP(ReservationTable, std::set<int>);
+	void getRTFromP(Instance&, ReservationTable&, std::set<int>);
 };
 

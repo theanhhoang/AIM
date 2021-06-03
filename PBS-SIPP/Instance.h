@@ -45,6 +45,7 @@ typedef boost::adjacency_list<
 struct Agent
 {
     int id;
+    string name;
     int start_location;
     int goal_location;
     std::vector<int> trajectory;
@@ -66,7 +67,7 @@ class Instance
 public:
     vector<Agent> agents;
     int getNumOfVertices() const;
-    void loadVehicles(std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, int>& vNameToID);
+    void loadVehicles(const std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, int>& vNameToID);
     Instance(const string& map_name);
     void loadSearchGraph(
         searchGraph_t& searchGraph,
@@ -83,8 +84,9 @@ public:
     std::map<int, std::map<int, double> > getPairDistancesMap();
     std::vector<int> getVNameToDirection();
     std::unordered_map<std::string, int> getVNameToID();
-
     std::unordered_map<int, std::vector<int> > getVIDToConflictPoints();
+    std::vector<Agent> getAgents();
+    std::vector<int> getConflictPoints(int);
 
 private:
     std::string fileName;
@@ -99,7 +101,5 @@ private:
 
     rapidjson::Document pairDistances;
     std::map<int, std::map<int, double> > pairDistancesMap;
-
     std::unordered_map<int, std::vector<int> > vIDToConflictPoints;
-
 };
