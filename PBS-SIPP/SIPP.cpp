@@ -253,10 +253,10 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                     int direction = vNameToDirection[result_nodes[i].current_point]; 
                     a_path.leaving_time_tail = a_path.arrival_time + Li(direction, length)/w + Li(direction, length)*cplex.getValue(var[0]);
 
-                    cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
+                    //cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
                     result_path.push_back(a_path);
                 }                
-                cout << "result_path.size(): "<< result_path.size() << endl;
+                //cout << "result_path.size(): "<< result_path.size() << endl;
                 return result_path;
             }
             else{
@@ -312,7 +312,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
         }
     }
 
-    cout << "finish" << endl;
+    //cout << "finish" << endl;
     // return a Path, which is a vector of PathEntry. a PathEntry contains vertex (int), arrivalTime (double) and leavingTime (double)
     Path result_empty_path;
     return result_empty_path;

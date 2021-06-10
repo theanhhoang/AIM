@@ -234,3 +234,11 @@ std::vector<Agent> Instance::getAgents(){
 std::unordered_map<int, std::vector<int> > Instance::getVIDToConflictPoints(){
     return vIDToConflictPoints;
 }
+
+double Instance::getEarliestStartTime(int index){
+    return agents[index].earliest_start_time;
+}
+
+int Instance::getStartCP(int index){
+    return agents[index].trajectory[0];
+}

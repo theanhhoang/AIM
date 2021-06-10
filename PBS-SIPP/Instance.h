@@ -87,6 +87,8 @@ public:
     std::unordered_map<int, std::vector<int> > getVIDToConflictPoints();
     std::vector<Agent> getAgents();
     std::vector<int> getConflictPoints(int);
+    double getEarliestStartTime(int);
+    int getStartCP(int index);
 
 private:
     std::string fileName;

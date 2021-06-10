@@ -8,6 +8,7 @@
 #include "Common.h"
 #include "Instance.h"
 
+const double EPSILON = 0.001;
 
 class PTNode{
 public:
@@ -17,7 +18,7 @@ public:
 
 	PTNode();
 	PTNode(vector<Path>, std::map<int, std::set<int> >);
-	void writeToFile(const string&);	
+	void writeToFile(Instance&, const string&);	
 	void calculateCost();
 	void topologicalSortUtil(int, bool*, std::list<int>&);
 	std::list<int> topologicalSort();
@@ -25,5 +26,6 @@ public:
 	//void getRT(ReservationTable&, int);
 	void getRTP(std::set<int>&, int);
 	void getRTFromP(Instance&, ReservationTable&, std::set<int>);
+	void getRTFromP(Instance&, ReservationTable&, std::set<int>, int,std::map<int, std::map<int,std::vector<int> > >&);
 };
 

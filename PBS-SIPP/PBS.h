@@ -1,6 +1,9 @@
 #pragma once
 #include "SIPP.h"
 #include "PTNode.h"
+
+extern const double EPSILON;
+
 class PBS
 {
 public:
@@ -12,4 +15,10 @@ public:
     SIPP sipp;
     Instance& instance;
     std::vector<Agent> arrivingVehicles;
+    std::map<int, std::map<int,std::vector<int> > > trajectoryToAgent;
+    void initializeAgents(std::map<int, std::map<int, std::vector<int> > >&);
+    void initializePriority(std::map<int, std::set<int> >&, std::map<int, std::map<int, std::vector<int> > >&);
+    void printPath(Path);
+    void printRT(ReservationTable);
+    void printPriority(std::map<int, std::set<int> >);
 };
