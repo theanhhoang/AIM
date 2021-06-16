@@ -137,11 +137,11 @@ void PBS::run(const string& outputFileName)
 		PTNode N = POStack.top();
 		POStack.pop();
 
-		// for(int i = 0; i < N.plan.size(); ++i){
-		// 	std::cout  <<  "agent: " << i << "\n";
-		// 	printPath(N.plan[i]);
-		// }
-		//printPriority(N.priority);
+		for(int i = 0; i < N.plan.size(); ++i){
+			std::cout  <<  "agent: " << i << "\n";
+			printPath(N.plan[i]);
+		}
+		printPriority(N.priority);
 		std::cout << "node cost: "  << N.cost << "\n";
 		//use list 12 13 14 agent1 agent2 point
 		std::tuple<int, int, int> C = N.getFirstCollision(instance);
@@ -159,11 +159,13 @@ void PBS::run(const string& outputFileName)
 
 		//rintPriority(newNode.priority);
 
-
+		bool n1 = true;
+		bool n2 = true;
 
 
 		//20 21 22
 		if(UpdatePlan(newNode, std::get<1>(C))) newNode.calculateCost();
+		else n1 = false;
 
 		std::cout<<"\n$NewNode2\n\n";
 		//16 17 19
@@ -177,6 +179,7 @@ void PBS::run(const string& outputFileName)
 
 		//20 21 22
 		if(UpdatePlan(newNode2, std::get<0>(C))) newNode2.calculateCost();
+		else n2 = false;
 
 
 
@@ -190,20 +193,23 @@ void PBS::run(const string& outputFileName)
 
 
 
-
+		if(n1 && n2){
+			if(newNode.cost >= newNode2.cost){
+				POStack.push(newNode);
+				POStack.push(newNode2);
+			}
+			else{
+				POStack.push(newNode2);
+				POStack.push(newNode);
+			}
+		}
+		else if(n1) POStack.push(newNode);
+		else if (n2) POStack.push(newNode2);
 		//23 non increasing order
-		if(newNode.cost >= newNode2.cost){
-			POStack.push(newNode);
-			POStack.push(newNode2);
-		}
-		else{
-			POStack.push(newNode2);
-			POStack.push(newNode);
-		}
-
+		
 		//*******************************************DEBUG
 		//test++;
-		//if(test == 4) return;
+		//if(test == 11) return;
 		//*******************************************DEBUG
 	}
 
