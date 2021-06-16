@@ -17,6 +17,7 @@ Instance::Instance(const string& map_name)
     loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
     std::cout << "Instance: graph loaded\n";
     loadVehicles(arrFile, step, agents, vNameToID);
+    loadSamePoint();
     std::cout << "Instance: vehicle loaded\n";
     // std::cout << "getNumOfVertices(): " << getNumOfVertices() << std::endl;
 }
@@ -204,6 +205,19 @@ void Instance::loadSearchGraph(
 
 
     fclose(pdfile);
+}
+
+void Instance::loadSamePoint(){
+    for(int i = 0; i < 104; i ++){
+        std::vector<int> cps = getConflictPoints(i);
+        for(auto it = cps.begin(); it != cps.end(); ++it){
+            samePoint[i][*it] = true;
+        }
+    }
+}
+
+bool Instance::isSamePoint(int a, int b){
+    return samePoint[a][b];
 }
 
 std::vector<int> Instance::getConflictPoints(int aid){

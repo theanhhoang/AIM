@@ -78,7 +78,8 @@ public:
         const std::string& fileName, 
         rapidjson::Document& pairDistances,
         std::map<int, std::map<int, double> >& pairDistancesMap,
-        const std::string& pDFileName);
+        const std::string& pDFileName
+        );
     position_t nodeAsPos(const float x, const float y);
 
     std::map<int, std::map<int, double> > getPairDistancesMap();
@@ -89,6 +90,8 @@ public:
     std::vector<int> getConflictPoints(int);
     double getEarliestStartTime(int);
     int getStartCP(int index);
+    void loadSamePoint();
+    bool isSamePoint(int, int);
 
 private:
     std::string fileName;
@@ -104,4 +107,5 @@ private:
     rapidjson::Document pairDistances;
     std::map<int, std::map<int, double> > pairDistancesMap;
     std::unordered_map<int, std::vector<int> > vIDToConflictPoints;
+    bool samePoint[104][104] = {{false}};
 };

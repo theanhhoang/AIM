@@ -41,12 +41,17 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 	for(auto it = list.begin(); it != list.end(); ++it){
 		//it is the index of agents in list
 		if(replanned){
+			std::cout << *it << "\n";
 			for(auto it2 = node.plan[*it].begin(); it2 != node.plan[*it].end(); ++it2){
 				//it2 is the path entries of the agent it
+				
 				for(auto it3 = node.plan[index].begin(); it3 != node.plan[index].end(); ++it3){
 					//it3 is the path entries of the agent index
+					//std::cout << it2->conflict_point << " " << it3->conflict_point << "\n";
+					if( instance.isSamePoint(it2->conflict_point, it3->conflict_point)){
 
-					if(it2->conflict_point == it3->conflict_point){
+						//std::cout << it2->arrival_time << " " << it2->leaving_time_tail << "\n";
+						//std::cout << it3->arrival_time << " " << it3->leaving_time_tail << "\n";
 						if((it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) 
 							|| (it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) 
 							|| (it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON)){
@@ -131,6 +136,12 @@ void PBS::run(const string& outputFileName)
 		//10 11
 		PTNode N = POStack.top();
 		POStack.pop();
+
+		// for(int i = 0; i < N.plan.size(); ++i){
+		// 	std::cout  <<  "agent: " << i << "\n";
+		// 	printPath(N.plan[i]);
+		// }
+		//printPriority(N.priority);
 		std::cout << "node cost: "  << N.cost << "\n";
 		//use list 12 13 14 agent1 agent2 point
 		std::tuple<int, int, int> C = N.getFirstCollision(instance);
@@ -139,7 +150,7 @@ void PBS::run(const string& outputFileName)
 			std::cout << "$$FOUND SOLUTION$$\n";
 			return;
 		}
-		//std::cout<<"FOUND CONFLICT!: " << get<0> (C) << " " << get<1> (C) << " " << get<2> (C) << "\n";
+		std::cout<<"FOUND CONFLICT!: " << get<0> (C) << " " << get<1> (C) << " " << get<2> (C) << "\n";
 		//16 17 19
 		std::cout<<"\n$NewNode\n\n";
 		std::map<int, std::set<int> > newPriority = N.priority;
