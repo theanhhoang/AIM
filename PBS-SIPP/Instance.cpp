@@ -10,8 +10,8 @@
 
 Instance::Instance(const string& map_name)
 {
-    string arrFile = "vehicleArrival.json";
-    string PDFile = "pairDistance2.json";
+    string arrFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/vehicleArrival.json";
+    string PDFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/pairDistance2.json";
     int step = 0;
     fileName = map_name;
     loadSearchGraph(searchGraph, vNameToID, vIDToName, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
@@ -76,6 +76,7 @@ void Instance::loadSearchGraph(
 
     std::unordered_map<std::string, int>& vNameToID,
     std::unordered_map<int, std::string>& vIDToName,
+
     std::vector<vertex_t>& vNameToV,
 
     std::vector<int>& vNameToDirection,
@@ -108,7 +109,6 @@ void Instance::loadSearchGraph(
 
             vNameToID[name] = vertex_index;
             vIDToName[vertex_index] = name;
-
             vNameToV.push_back(v);
 
 
@@ -210,6 +210,7 @@ void Instance::loadSearchGraph(
 
 void Instance::loadSamePoint(){
     for(int i = 0; i < 104; i ++){
+        samePoint[i][i] = true;
         std::vector<int> cps = getConflictPoints(i);
         for(auto it = cps.begin(); it != cps.end(); ++it){
             samePoint[i][*it] = true;
@@ -241,15 +242,17 @@ std::vector<int> Instance::getVNameToDirection(){
 std::unordered_map<std::string, int> Instance::getVNameToID(){
     return vNameToID;
 }
-std::unordered_map<int, std::string> Instance::getVIDToName(){
-    return vIDToName;
-}
+
 std::vector<Agent> Instance::getAgents(){
     return agents;
 }
 
 std::unordered_map<int, std::vector<int> > Instance::getVIDToConflictPoints(){
     return vIDToConflictPoints;
+}
+
+std::unordered_map<int, std::string> Instance::getVIDToName(){
+    return vIDToName;
 }
 
 double Instance::getEarliestStartTime(int index){
