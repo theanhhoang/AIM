@@ -10,11 +10,11 @@
 
 Instance::Instance(const string& map_name)
 {
-    string arrFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/vehicleArrival.json";
-    string PDFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/pairDistance2.json";
+    string arrFile = "vehicleArrival.json";
+    string PDFile = "pairDistance2.json";
     int step = 0;
     fileName = map_name;
-    loadSearchGraph(searchGraph, vNameToID, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
+    loadSearchGraph(searchGraph, vNameToID, vIDToName, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
     std::cout << "Instance: graph loaded\n";
     loadVehicles(arrFile, step, agents, vNameToID);
     loadSamePoint();
@@ -56,7 +56,7 @@ void Instance::loadVehicles(const std::string& arrivalFile, int step, vector<Age
                 ag.earliest_start_time = (*itr)["arrivalTime"].GetDouble();
                 ag.length = 5;
                 ag.v_min = 3;
-                ag.v_max = 5;
+                ag.v_max = 10;
 
                 for (rapidjson::Value::ConstValueIterator itr2 = trajectoryArray.Begin();
                     itr2 != trajectoryArray.End(); ++itr2){
@@ -75,7 +75,7 @@ void Instance::loadSearchGraph(
     searchGraph_t& searchGraph,
 
     std::unordered_map<std::string, int>& vNameToID,
-
+    std::unordered_map<int, std::string>& vIDToName,
     std::vector<vertex_t>& vNameToV,
 
     std::vector<int>& vNameToDirection,
@@ -107,6 +107,7 @@ void Instance::loadSearchGraph(
             searchGraph[v].id = vertex_index;
 
             vNameToID[name] = vertex_index;
+            vIDToName[vertex_index] = name;
 
             vNameToV.push_back(v);
 
@@ -240,7 +241,9 @@ std::vector<int> Instance::getVNameToDirection(){
 std::unordered_map<std::string, int> Instance::getVNameToID(){
     return vNameToID;
 }
-
+std::unordered_map<int, std::string> Instance::getVIDToName(){
+    return vIDToName;
+}
 std::vector<Agent> Instance::getAgents(){
     return agents;
 }

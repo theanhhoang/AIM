@@ -9,10 +9,23 @@ PTNode::PTNode(vector<Path> pl, std::map<int, std::set<int> > pr){
 void PTNode::writeToFile(Instance& instance, const string& file_name)
 {
 	std::ofstream file;
+	// file.open(file_name, std::ios::app);
 	file.open(file_name);
 	if(file.is_open()){
+		file << "In Point;Out Point;Length;Earliest Arrival;In Time;Out Time Head; Out Time Tail;Time spend;Speed" << '\n';
+
 		for(int i = 0; i < (signed)plan.size(); ++i){
-			file <<  plan[i][0].conflict_point << ";" <<  plan[i][plan[i].size()-1].conflict_point << ";" << instance.getEarliestStartTime(i) << ";" << plan[i][0].arrival_time << ";" << plan[i][plan[i].size()-1].leaving_time_tail << '\n';
+			double pairDistanceValue = (instance.getPairDistancesMap())[plan[i][0].conflict_point][plan[i][plan[i].size()-1].conflict_point];
+			file <<  instance.getVIDToName()[plan[i][0].conflict_point]  \
+				<< ";" <<  instance.getVIDToName()[plan[i][plan[i].size()-1].conflict_point]  \
+				<< ";" <<  pairDistanceValue \
+				<< ";" << instance.getEarliestStartTime(i) \
+				<< ";" << plan[i][0].arrival_time \
+				<< ";" << plan[i][plan[i].size()-1].arrival_time \
+				<< ";" << plan[i][plan[i].size()-1].leaving_time_tail \
+				<< ";" << plan[i][plan[i].size()-1].arrival_time - plan[i][0].arrival_time\
+				<< ";" << pairDistanceValue/(plan[i][plan[i].size()-1].arrival_time - plan[i][0].arrival_time)\
+				<< '\n';
 		}
 	}
 	else std::cout << "unable to open file";
@@ -126,11 +139,28 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 
 					//if(it2->leaving_time_tail > it3->t_min)std::cout << "dddddddddd"<< it2->leaving_time_tail << " " << it3->t_min << " " <<it2->leaving_time_tail - it3->t_min << "\n";
 					result = std::make_tuple(aid, it3->agent_id, it2->conflict_point);
+
+					std::ofstream file;
+					file.open("output.txt", std::ios::app);
+					if(file.is_open()){
+						file << "getFirstCollision: " << std::get<0>(result) << " " << std::get<1>(result) << " " << std::get<2>(result) << " " << instance.getConflictPoints(it2->conflict_point)[0] << "\n";
+					}
+					else file << "unable to open file";
+					file.close();
+
 					return result;
 				}
 			}
 		}
 	}
+	std::ofstream file;
+	file.open("output.txt", std::ios::app);
+	if(file.is_open()){
+		file << "getFirstCollision: " << std::get<0>(result) << " " << std::get<1>(result) << " " << std::get<2>(result) << "\n";
+	}
+	else file << "unable to open file";
+	file.close();
+
 
 	//std::cout << std::get<0>(result) << " " << std::get<1>(result) << " " << std::get<2>(result) << "\n";
 	return result;

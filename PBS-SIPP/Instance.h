@@ -72,6 +72,7 @@ public:
     void loadSearchGraph(
         searchGraph_t& searchGraph,
         std::unordered_map<std::string, int>& vNameToID,
+        std::unordered_map<int, std::string>& vIDToName,
         std::vector<vertex_t>& vNameToV,
         std::vector<int>& vNameToDirection,
         std::unordered_map<int, std::vector<int> >& vIDToConflictPoints,
@@ -85,6 +86,7 @@ public:
     std::map<int, std::map<int, double> > getPairDistancesMap();
     std::vector<int> getVNameToDirection();
     std::unordered_map<std::string, int> getVNameToID();
+    std::unordered_map<int, std::string> getVIDToName();
     std::unordered_map<int, std::vector<int> > getVIDToConflictPoints();
     std::vector<Agent> getAgents();
     std::vector<int> getConflictPoints(int);
@@ -99,7 +101,7 @@ private:
     searchGraph_t searchGraph;
 
     std::unordered_map<std::string, int> vNameToID;
-
+    std::unordered_map<int, std::string> vIDToName;
     std::vector<vertex_t> vNameToV;
 
     std::vector<int> vNameToDirection;

@@ -132,6 +132,29 @@ void PBS::run(const string& outputFileName)
 	//9
 	//int test = 0;
 	while (POStack.size() != 0){
+		try
+		{
+			for (int printTest = 0; printTest < POStack.top().plan.size(); ++printTest){
+				std::ofstream file;
+				file.open("output.txt", std::ios::app);
+				if(file.is_open()){
+					file << "agent: " << printTest <<";   ";
+					for(int i = 0; i < (signed)POStack.top().plan[printTest].size(); ++i){
+						file << "cp" <<  POStack.top().plan[printTest][i].conflict_point  << ";" << POStack.top().plan[printTest][i].arrival_time << ";" << POStack.top().plan[printTest][i].leaving_time_tail;
+						file << ";   ";
+					}
+					file << "\n";
+				}
+				else std::cout << "unable to open file";
+				file.close();
+
+			}
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+		
 		std::cout << "\n\n\n////////////////////////////\nloop starts\n\n\n";
 		//10 11
 		PTNode N = POStack.top();
@@ -188,6 +211,14 @@ void PBS::run(const string& outputFileName)
 		
 		
 		std::cout << "$$$$$$$$$$$$$newNode2.cost: " << newNode2.cost << "\n";
+
+		std::ofstream file;
+		file.open("output.txt", std::ios::app);
+		if(file.is_open()){
+			file << "newNode.cost: " << newNode.cost << "    newNode2.cost: " << newNode2.cost << "\n";
+		}
+		else file << "unable to open file";
+		file.close();
 		
 		//*******************************************DEBUG
 

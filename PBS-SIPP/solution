@@ -2,7 +2,7 @@
 <CPLEXSolution version="1.2">
  <header
    problemName="IloCplex"
-   objectiveValue="8.7199997000000007"
+   objectiveValue="19.439014840863038"
    solutionTypeValue="1"
    solutionTypeString="basic"
    solutionStatusValue="1"
@@ -10,39 +10,39 @@
    solutionMethodString="dual"
    primalFeasible="1"
    dualFeasible="1"
-   simplexIterations="1"
+   simplexIterations="0"
    writeLevel="1"/>
  <quality
    epRHS="9.9999999999999995e-07"
    epOpt="9.9999999999999995e-07"
-   maxPrimalInfeas="0"
+   maxPrimalInfeas="8.8817841970012523e-16"
    maxDualInfeas="0"
-   maxPrimalResidual="2.7989763284885782e-15"
+   maxPrimalResidual="1.3597057290856696e-11"
    maxDualResidual="0"
-   maxX="4.04"
-   maxPi="1"
-   maxSlack="12.540000300000003"
-   maxRedCost="27.199997000000003"
-   kappa="4.2105263157894735"/>
+   maxX="13.414543993908692"
+   maxPi="0"
+   maxSlack="99996.991457653057"
+   maxRedCost="40.187759807739255"
+   kappa="1"/>
  <linearConstraints>
-  <constraint index="0" status="BS" slack="0.45999999999999996" dual="0"/>
-  <constraint index="1" status="LL" slack="0" dual="1"/>
-  <constraint index="2" status="BS" slack="1.5" dual="0"/>
-  <constraint index="3" status="BS" slack="-0" dual="-0"/>
-  <constraint index="4" status="BS" slack="4.8666666666666663" dual="0"/>
-  <constraint index="5" status="BS" slack="-0" dual="-0"/>
-  <constraint index="6" status="BS" slack="8.1335392333333303" dual="0"/>
-  <constraint index="7" status="BS" slack="-8.8817841970012523e-16" dual="-0"/>
-  <constraint index="8" status="BS" slack="11.139793399999999" dual="0"/>
-  <constraint index="9" status="BS" slack="-0" dual="-0"/>
-  <constraint index="10" status="BS" slack="12.540000300000003" dual="0"/>
-  <constraint index="11" status="BS" slack="-8.8817841970012523e-16" dual="-0"/>
-  <constraint index="12" status="BS" slack="12.240000300000002" dual="0"/>
+  <constraint index="0" status="BS" slack="99996.991457653043" dual="0"/>
+  <constraint index="1" status="BS" slack="2.2204460492503131e-16" dual="-0"/>
+  <constraint index="2" status="BS" slack="99990.974372959157" dual="0"/>
+  <constraint index="3" status="BS" slack="2.2204460492503131e-16" dual="-0"/>
+  <constraint index="4" status="BS" slack="99996.642957961245" dual="0"/>
+  <constraint index="5" status="BS" slack="4.4408920985006262e-16" dual="-0"/>
+  <constraint index="6" status="BS" slack="99996.991457653057" dual="0"/>
+  <constraint index="7" status="BS" slack="6.6613381477509392e-16" dual="-0"/>
+  <constraint index="8" status="BS" slack="99996.991457653043" dual="0"/>
+  <constraint index="9" status="BS" slack="8.8817841970012523e-16" dual="-0"/>
+  <constraint index="10" status="BS" slack="99993.491947906092" dual="0"/>
+  <constraint index="11" status="BS" slack="4.4408920985006262e-16" dual="-0"/>
+  <constraint index="12" status="BS" slack="99996.991457653057" dual="0"/>
   <constraint index="13" status="BS" slack="-8.8817841970012523e-16" dual="-0"/>
-  <constraint index="14" status="BS" slack="11.280000300000001" dual="0"/>
+  <constraint index="14" status="BS" slack="99996.991457653057" dual="0"/>
  </linearConstraints>
  <variables>
-  <variable index="0" status="BS" value="4.04" reducedCost="0"/>
-  <variable index="1" status="LL" value="0.10000000000000001" reducedCost="27.199997000000003"/>
+  <variable index="0" status="LL" value="13.414543993908692" reducedCost="1"/>
+  <variable index="1" status="LL" value="0.10000000000000001" reducedCost="40.187759807739255"/>
  </variables>
 </CPLEXSolution>
