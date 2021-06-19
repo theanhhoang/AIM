@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
        /////////////////////TESTING SPACE//////////////////
-    Instance instance("intro_graph.json");
+    Instance instance("/media/zijun/Data/Documents/2020Summer/AIM/PBS/intro_graph.json");
     SIPP sipp(instance);
     PBS pbs(instance);
     pbs.run("output.txt");

@@ -125,11 +125,16 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 				if(aid == it3->agent_id)
 					continue;
 				//if  collision
-				if((it2->arrival_time - it3->t_min > EPSILON && it3->t_max - it2->arrival_time > EPSILON)
-					|| (it2->leaving_time_tail - it3->t_min > EPSILON && it3->t_max - it2->leaving_time_tail > EPSILON) 
-					|| (it3->t_min - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->t_max > EPSILON)){
+				if(!(it2->leaving_time_tail - it3->t_min < EPSILON) && !(it3->t_max - it2->arrival_time < EPSILON)
+					// (it2->arrival_time > it3->t_min &&  it2->arrival_time < it3->t_max) 
+					// || (it2->leaving_time_tail > it3->t_min &&   it2->leaving_time_tail < it3->t_max) 
+					// || (it2->arrival_time < it3->t_min && it2->leaving_time_tail > it3->t_max)
+					// || (abs(it2->arrival_time - it3->t_min) < EPSILON)
+					// || (abs(it2->arrival_time - it3->t_max) < EPSILON)
+					// || (abs(it2->leaving_time_tail - it3->t_min) < EPSILON)
+					// || (abs(it2->leaving_time_tail - it3->t_max) < EPSILON)
+				){
 
-					
 					/*std::cout << "check 1: " <<(it2->arrival_time - it3->t_min > EPSILON && it3->t_max - it2->arrival_time > EPSILON) << "\n";
 					std::cout << "check 2: " <<(it2->leaving_time_tail - it3->t_min > EPSILON && it3->t_max - it2->leaving_time_tail > EPSILON) << "\n";
 					std::cout << "check 3: " <<(it3->t_min - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->t_max > EPSILON) << "\n";
@@ -139,15 +144,6 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 
 					//if(it2->leaving_time_tail > it3->t_min)std::cout << "dddddddddd"<< it2->leaving_time_tail << " " << it3->t_min << " " <<it2->leaving_time_tail - it3->t_min << "\n";
 					result = std::make_tuple(aid, it3->agent_id, it2->conflict_point);
-
-					std::ofstream file;
-					file.open("output.txt", std::ios::app);
-					if(file.is_open()){
-						file << "getFirstCollision: " << std::get<0>(result) << " " << std::get<1>(result) << " " << std::get<2>(result) << " " << instance.getConflictPoints(it2->conflict_point)[0] << "\n";
-					}
-					else file << "unable to open file";
-					file.close();
-
 					return result;
 				}
 			}
@@ -160,7 +156,6 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 	}
 	else file << "unable to open file";
 	file.close();
-
 
 	//std::cout << std::get<0>(result) << " " << std::get<1>(result) << " " << std::get<2>(result) << "\n";
 	return result;

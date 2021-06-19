@@ -28,6 +28,20 @@
                 ], 
                 "id": "ESL_0_1", 
                 "arrivalTime": 5.5
+            },
+            {
+                "trajectory": [
+                    "ESL_0", 
+                    "ESL_1", 
+                    "ESL_2", 
+                    "ESL_3", 
+                    "ESL_4", 
+                    "ESL_5", 
+                    "ESL_6", 
+                    "ESL_7"
+                ], 
+                "id": "ESL_0_2", 
+                "arrivalTime": 6
             }
         ]
     }, 

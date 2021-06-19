@@ -48,17 +48,20 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 				for(auto it3 = node.plan[index].begin(); it3 != node.plan[index].end(); ++it3){
 					//it3 is the path entries of the agent index
 					//std::cout << it2->conflict_point << " " << it3->conflict_point << "\n";
-					if( instance.isSamePoint(it2->conflict_point, it3->conflict_point)){
 
-						//std::cout << it2->arrival_time << " " << it2->leaving_time_tail << "\n";
-						//std::cout << it3->arrival_time << " " << it3->leaving_time_tail << "\n";
-						if((it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) 
-							|| (it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) 
-							|| (it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON)){
-							std::cout << "check 1: " <<(it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
+					// std::cout << "it2: " << it2->conflict_point <<" "<<it2->arrival_time<<" "<<it2->leaving_time_tail<<"\n";
+					// std::cout << "it3: " << it3->conflict_point << " "<< it3->arrival_time<<" "<<it3->leaving_time_tail<<"\n";
+					if( instance.isSamePoint(it2->conflict_point, it3->conflict_point)){
+						// std::cout << "it2: " << it2->arrival_time <<" "<< it2->leaving_time_tail <<"\n";
+						// std::cout << "it3: " << it3->arrival_time << " "<<it3->leaving_time_tail <<"\n";
+						// std::cout << "check1: "<< (it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
+						// std::cout << "check2: "<< (it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) << "\n";
+						// std::cout << "check3: "<< (it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
+						if(!(it2->leaving_time_tail - it3->arrival_time < EPSILON) && !(it3->leaving_time_tail - it2->arrival_time < EPSILON)){
+							/*std::cout << "check 1: " <<(it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
 							std::cout << "check 2: " <<(it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) << "\n";
 							std::cout << "check 3: " <<(it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
-							std::cout <<"$\n$\n" << it2->arrival_time << " " << it2->leaving_time_tail << " " << it3->arrival_time << " " << it3->leaving_time_tail << "\n$\n$\n";
+							std::cout <<"$\n$\n" << it2->arrival_time << " " << it2->leaving_time_tail << " " << it3->arrival_time << " " << it3->leaving_time_tail << "\n$\n$\n";*/
 							std::cout<<"FOUND CONFLICT!: " << index << " " << *it << " " << it2->conflict_point << "\n";
 							std::cout << "\n$$$$$$$$$replanning\n";
 							ReservationTable rt(instance.getNumOfVertices());
@@ -79,16 +82,17 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 			std::set<int> rtp;
 			node.getRTP(rtp, *it);;
 			//node.getRT(rt, *it);
-			/*
-			std::cout << "printing rtp set\n";
-			for(auto ittemp = rtp.begin(); ittemp != rtp.end(); ++ittemp){
-				std::cout<< *ittemp << " ";
-			}
-			std::cout <<"\n";
-			*/
+			
+			// std::cout << "printing rtp set\n";
+			// for(auto ittemp = rtp.begin(); ittemp != rtp.end(); ++ittemp){
+			// 	std::cout<< *ittemp << " ";
+			// }
+			// std::cout <<"\n";
+			std::cout <<"agent" << *it<<"\n";
 			node.getRTFromP(instance, rt, rtp, *it, trajectoryToAgent);
-
+			printRT(rt);
 			Path path = sipp.run(*it, rt);
+			printPath(path);
 			//std::cout << "printing path for agent " << index << "\n" ;
 
 			//printRT(rt);
@@ -130,7 +134,7 @@ void PBS::run(const string& outputFileName)
 	POStack.push(Root);
 	
 	//9
-	//int test = 0;
+	int test = 0;
 	while (POStack.size() != 0){
 		try
 		{
@@ -154,12 +158,13 @@ void PBS::run(const string& outputFileName)
 		{
 			std::cerr << e.what() << '\n';
 		}
-		
+
 		std::cout << "\n\n\n////////////////////////////\nloop starts\n\n\n";
 		//10 11
 		PTNode N = POStack.top();
 		POStack.pop();
 
+		
 		for(int i = 0; i < N.plan.size(); ++i){
 			std::cout  <<  "agent: " << i << "\n";
 			printPath(N.plan[i]);
@@ -171,6 +176,7 @@ void PBS::run(const string& outputFileName)
 		if(std::get<0> (C) == -1){
 			N.writeToFile(instance, outputFileName);
 			std::cout << "$$FOUND SOLUTION$$\n";
+			
 			return;
 		}
 		std::cout<<"FOUND CONFLICT!: " << get<0> (C) << " " << get<1> (C) << " " << get<2> (C) << "\n";
@@ -190,6 +196,9 @@ void PBS::run(const string& outputFileName)
 		if(UpdatePlan(newNode, std::get<1>(C))) newNode.calculateCost();
 		else n1 = false;
 
+		
+
+
 		std::cout<<"\n$NewNode2\n\n";
 		//16 17 19
 		std::map<int, std::set<int> > newPriority2 = N.priority;
@@ -204,6 +213,10 @@ void PBS::run(const string& outputFileName)
 		if(UpdatePlan(newNode2, std::get<0>(C))) newNode2.calculateCost();
 		else n2 = false;
 
+		// for(int i = 0; i < newNode2.plan.size(); ++i){
+		// 	std::cout  <<  "agent: " << i << "\n";
+		// 	printPath(newNode2.plan[i]);
+		// }
 
 
 		//*******************************************DEBUG
@@ -211,7 +224,8 @@ void PBS::run(const string& outputFileName)
 		
 		
 		std::cout << "$$$$$$$$$$$$$newNode2.cost: " << newNode2.cost << "\n";
-
+		
+		//*******************************************DEBUG
 		std::ofstream file;
 		file.open("output.txt", std::ios::app);
 		if(file.is_open()){
@@ -219,9 +233,6 @@ void PBS::run(const string& outputFileName)
 		}
 		else file << "unable to open file";
 		file.close();
-		
-		//*******************************************DEBUG
-
 
 
 		if(n1 && n2){
@@ -239,8 +250,8 @@ void PBS::run(const string& outputFileName)
 		//23 non increasing order
 		
 		//*******************************************DEBUG
-		//test++;
-		//if(test == 11) return;
+		test++;
+		if(test == 15) return;
 		//*******************************************DEBUG
 	}
 
@@ -258,9 +269,6 @@ void PBS::initializePriority(std::map<int, std::set<int> >& p,std::map<int, std:
 			}
 		}
 	}
-
-
-
 }
 
 void PBS::initializeAgents(std::map<int, std::map<int, std::vector<int> > >& ta){
@@ -304,7 +312,7 @@ void PBS::printRT(ReservationTable rt){
 	for(int i = 0; i < (signed) rt.size(); ++i){
 		std::cout<<"cp" << i << "\t";
 		for(auto ittemp = rt[i].begin(); ittemp != rt[i].end(); ++ittemp){
-			std::cout<< ittemp->t_min << "\t" <<ittemp->t_max << "\t" << ittemp->agent_id << "\t";
+			std::cout<< ittemp->t_min << "\t" <<ittemp->t_max << "\t#" << ittemp->agent_id << "#\t";
 		}
 		std::cout<<"\n";
 	}

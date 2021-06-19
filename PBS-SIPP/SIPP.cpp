@@ -234,7 +234,6 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             cplex.setOut(env.getNullStream());
             cplex.setWarning(env.getNullStream());
             cplex.setError(env.getNullStream());
-
             cplex.extract(model);
             cplex.exportModel("model.lp");
 
@@ -254,7 +253,6 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                     a_path.arrival_time = cplex.getValue(var[1]) + pairDistancesMap[result_nodes[0].current_point][result_nodes[i].current_point]*cplex.getValue(var[0]);
 
                     int direction = vNameToDirection[result_nodes[i].current_point]; 
-                    // a_path.leaving_time_head = a_path.arrival_time;
                     a_path.leaving_time_tail = a_path.arrival_time + Li(direction, length)/w + Li(direction, length)*cplex.getValue(var[0]);
 
                     //cout <<  a_path.arrival_time << " " << a_path.leaving_time_tail << endl;
