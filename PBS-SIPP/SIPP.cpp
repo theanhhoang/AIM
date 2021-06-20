@@ -461,7 +461,7 @@ int SIPP::find_point(int n, Node* p, int current_point){
 
 list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
 {
-    list<TimeInterval> safe_intervals;
+    vector<TimeInterval> safe_intervals;
     // cout << "Size: " << rt.size() << endl;
     // cout << rt.begin()->t_min << "---" << rt.begin()->t_max << endl;
     if (rt.size() == 0){
@@ -471,33 +471,67 @@ list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
 
         safe_intervals.push_back(aInterval);
 
-        return safe_intervals;
+        list<TimeInterval> output;
+
+        copy(safe_intervals.begin(), safe_intervals.end(), back_inserter(output));
+        return output;
     }
 
-
-
-    TimeInterval aInterval_1;
-    aInterval_1.t_min = 0;
-    aInterval_1.t_max = rt.begin()->t_min;
-    safe_intervals.push_back(aInterval_1);
+    list<TimeInterval> localRT = rt;
+    localRT.sort([](const TimeInterval &f, const TimeInterval &s) { return f.t_min < s.t_min; });
 
 
 
-
-    for (list<TimeInterval>::iterator it = rt.begin(); it!= prev(rt.end()); ++it){
-        // cout << it->t_max << "_" << next(it)->t_min << "_" << next(it)->t_max << endl;
+    if (localRT.begin()->t_min > 0){
+        TimeInterval aInterval_1;
+        aInterval_1.t_min = 0;
+        aInterval_1.t_max = localRT.begin()->t_min;
+        safe_intervals.push_back(aInterval_1);
+    }
+    if (localRT.begin()->t_max < 100000){
         TimeInterval aInterval_2;
-        aInterval_2.t_min = it->t_max;
-        aInterval_2.t_max = next(it)->t_min;
+        aInterval_2.t_min = localRT.begin()->t_max;
+        aInterval_2.t_max = 100000;
         safe_intervals.push_back(aInterval_2);
     }
 
+    for (list<TimeInterval>::iterator it = next(rt.begin()); it!= rt.end(); ++it){
+        vector<int> toBeDeleted;
+        for (int sfIter = 0; sfIter < safe_intervals.size(); sfIter++){
+            if (safe_intervals[sfIter].t_min >= it->t_min && safe_intervals[sfIter].t_min < it->t_max && safe_intervals[sfIter].t_max > it->t_max){
+                safe_intervals[sfIter].t_min = it->t_max;
+            }
+            if (safe_intervals[sfIter].t_min < it->t_min && safe_intervals[sfIter].t_max > it->t_min && safe_intervals[sfIter].t_max <= it->t_max){
+                safe_intervals[sfIter].t_max = it->t_min;
+            }
 
-    TimeInterval aInterval_3;
-    // cout << prev(rt.end())->t_max << "__" << prev(rt.end())->t_max + 100000 << endl;
-    aInterval_3.t_min = prev(rt.end())->t_max;
-    aInterval_3.t_max = prev(rt.end())->t_max + 100000;
-    safe_intervals.push_back(aInterval_3);  
+            if (safe_intervals[sfIter].t_min < it->t_min && safe_intervals[sfIter].t_max > it->t_max){
+                TimeInterval aInterval_3;
+                aInterval_3.t_min = it->t_max;
+                aInterval_3.t_max = safe_intervals[sfIter].t_max;
 
-    return safe_intervals;
+
+                safe_intervals[sfIter].t_max = it->t_min;
+                safe_intervals.insert(safe_intervals.begin() + sfIter+1, aInterval_3);
+                break;
+
+            }
+
+            if (safe_intervals[sfIter].t_min > it->t_min && safe_intervals[sfIter].t_max < it->t_max){
+                toBeDeleted.push_back(sfIter);
+            }
+
+        }
+        
+        if (toBeDeleted.size()>0){
+            for (int toBeDeletedIter = toBeDeleted.size()-1; toBeDeletedIter >=0; toBeDeletedIter--){
+                safe_intervals.erase(safe_intervals.begin() + toBeDeleted[toBeDeletedIter]);
+            }
+        }
+  
+    }
+
+    list<TimeInterval> output;
+    copy(safe_intervals.begin(), safe_intervals.end(), back_inserter(output));
+    return output;
 }

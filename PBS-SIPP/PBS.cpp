@@ -35,47 +35,59 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 		std::cout << *it <<" ";
 	}
 	std::cout << "\n";
-	
 
 	bool replanned = false;
+
 	for(auto it = list.begin(); it != list.end(); ++it){
 		//it is the index of agents in list
 		if(replanned){
 			std::cout << *it << "\n";
-			for(auto it2 = node.plan[*it].begin(); it2 != node.plan[*it].end(); ++it2){
-				//it2 is the path entries of the agent it
-				
-				for(auto it3 = node.plan[index].begin(); it3 != node.plan[index].end(); ++it3){
-					//it3 is the path entries of the agent index
-					//std::cout << it2->conflict_point << " " << it3->conflict_point << "\n";
+			for(auto it2 = list.begin(); it2 != list.end(); ++it2){
+				if (*it2 == *it){
+					break;
+				}
+				// std::cout << *it2 << " ";
+				for(auto it3 = node.plan[*it].begin(); it3 != node.plan[*it].end(); ++it3){
+					//it2 is the path entries of the agent it
+					
+					for(auto it4 = node.plan[*it2].begin(); it4 != node.plan[*it2].end(); ++it4){
+						//it3 is the path entries of the agent index
+						//std::cout << it2->conflict_point << " " << it3->conflict_point << "\n";
 
-					// std::cout << "it2: " << it2->conflict_point <<" "<<it2->arrival_time<<" "<<it2->leaving_time_tail<<"\n";
-					// std::cout << "it3: " << it3->conflict_point << " "<< it3->arrival_time<<" "<<it3->leaving_time_tail<<"\n";
-					if( instance.isSamePoint(it2->conflict_point, it3->conflict_point)){
-						// std::cout << "it2: " << it2->arrival_time <<" "<< it2->leaving_time_tail <<"\n";
-						// std::cout << "it3: " << it3->arrival_time << " "<<it3->leaving_time_tail <<"\n";
-						// std::cout << "check1: "<< (it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
-						// std::cout << "check2: "<< (it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) << "\n";
-						// std::cout << "check3: "<< (it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
-						if(!(it2->leaving_time_tail - it3->arrival_time < EPSILON) && !(it3->leaving_time_tail - it2->arrival_time < EPSILON)){
-							/*std::cout << "check 1: " <<(it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
-							std::cout << "check 2: " <<(it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) << "\n";
-							std::cout << "check 3: " <<(it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
-							std::cout <<"$\n$\n" << it2->arrival_time << " " << it2->leaving_time_tail << " " << it3->arrival_time << " " << it3->leaving_time_tail << "\n$\n$\n";*/
-							std::cout<<"FOUND CONFLICT!: " << index << " " << *it << " " << it2->conflict_point << "\n";
-							std::cout << "\n$$$$$$$$$replanning\n";
-							ReservationTable rt(instance.getNumOfVertices());
-							//node.getRT(rt, *it);
-							std::set<int> rtp;
-							node.getRTP(rtp, *it);;
-							node.getRTFromP(instance, rt, rtp, *it, trajectoryToAgent);
-							Path path = sipp.run(*it, rt);
-							if(path.empty()) return false;
-							node.plan[*it] = path;
+						// std::cout << "it2: " << it2->conflict_point <<" "<<it2->arrival_time<<" "<<it2->leaving_time_tail<<"\n";
+						// std::cout << "it3: " << it3->conflict_point << " "<< it3->arrival_time<<" "<<it3->leaving_time_tail<<"\n";
+						if( instance.isSamePoint(it3->conflict_point, it4->conflict_point)){
+							// std::cout << "it2: " << it2->arrival_time <<" "<< it2->leaving_time_tail <<"\n";
+							// std::cout << "it3: " << it3->arrival_time << " "<<it3->leaving_time_tail <<"\n";
+							// std::cout << "check1: "<< (it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
+							// std::cout << "check2: "<< (it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) << "\n";
+							// std::cout << "check3: "<< (it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
+							if(!(it3->leaving_time_tail - it4->arrival_time < EPSILON) && !(it4->leaving_time_tail - it3->arrival_time < EPSILON)){
+								/*std::cout << "check 1: " <<(it2->arrival_time - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->arrival_time > EPSILON) << "\n";
+								std::cout << "check 2: " <<(it2->leaving_time_tail - it3->arrival_time > EPSILON &&  it3->leaving_time_tail - it2->leaving_time_tail > EPSILON) << "\n";
+								std::cout << "check 3: " <<(it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
+								std::cout <<"$\n$\n" << it2->arrival_time << " " << it2->leaving_time_tail << " " << it3->arrival_time << " " << it3->leaving_time_tail << "\n$\n$\n";*/
+								std::cout<<"FOUND CONFLICT!: " << *it2 << " " << *it << " " << it3->conflict_point << "\n";
+								std::cout << "\n$$$$$$$$$replanning\n";
+								ReservationTable rt(instance.getNumOfVertices());
+								//node.getRT(rt, *it);
+								std::set<int> rtp;
+								node.getRTP(rtp, *it);;
+								node.getRTFromP(instance, rt, rtp, *it, trajectoryToAgent);
+								if (*it == 5 && *it2 == 4){
+									printRT(rt);
+								}
+								
+								Path path = sipp.run(*it, rt);
+								if(path.empty()) return false;
+								node.plan[*it] = path;
+							}
 						}
 					}
 				}
 			}
+			std::cout << "\n";
+
 		}
 		if(index == *it){
 			ReservationTable rt(instance.getNumOfVertices());
@@ -90,9 +102,9 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 			// std::cout <<"\n";
 			std::cout <<"agent" << *it<<"\n";
 			node.getRTFromP(instance, rt, rtp, *it, trajectoryToAgent);
-			printRT(rt);
+			// printRT(rt);
 			Path path = sipp.run(*it, rt);
-			printPath(path);
+			// printPath(path);
 			//std::cout << "printing path for agent " << index << "\n" ;
 
 			//printRT(rt);
@@ -120,7 +132,7 @@ void PBS::run(const string& outputFileName)
 
     std::map<int, std::set<int> > priority;
     initializePriority(priority, trajectoryToAgent);
-    //printPriority(priority);
+    printPriority(priority);
 	PTNode Root = PTNode(plan, priority);
 	//initialize priority
 
@@ -159,16 +171,16 @@ void PBS::run(const string& outputFileName)
 			std::cerr << e.what() << '\n';
 		}
 
-		std::cout << "\n\n\n////////////////////////////\nloop starts\n\n\n";
+		// std::cout << "\n\n\n////////////////////////////\nloop starts\n\n\n";
 		//10 11
 		PTNode N = POStack.top();
 		POStack.pop();
 
 		
-		for(int i = 0; i < N.plan.size(); ++i){
-			std::cout  <<  "agent: " << i << "\n";
-			printPath(N.plan[i]);
-		}
+		// for(int i = 0; i < N.plan.size(); ++i){
+		// 	std::cout  <<  "agent: " << i << "\n";
+		// 	// printPath(N.plan[i]);
+		// }
 		printPriority(N.priority);
 		std::cout << "node cost: "  << N.cost << "\n";
 		//use list 12 13 14 agent1 agent2 point
@@ -251,7 +263,7 @@ void PBS::run(const string& outputFileName)
 		
 		//*******************************************DEBUG
 		test++;
-		if(test == 15) return;
+		// if(test == 15) return;
 		//*******************************************DEBUG
 	}
 
@@ -320,12 +332,31 @@ void PBS::printRT(ReservationTable rt){
 }
 
 void PBS::printPriority(std::map<int, std::set<int> > p){
-	std::cout<<"\n\n_________________________________printing Priority_______________________________\n";
-	for(auto it = p.begin(); it != p.end(); ++it){
-		std::cout << it->first << ": ";
+	// std::cout<<"\n\n_________________________________printing Priority_______________________________\n";
+	// for(auto it = p.begin(); it != p.end(); ++it){
+	// 	std::cout << it->first << ": ";
+	// 	for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+	// 		std::cout << *it2 << " ";
+	// 	std::cout << "\n";
+	// }
+	// std::cout<<"_________________________________________________________________________________\n\n";
+
+
+
+	std::ofstream file;
+	file.open("output.txt", std::ios::app);
+	if(file.is_open()){
+	file<<"_________________________________printing Priority_______________________________\n";
+		for(auto it = p.begin(); it != p.end(); ++it){
+		file << it->first << ": ";
 		for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
-			std::cout << *it2 << " ";
-		std::cout << "\n";
+			file << *it2 << " ";
+		file << "\n";
 	}
-	std::cout<<"_________________________________________________________________________________\n\n";
+	file<<"_________________________________________________________________________________\n";
+	}
+	else file << "unable to open file";
+	file.close();
+
+
 }
