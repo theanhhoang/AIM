@@ -22,6 +22,7 @@ public:
 	void calculateCost();
 	void topologicalSortUtil(int, bool*, std::list<int>&);
 	std::list<int> topologicalSort();
+	std::list<int> topologicalSort(int);
 	std::tuple<int, int, int> getFirstCollision(Instance&);
 	//void getRT(ReservationTable&, int);
 	void getRTP(std::set<int>&, int);

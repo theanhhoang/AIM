@@ -10,8 +10,8 @@
 
 Instance::Instance(const string& map_name)
 {
-    string arrFile = "vehicleArrival.json";
-    string PDFile = "pairDistance2.json";
+    string arrFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/vehicleArrival.json";
+    string PDFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/pairDistance2.json";
     int step = 0;
     fileName = map_name;
     loadSearchGraph(searchGraph, vNameToID, vIDToName, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
