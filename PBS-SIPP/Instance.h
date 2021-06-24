@@ -67,7 +67,8 @@ class Instance
 public:
     vector<Agent> agents;
     int getNumOfVertices() const;
-    void loadVehicles(const std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, int>& vNameToID);
+    void loadVehicles(const std::string& arrivalFile, int step);
+    //void loadVehicles(const std::string& arrivalFile, int step, vector<Agent> &agents, std::unordered_map<std::string, int>& vNameToID);
     Instance(const string& map_name);
     void loadSearchGraph(
         searchGraph_t& searchGraph,

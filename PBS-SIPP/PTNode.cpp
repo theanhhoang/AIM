@@ -89,7 +89,7 @@ std::list<int> PTNode::topologicalSort(int agent){
 }
 
 void PTNode::calculateCost(){
-	std::cout << "calculate cost running\n";
+	//std::cout << "calculate cost running\n";
 	double c = 0;
 	for(auto it = plan.begin(); it != plan.end(); ++it){
 		c += it->back().leaving_time_tail;
@@ -253,7 +253,7 @@ void PTNode::getRTFromP(Instance& instance , ReservationTable& rt, std::set<int>
 	
 
 
-	std::cout<<"running getRTFromP\n";
+	//std::cout<<"running getRTFromP\n";
 	TimeInterval beginTI;
 	beginTI.t_min = 0;
 	beginTI.t_max = instance.getEarliestStartTime(index);
