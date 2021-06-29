@@ -236,7 +236,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             cplex.setError(env.getNullStream());
             cplex.extract(model);
             cplex.exportModel("model.lp");
-            env.end()
+            
             // cout << cplex.solve() << endl;
             result_path.clear();
             if (cplex.solve()){
@@ -259,6 +259,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                     result_path.push_back(a_path);
                 }                
                 //cout << "result_path.size(): "<< result_path.size() << endl;
+                env.end()
                 return result_path;
             }
             else{
@@ -268,6 +269,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                     }
                 }
             }
+            env.end()
 
         }
         else{
