@@ -346,7 +346,7 @@ void PBS::initializeAgents(std::map<int, std::map<int, std::vector<int> > >& ta)
 			ta[arrivingVehicles[i].trajectory[0]][arrivingVehicles[i].trajectory[arrivingVehicles[i].trajectory.size()-1]].push_back(it->second);
 		} 
 	}
-
+	delete[] visited;
 }
 
 void PBS::printPath(Path path){
