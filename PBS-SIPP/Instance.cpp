@@ -10,15 +10,15 @@
 
 Instance::Instance(const string& map_name)
 {
-    string arrFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/vehicleArrival.json";
-    string PDFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS/pairDistance2.json";
-    int step = 35;
+    // string arrFile = "vehicleArrival.json";
+    string PDFile = "pairDistance2.json";
+    // int step = 39;
     fileName = map_name;
     loadSearchGraph(searchGraph, vNameToID, vIDToName, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
-    std::cout << "Instance: graph loaded\n";
-    loadVehicles(arrFile, step);
+    // std::cout << "Instance: graph loaded\n";
+    // loadVehicles(arrFile, step);
     loadSamePoint();
-    std::cout << "Instance: vehicle loaded\n";
+    // std::cout << "Instance: vehicle loaded\n";
     // std::cout << "getNumOfVertices(): " << getNumOfVertices() << std::endl;
 }
 
@@ -56,7 +56,7 @@ void Instance::loadVehicles(const std::string& arrivalFile, int step)
             
         ag.length = 5;
         ag.v_min = 3;
-        ag.v_max = 10;
+        ag.v_max = 15;
         for (rapidjson::Value::ConstValueIterator itr2 = trajectoryArray.Begin();
             itr2 != trajectoryArray.End(); ++itr2){
             ag.trajectory.push_back(vNameToID.find((*itr2).GetString())->second);

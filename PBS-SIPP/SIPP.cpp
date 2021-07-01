@@ -111,6 +111,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
 
     for (int i = 1; i < trajectory.size(); i++){
 
+        // cout << "cf:" << trajectory[i] << endl;
         list<TimeInterval> safe_intervals = getSafeIntervals( rt[trajectory[i]] );
         int interval_idx = 0;
         for (list<TimeInterval>::const_iterator it = safe_intervals.begin(); it!= safe_intervals.end(); ++it){
@@ -201,6 +202,7 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
             IloNumVarArray var(env);
             IloRangeArray con(env);
 
+
             //speed
             var.add(IloNumVar(env, 1/v_max,1/v_min, ILOFLOAT));  //t
             //start time
@@ -259,6 +261,9 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                     result_path.push_back(a_path);
                 }                
                 //cout << "result_path.size(): "<< result_path.size() << endl;
+                env.end();
+                sum_obj.end();
+
                 return result_path;
             }
             else{
@@ -267,7 +272,11 @@ Path SIPP::run(int agentID, const ReservationTable& rt)
                         p[i][j].color = 0;
                     }
                 }
+                env.end();
+                sum_obj.end();
             }
+           
+           
 
         }
         else{
@@ -462,8 +471,6 @@ int SIPP::find_point(int n, Node* p, int current_point){
 list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
 {
     vector<TimeInterval> safe_intervals;
-    // cout << "Size: " << rt.size() << endl;
-    // cout << rt.begin()->t_min << "---" << rt.begin()->t_max << endl;
     if (rt.size() == 0){
         TimeInterval aInterval;
         aInterval.t_min = 0;
@@ -480,6 +487,11 @@ list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
     list<TimeInterval> localRT = rt;
     localRT.sort([](const TimeInterval &f, const TimeInterval &s) { return f.t_min < s.t_min; });
 
+    // cout << "Size: " << rt.size() << endl;
+    // for (list<TimeInterval>::iterator timeintervaltest = localRT.begin(); timeintervaltest != localRT.end(); ++timeintervaltest){
+    //     cout << timeintervaltest->t_min << "------" << timeintervaltest->t_max << endl;
+    // }
+    // cout << endl;
 
 
     if (localRT.begin()->t_min > 0){
@@ -488,14 +500,13 @@ list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
         aInterval_1.t_max = localRT.begin()->t_min;
         safe_intervals.push_back(aInterval_1);
     }
-    if (localRT.begin()->t_max < 100000){
+    if (localRT.end()->t_max < 100000){
         TimeInterval aInterval_2;
-        aInterval_2.t_min = localRT.begin()->t_max;
+        aInterval_2.t_min = localRT.end()->t_max;
         aInterval_2.t_max = 100000;
         safe_intervals.push_back(aInterval_2);
     }
-
-    for (list<TimeInterval>::iterator it = next(rt.begin()); it!= rt.end(); ++it){
+    for (list<TimeInterval>::iterator it = localRT.begin(); it!= localRT.end(); ++it){
         vector<int> toBeDeleted;
         for (int sfIter = 0; sfIter < safe_intervals.size(); sfIter++){
             if (safe_intervals[sfIter].t_min >= it->t_min && safe_intervals[sfIter].t_min < it->t_max && safe_intervals[sfIter].t_max > it->t_max){
@@ -531,7 +542,11 @@ list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
   
     }
 
+
     list<TimeInterval> output;
     copy(safe_intervals.begin(), safe_intervals.end(), back_inserter(output));
+    // for (list<TimeInterval>::iterator timeintervaltest = output.begin(); timeintervaltest != output.end(); ++timeintervaltest){
+    //     cout << timeintervaltest->t_min << "------" << timeintervaltest->t_max << endl;
+    // }
     return output;
 }

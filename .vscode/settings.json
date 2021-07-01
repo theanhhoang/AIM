@@ -1,6 +1,5 @@
 {
     "files.associations": {
-        "tuple": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
@@ -39,6 +38,7 @@
         "string": "cpp",
         "string_view": "cpp",
         "system_error": "cpp",
+        "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
         "fstream": "cpp",

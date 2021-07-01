@@ -40,6 +40,7 @@ typedef boost::adjacency_list<
 void loadSearchGraph(
     searchGraph_t& searchGraph,
     std::unordered_map<std::string, vertex_t>& vNameToV,
+    std::unordered_map<std::string, vertex_t>& vNameToDirection,
     std::unordered_map<std::string, edge_t>& eNameToE,
     std::vector<vertex_t>& starts, std::vector<vertex_t>& goals,
     const std::string& fileName);

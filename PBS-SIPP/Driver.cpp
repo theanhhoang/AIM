@@ -2,15 +2,32 @@
 #include "Instance.h"
 #include <boost/program_options.hpp>
 #include <boost/tokenizer.hpp>
+#include <cstdlib>
 
+#include <chrono>
+using namespace std::chrono;
 
 int main(int argc, char** argv)
 {
        /////////////////////TESTING SPACE//////////////////
-    Instance instance("/media/zijun/Data/Documents/2020Summer/AIM/PBS/intro_graph.json");
+    string arrFile = "vehicleArrival.json";
+    int step = atoi(argv[1]);
+    // for (int step = 0; step < 40; step++){
+    Instance instance("intro_graph.json");
+    instance.loadVehicles(arrFile, step);
+    auto startTime = high_resolution_clock::now();
+
+
     SIPP sipp(instance);
     PBS pbs(instance);
     pbs.run("output.txt");
+
+    auto stopTime = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stopTime - startTime); 
+    std::cout << duration.count()/1000000.0 << std::endl;
+    // }
+
+
     /*
     // ReservationTable
     ReservationTable rt(instance.getNumOfVertices());

@@ -65,7 +65,7 @@ std::list<int> PTNode::topologicalSort(){
         if (visited[i] == false)
             topologicalSortUtil(i, visited, List);
     }
- 
+    delete[] visited;
 	return List;
 }
 
@@ -84,7 +84,7 @@ std::list<int> PTNode::topologicalSort(int agent){
 
     topologicalSortUtil(agent, visited, List);
 
- 
+    delete[] visited;
 	return List;
 }
 
@@ -112,7 +112,7 @@ void printRT(ReservationTable rt){
 
 std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 	//todo
-	std::cout << "running getFirstCollision\n";
+	// std::cout << "running getFirstCollision\n";
 	std::tuple<int, int, int> result = std::make_tuple(-1, -1, -1);
 	ReservationTable table(instance.getNumOfVertices());
 	//vector<list<TimeInterval> >
@@ -162,7 +162,18 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 					*/
 
 					//if(it2->leaving_time_tail > it3->t_min)std::cout << "dddddddddd"<< it2->leaving_time_tail << " " << it3->t_min << " " <<it2->leaving_time_tail - it3->t_min << "\n";
+
+
+
+
 					result = std::make_tuple(aid, it3->agent_id, it2->conflict_point);
+					// std::ofstream file;
+					// file.open("output.txt", std::ios::app);
+					// if(file.is_open()){
+					// 	file << "getFirstCollision: " << std::get<0>(result) << " " << std::get<1>(result) << " " << std::get<2>(result) << " " << instance.getConflictPoints(it2->conflict_point)[0] << "\n";
+					// }
+					// else file << "unable to open file";
+					// file.close();
 					return result;
 				}
 			}
@@ -208,7 +219,7 @@ void PTNode::getRTP(std::set<int> &p, int index){
 }
 
 void PTNode::getRTFromP(Instance& instance , ReservationTable& rt, std::set<int> p){
-	std::cout<<"running getRTFromP\n";
+	// std::cout<<"running getRTFromP\n";
 	for(auto it = p.begin(); it != p.end(); ++it){
 		for(auto it2 = plan[*it].begin(); it2 != plan[*it].end(); ++it2){
 			//plan: vector<vector<pathentry>>
