@@ -65,7 +65,7 @@ std::list<int> PTNode::topologicalSort(){
         if (visited[i] == false)
             topologicalSortUtil(i, visited, List);
     }
-    delete[] visited;
+ 	delete[] visited;
 	return List;
 }
 
@@ -84,7 +84,7 @@ std::list<int> PTNode::topologicalSort(int agent){
 
     topologicalSortUtil(agent, visited, List);
 
-    delete[] visited;
+ 	delete[] visited;
 	return List;
 }
 
