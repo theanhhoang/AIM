@@ -29,6 +29,7 @@ arrivalTime = np.cumsum(arrivalTime)
 
 trajectory = np.random.randint(0,10,6400)
 lane = np.random.randint(0,8, 6400)
+importance = np.random.randint(0,30,6400)
 
 np.random.shuffle(trajectory)
 np.random.shuffle(lane)
@@ -47,6 +48,12 @@ for i in range(len(arrivalTime)):
         veh["trajectory"] = laneDirections[lane[i]][1]
     veh["id"] = i
     veh["lane"] = lane[i]
+    if (importance[i] > 1):
+        veh["importance"] = 1
+    else:
+        veh["importance"] = 2
+
+
 
 
     # if str(     (arrivalTime[i]/10)      ) not in vehs:

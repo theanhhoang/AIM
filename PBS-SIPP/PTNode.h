@@ -8,7 +8,7 @@
 #include "Common.h"
 #include "Instance.h"
 
-const double EPSILON = 0.001;
+const double EPSILON = 0.000001;
 
 class PTNode{
 public:
