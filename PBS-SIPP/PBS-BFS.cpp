@@ -1,3 +1,4 @@
+#include <queue>
 #include "PBS.h"
 
 PBS::PBS(Instance& instance, bool log = false): sipp(instance), instance(instance)
@@ -219,7 +220,7 @@ struct PTNComparator{
 void PBS::run(const string& outputFileName)
 {
 	if(log) std::cout << "\n\npbs running" << std::endl;
-    std::priority_queue<PTNode, std::vector<PTNode>, PTNComparator> POStack;
+    std::priority_queue<PTNode> POQueue;
 
     //1 2
     vector<Path> plan;
@@ -244,21 +245,21 @@ void PBS::run(const string& outputFileName)
 	//7
 	Root.calculateCost();
 	//8
-	POStack.push(Root);
+	POQueue.push(Root);
 	
 	//9
 	int test = 0;
-	while (POStack.size() != 0){
+	while (POQueue.size() != 0){
 		//if(test == 7723) log = true;
 		try
 		{
-			for (int printTest = 0; printTest < POStack.top().plan.size(); ++printTest){
+			for (int printTest = 0; printTest < POQueue.top().plan.size(); ++printTest){
 				std::ofstream file;
 				file.open("output.txt", std::ios::app);
 				if(file.is_open()){
 					file << "agent: " << printTest <<";   ";
-					for(int i = 0; i < (signed)POStack.top().plan[printTest].size(); ++i){
-						file << "cp" <<  POStack.top().plan[printTest][i].conflict_point  << ";" << POStack.top().plan[printTest][i].arrival_time << ";" << POStack.top().plan[printTest][i].leaving_time_tail;
+					for(int i = 0; i < (signed)POQueue.top().plan[printTest].size(); ++i){
+						file << "cp" <<  POQueue.top().plan[printTest][i].conflict_point  << ";" << POQueue.top().plan[printTest][i].arrival_time << ";" << POQueue.top().plan[printTest][i].leaving_time_tail;
 						file << ";   ";
 					}
 					file << "\n";
@@ -275,8 +276,8 @@ void PBS::run(const string& outputFileName)
 
 		if(log) std::cout << "\n//////////////////////////////////////////////\n";
 		//10 11
-		PTNode N = POStack.top();
-		POStack.pop();
+		PTNode N = POQueue.top();
+		POQueue.pop();
 
 		
 		// for(int i = 0; i < N.plan.size(); ++i){
@@ -361,16 +362,16 @@ void PBS::run(const string& outputFileName)
 
 		if(n1 && n2){
 			if(newNode.cost >= newNode2.cost){
-				POStack.push(newNode);
-				POStack.push(newNode2);
+				POQueue.push(newNode);
+				POQueue.push(newNode2);
 			}
 			else{
-				POStack.push(newNode2);
-				POStack.push(newNode);
+				POQueue.push(newNode2);
+				POQueue.push(newNode);
 			}
 		}
-		else if(n1) POStack.push(newNode);
-		else if (n2) POStack.push(newNode2);
+		else if(n1) POQueue.push(newNode);
+		else if (n2) POQueue.push(newNode2);
 		//23 non increasing order0
 		
 		//*******************************************DEBUG
@@ -475,4 +476,17 @@ void PBS::printPriority(std::map<int, std::set<int> > p){
 		std::cout << "\n";
 	}
 	std::cout<<"_________________________________________________________________________________\n\n";
+}
+
+
+// we are doing operator overloading through this
+bool operator<(const PTNode& p1, const PTNode& p2)
+{
+ 
+    // this will return true when second person
+    // has greater height. Suppose we have p1.height=5
+    // and p2.height=5.5 then the object which
+    // have max height will be at the top(or
+    // max priority)
+    return p1.cost > p2.cost;
 }
