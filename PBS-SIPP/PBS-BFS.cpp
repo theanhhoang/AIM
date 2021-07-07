@@ -121,6 +121,21 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 								ReservationTable rtdebug(instance.getNumOfVertices());
 								node.getRTFromP(instance, rtdebug, rtp, *it, trajectoryToAgent);
 								if(!checkValid(rtdebug, path, *it)) {
+									std::fstream outputRT("ReservationTable.txt", std::fstream::in |
+					                            std::fstream::out |
+					                            std::fstream::trunc |
+					                            std::fstream::binary );
+									for(auto itt = rt.begin(); itt != rt.end(); ++itt){
+										for(auto itt2 = itt->begin(); itt2 != itt->end(); ++itt2){
+											std::cout<<"writting!\n";
+											outputRT.write((char*)&itt2->t_min, sizeof(itt2->t_min));
+											outputRT << ',';
+											outputRT.write((char*)&itt2->t_max, sizeof(itt2->t_max));
+											outputRT << ',' << itt2->agent_id <<';';
+										}
+										outputRT<<'\n';
+									}
+									outputRT.close();
 									std::cout << "replanned agent " << *it << '\n';
 									std::cout << "rtp: ";
 									for(auto itt = rtp.begin(); itt != rtp.end(); ++ itt){
@@ -169,6 +184,17 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 			ReservationTable rtdebug(instance.getNumOfVertices());
 			node.getRTFromP(instance, rtdebug, rtp, *it, trajectoryToAgent);
 			if(!checkValid(rtdebug, path, *it)) {
+				std::fstream outputRT("ReservationTable.txt", std::ios::out | std::ios::binary);
+				for(auto itt = rt.begin(); itt != rt.end(); ++itt){
+					for(auto itt2 = itt->begin(); itt2 != itt->end(); ++itt2){
+						outputRT.write((char*)&itt2->t_min, sizeof(itt2->t_min));
+						outputRT.write((char*)&itt2->t_max, sizeof(itt2->t_max));
+						outputRT.write((char*)&itt2->agent_id, sizeof(itt2->agent_id));
+					}
+					char space = ' ';
+					outputRT.write((char*)& space, sizeof(space));
+				}
+				outputRT.close();
 				std::cout << "List: ";
 				for(auto it = list.begin(); it != list.end(); ++ it){
 					std::cout << *it <<" ";
@@ -183,10 +209,17 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 	return true;
 }
 
+struct PTNComparator{
+	bool operator()(const PTNode ptn1, const PTNode ptn2) const
+	{
+		return ptn1.cost > ptn2.cost;
+	}
+};
+
 void PBS::run(const string& outputFileName)
 {
 	if(log) std::cout << "\n\npbs running" << std::endl;
-    std::queue<PTNode> POStack;
+    std::priority_queue<PTNode, std::vector<PTNode>, PTNComparator> POStack;
 
     //1 2
     vector<Path> plan;
@@ -219,13 +252,13 @@ void PBS::run(const string& outputFileName)
 		//if(test == 7723) log = true;
 		try
 		{
-			for (int printTest = 0; printTest < POStack.front().plan.size(); ++printTest){
+			for (int printTest = 0; printTest < POStack.top().plan.size(); ++printTest){
 				std::ofstream file;
 				file.open("output.txt", std::ios::app);
 				if(file.is_open()){
 					file << "agent: " << printTest <<";   ";
-					for(int i = 0; i < (signed)POStack.front().plan[printTest].size(); ++i){
-						file << "cp" <<  POStack.front().plan[printTest][i].conflict_point  << ";" << POStack.front().plan[printTest][i].arrival_time << ";" << POStack.front().plan[printTest][i].leaving_time_tail;
+					for(int i = 0; i < (signed)POStack.top().plan[printTest].size(); ++i){
+						file << "cp" <<  POStack.top().plan[printTest][i].conflict_point  << ";" << POStack.top().plan[printTest][i].arrival_time << ";" << POStack.top().plan[printTest][i].leaving_time_tail;
 						file << ";   ";
 					}
 					file << "\n";
@@ -242,7 +275,7 @@ void PBS::run(const string& outputFileName)
 
 		if(log) std::cout << "\n//////////////////////////////////////////////\n";
 		//10 11
-		PTNode N = POStack.front();
+		PTNode N = POStack.top();
 		POStack.pop();
 
 		
