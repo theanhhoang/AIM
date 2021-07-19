@@ -500,13 +500,13 @@ list<TimeInterval> SIPP::getSafeIntervals(list<TimeInterval> rt)
         aInterval_1.t_max = localRT.begin()->t_min;
         safe_intervals.push_back(aInterval_1);
     }
-    if (localRT.end()->t_max < 100000){
+    if (localRT.begin()->t_max < 100000){
         TimeInterval aInterval_2;
-        aInterval_2.t_min = localRT.end()->t_max;
+        aInterval_2.t_min = localRT.begin()->t_max;
         aInterval_2.t_max = 100000;
         safe_intervals.push_back(aInterval_2);
     }
-    for (list<TimeInterval>::iterator it = localRT.begin(); it!= localRT.end(); ++it){
+    for (list<TimeInterval>::iterator it = std::next(localRT.begin()); it!= localRT.end(); ++it){
         vector<int> toBeDeleted;
         for (int sfIter = 0; sfIter < safe_intervals.size(); sfIter++){
             if (safe_intervals[sfIter].t_min >= it->t_min && safe_intervals[sfIter].t_min < it->t_max && safe_intervals[sfIter].t_max > it->t_max){

@@ -21,4 +21,5 @@ public:
     void printPath(Path);
     void printRT(ReservationTable);
     void printPriority(std::map<int, std::set<int> >);
+    bool checkValid(ReservationTable& rt, Path& path, int agent);
 };

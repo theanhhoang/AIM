@@ -69,19 +69,59 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 								std::cout << "check 3: " <<(it3->arrival_time - it2->arrival_time > EPSILON && it2->leaving_time_tail - it3->leaving_time_tail > EPSILON) << "\n";
 								std::cout <<"$\n$\n" << it2->arrival_time << " " << it2->leaving_time_tail << " " << it3->arrival_time << " " << it3->leaving_time_tail << "\n$\n$\n";*/
 								//std::cout<<"FOUND CONFLICT!: " << *it2 << " " << *it << " " << it3->conflict_point << "\n";
-								//std::cout << "\n$$$$$$$$$replanning\n";
+								// std::cout << "\n$$$$$$$$$replanning\n";
 								ReservationTable rt(instance.getNumOfVertices());
 								//node.getRT(rt, *it);
 								std::set<int> rtp;
 								node.getRTP(rtp, *it);;
 								node.getRTFromP(instance, rt, rtp, *it, trajectoryToAgent);
-								// if (*it == 5 && *it2 == 4){
+								// if (*it == 25 ){
 								// 	printRT(rt);
 								// }
 
 								Path path = sipp.run(*it, rt);
 								if(path.empty()) return false;
 								node.plan[*it] = path;
+
+
+
+								ReservationTable rtdebug(instance.getNumOfVertices());
+								node.getRTFromP(instance, rtdebug, rtp, *it, trajectoryToAgent);
+								if(!checkValid(rtdebug, path, *it)) {
+									std::fstream outputRT("ReservationTable.txt", std::fstream::in |
+					                            std::fstream::out |
+					                            std::fstream::trunc |
+					                            std::fstream::binary );
+									for(auto itt = rt.begin(); itt != rt.end(); ++itt){
+										for(auto itt2 = itt->begin(); itt2 != itt->end(); ++itt2){
+											std::cout<<"writting!\n";
+											outputRT.write((char*)&itt2->t_min, sizeof(itt2->t_min));
+											outputRT << ',';
+											outputRT.write((char*)&itt2->t_max, sizeof(itt2->t_max));
+											outputRT << ',' << itt2->agent_id <<';';
+										}
+										outputRT<<'\n';
+									}
+									outputRT.close();
+									std::cout << "replanned agent " << *it << '\n';
+									std::cout << "rtp: ";
+									for(auto itt = rtp.begin(); itt != rtp.end(); ++ itt){
+										std::cout << *itt <<" ";
+									}
+									printRT(rt);
+									std::cout <<"agent " <<*it <<'\n';
+									printPath(path);
+									return false;
+								}
+
+
+
+
+
+
+
+
+
 							}
 						}
 					}
@@ -111,6 +151,31 @@ bool PBS::UpdatePlan(PTNode& node, int index)
 			if(path.empty()) return false;
 			node.plan[index] = path;
 			replanned = true;
+
+
+			ReservationTable rtdebug(instance.getNumOfVertices());
+			node.getRTFromP(instance, rtdebug, rtp, *it, trajectoryToAgent);
+			if(!checkValid(rtdebug, path, *it)) {
+				std::fstream outputRT("ReservationTable.txt", std::ios::out | std::ios::binary);
+				for(auto itt = rt.begin(); itt != rt.end(); ++itt){
+					for(auto itt2 = itt->begin(); itt2 != itt->end(); ++itt2){
+						outputRT.write((char*)&itt2->t_min, sizeof(itt2->t_min));
+						outputRT.write((char*)&itt2->t_max, sizeof(itt2->t_max));
+						outputRT.write((char*)&itt2->agent_id, sizeof(itt2->agent_id));
+					}
+					char space = ' ';
+					outputRT.write((char*)& space, sizeof(space));
+				}
+				outputRT.close();
+				std::cout << "List: ";
+				for(auto it = list.begin(); it != list.end(); ++ it){
+					std::cout << *it <<" ";
+				}
+				printRT(rt);
+				std::cout <<"agent " <<*it <<'\n';
+				printPath(path);
+				return false;
+			}
 		}
 	}
 	return true;
@@ -130,7 +195,7 @@ void PBS::run(const string& outputFileName)
 
     std::map<int, std::set<int> > priority;
     initializePriority(priority, trajectoryToAgent);
-    //printPriority(priority);
+    // printPriority(priority);
 	PTNode Root = PTNode(plan, priority);
 	//initialize priority
 
@@ -274,7 +339,7 @@ void PBS::run(const string& outputFileName)
 		
 		//*******************************************DEBUG
 		test++;
-		// if(test == 10) return;
+		// if(test == 1) return;
 		//*******************************************DEBUG
 	}
 
@@ -287,10 +352,34 @@ void PBS::initializePriority(std::map<int, std::set<int> >& p,std::map<int, std:
 		for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2){
 			for(auto it3 = it2->second.begin(); it3 != it2->second.end(); ++it3){
 				for(auto it4 = next(it3); it4 != it2->second.end(); ++it4){
-					p[*it3].insert(*it4);
+                    if (instance.getAgents()[*it3].earliest_start_time < instance.getAgents()[*it4].earliest_start_time){
+                        p[*it3].insert(*it4);
+                    }
 				}
+
+
+                int conflictPointID = instance.getConflictPoints(it->first)[0];
+                for(auto it5 = trajectoryToAgent.begin(); it5 != trajectoryToAgent.end(); ++it5){
+                    if (conflictPointID == it5->first){
+                        // std::cout <<  conflictPointID << "--" << it5->first << std::endl;
+                        for(auto it6 = it5->second.begin(); it6 != it5->second.end(); ++it6){
+                            for(auto it7 = it6->second.begin(); it7 != it6->second.end(); ++it7){
+                                // std::cout << "agent: " << *it3 << "-" << *it7 << std::endl;
+                                if (instance.getAgents()[*it3].earliest_start_time < instance.getAgents()[*it7].earliest_start_time){
+                                    p[*it3].insert(*it7);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
 			}
 		}
+
+
+
+
 	}
 }
 
@@ -351,4 +440,25 @@ void PBS::printPriority(std::map<int, std::set<int> > p){
 		std::cout << "\n";
 	}
 	std::cout<<"_________________________________________________________________________________\n\n";
+}
+
+
+bool PBS::checkValid(ReservationTable& rt, Path& path, int agent){
+	for(auto it = path.begin(); it != path.end(); ++it){
+		int cp = 0;
+		for(auto it2 = rt.begin(); it2 != rt.end(); ++it2,++cp){
+			if(it->conflict_point == cp){
+				for(auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+					if(it3->agent_id == agent) continue;
+
+					if(!(it->leaving_time_tail - it3->t_min < EPSILON) && !(it3->t_max - it->arrival_time < EPSILON)) {
+						std::cout << "agent " << agent << ": " << it->arrival_time << ' ' << it->leaving_time_tail <<'\n' << "agent " << it3->agent_id << ": " << it3->t_min << " " << it3->t_max << '\n';
+						return false;
+					}
+				}
+			}
+			
+		}
+	}
+	return true;
 }

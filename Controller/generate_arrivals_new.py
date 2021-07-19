@@ -22,14 +22,22 @@ laneDirections = [[["WER_0", "WER_1", "WER_2", "WER_3", "WER_4", "WER_5", "WER_6
                             ["SWL_0", "SWL_1", "SWL_2", "SWL_3", "SWL_4", "SWL_5", "SWL_6", "SWL_7"]]  \
                 ]
 
+# 800vph
 arrivalTime = np.random.poisson(0.5625,6400)
 arrivalTime = np.cumsum(arrivalTime)
-
-# print(arrivalTime)
-
 trajectory = np.random.randint(0,10,6400)
 lane = np.random.randint(0,8, 6400)
 importance = np.random.randint(0,30,6400)
+
+# 500vph
+# arrivalTime = np.random.poisson(0.9,4000)
+# arrivalTime = np.cumsum(arrivalTime)
+# trajectory = np.random.randint(0,10,4000)
+# lane = np.random.randint(0,8, 4000)
+# importance = np.random.randint(0,30,4000)
+
+# print(arrivalTime)
+
 
 np.random.shuffle(trajectory)
 np.random.shuffle(lane)
@@ -64,7 +72,7 @@ for i in range(len(arrivalTime)):
 # print(vehicleArrival)
 vehicleArrival = {}
 
-for i in range(40):
+for i in range(100):
     
     # print(lanes[vehs[i]["lane"]], vehs[i]["arrivalTime"])
     # print(vehicleArrival[lane][vehNo])

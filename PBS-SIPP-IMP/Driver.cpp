@@ -11,8 +11,12 @@ int main(int argc, char** argv)
     double duration;
     start = std::clock();
 
+    string arrFile = "vehicleArrival.json";
+    int step = atoi(argv[1]);
 
-    Instance instance("/media/zijun/Data/Documents/2020Summer/AIM/PBS-IMP/intro_graph.json");
+    Instance instance("intro_graph.json");
+    instance.loadVehicles(arrFile, step);
+
     SIPP sipp(instance);
     PBS pbs(instance, false);
     pbs.run("output.txt");

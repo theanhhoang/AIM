@@ -1,0 +1,10 @@
+{
+  "cars": [
+    {
+      "path": "NSR",
+      "changingPoints": [0, 3, 5],
+      "changingAccelerations": [2, 5, 3],
+      "init_speed": 2
+    }
+  ]
+}

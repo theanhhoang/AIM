@@ -1,0 +1,1171 @@
+vertices:
+- name: WSR_0
+  pos:
+  - -53.0
+  - -21.0
+  vertex_conflicts:
+  - WER_0
+- name: WSR_1
+  pos:
+  - -21.0
+  - -53.0
+  vertex_conflicts:
+  - NSR_7
+- name: WER_0
+  pos:
+  - -53.0
+  - -21.0
+  vertex_conflicts:
+  - WSR_0
+- name: WER_1
+  pos:
+  - -21.0
+  - -21.0
+  vertex_conflicts:
+  - NSR_6
+- name: WER_2
+  pos:
+  - -11.0
+  - -21.0
+  vertex_conflicts:
+  - NSL_6
+- name: WER_3
+  pos:
+  - -2.42562584220407
+  - -21.0
+  vertex_conflicts:
+  - ESL_6
+- name: WER_4
+  pos:
+  - 2.42562584220407
+  - -21.0
+  vertex_conflicts:
+  - SWL_1
+- name: WER_5
+  pos:
+  - 11.0
+  - -21.0
+  vertex_conflicts:
+  - SNL_1
+- name: WER_6
+  pos:
+  - 21.0
+  - -21.0
+  vertex_conflicts:
+  - SNR_1
+- name: WER_7
+  pos:
+  - 53.0
+  - -21.0
+  vertex_conflicts:
+  - SER_1
+- name: WEL_0
+  pos:
+  - -53.0
+  - -11.0
+  vertex_conflicts:
+  - WNL_0
+- name: WEL_1
+  pos:
+  - -21.0
+  - -11.0
+  vertex_conflicts:
+  - NSR_5
+- name: WEL_2
+  pos:
+  - -11.0
+  - -11.0
+  vertex_conflicts:
+  - NSL_5
+- name: WEL_3
+  pos:
+  - -4.7092141294014525
+  - -11.0
+  vertex_conflicts:
+  - SWL_3
+- name: WEL_4
+  pos:
+  - 4.7092141294014525
+  - -11.0
+  vertex_conflicts:
+  - ESL_4
+- name: WEL_5
+  pos:
+  - 11.0
+  - -11.0
+  vertex_conflicts:
+  - SNL_2
+- name: WEL_6
+  pos:
+  - 21.0
+  - -11.0
+  vertex_conflicts:
+  - SNR_2
+- name: WEL_7
+  pos:
+  - 53.0
+  - -11.0
+  vertex_conflicts:
+  - NEL_7
+- name: WNL_0
+  pos:
+  - -53.0
+  - -11.0
+  vertex_conflicts:
+  - WEL_0
+- name: WNL_1
+  pos:
+  - 55.42562584220403
+  - 32.00000000000008
+  vertex_conflicts:
+  - NSR_[4, 5, 3, 4, 2, 3, 7]
+- name: WNL_2
+  pos:
+  - 23.95101189356229
+  - -59.3493810353102
+  vertex_conflicts:
+  - SWL_[4, 5, 3, 4, 2, 3, 7]
+- name: WNL_3
+  pos:
+  - 61.84002568502738
+  - 16.48669837399696
+  vertex_conflicts:
+  - NSL_[4, 5, 3, 4, 2, 3, 7]
+- name: WNL_4
+  pos:
+  - -61.84002568502725
+  - 16.486698373997445
+  vertex_conflicts:
+  - EWL_[4, 5, 3, 4, 2, 3, 7]
+- name: WNL_5
+  pos:
+  - -23.95101189356233
+  - -59.34938103531018
+  vertex_conflicts:
+  - NEL_[4, 5, 3, 4, 2, 3, 7]
+- name: WNL_6
+  pos:
+  - -55.42562584220423
+  - 31.999999999999726
+  vertex_conflicts:
+  - EWR_[4, 5, 3, 4, 2, 3, 7]
+- name: WNL_7
+  pos:
+  - -3.7625111145880854e-13
+  - -64.0
+  vertex_conflicts:
+  - SNL_[4, 5, 3, 4, 2, 3, 7]
+- name: NWR_0
+  pos:
+  - 21.0
+  - -53.0
+  vertex_conflicts:
+  - NSR_0
+- name: NWR_1
+  pos:
+  - 53.0
+  - -21.0
+  vertex_conflicts:
+  - EWR_7
+- name: NSR_0
+  pos:
+  - 21.0
+  - -53.0
+  vertex_conflicts:
+  - NWR_0
+- name: NSR_1
+  pos:
+  - 21.0
+  - -21.0
+  vertex_conflicts:
+  - EWR_6
+- name: NSR_2
+  pos:
+  - 21.0
+  - -11.0
+  vertex_conflicts:
+  - EWL_6
+- name: NSR_3
+  pos:
+  - 21.0
+  - -2.42562584220407
+  vertex_conflicts:
+  - SWL_6
+- name: NSR_4
+  pos:
+  - 21.0
+  - 2.42562584220407
+  vertex_conflicts:
+  - WNL_1
+- name: NSR_5
+  pos:
+  - 21.0
+  - 11.0
+  vertex_conflicts:
+  - WEL_1
+- name: NSR_6
+  pos:
+  - 21.0
+  - 21.0
+  vertex_conflicts:
+  - WER_1
+- name: NSR_7
+  pos:
+  - 21.0
+  - 53.0
+  vertex_conflicts:
+  - WSR_1
+- name: NSL_0
+  pos:
+  - 11.0
+  - -53.0
+  vertex_conflicts:
+  - NEL_0
+- name: NSL_1
+  pos:
+  - 11.0
+  - -21.0
+  vertex_conflicts:
+  - EWR_5
+- name: NSL_2
+  pos:
+  - 11.0
+  - -11.0
+  vertex_conflicts:
+  - EWL_5
+- name: NSL_3
+  pos:
+  - 11.0
+  - -4.7092141294014525
+  vertex_conflicts:
+  - WNL_3
+- name: NSL_4
+  pos:
+  - 11.0
+  - 4.7092141294014525
+  vertex_conflicts:
+  - SWL_4
+- name: NSL_5
+  pos:
+  - 11.0
+  - 11.0
+  vertex_conflicts:
+  - WEL_2
+- name: NSL_6
+  pos:
+  - 11.0
+  - 21.0
+  vertex_conflicts:
+  - WER_2
+- name: NSL_7
+  pos:
+  - 11.0
+  - 53.0
+  vertex_conflicts:
+  - ESL_7
+- name: NEL_0
+  pos:
+  - 11.0
+  - -53.0
+  vertex_conflicts:
+  - NSL_0
+- name: NEL_1
+  pos:
+  - -32.00000000000008
+  - 55.42562584220403
+  vertex_conflicts:
+  - EWR_[4, 5, 3, 4, 2, 3, 7]
+- name: NEL_2
+  pos:
+  - 59.3493810353102
+  - 23.95101189356229
+  vertex_conflicts:
+  - WNL_[4, 5, 3, 4, 2, 3, 7]
+- name: NEL_3
+  pos:
+  - -16.48669837399696
+  - 61.84002568502738
+  vertex_conflicts:
+  - EWL_[4, 5, 3, 4, 2, 3, 7]
+- name: NEL_4
+  pos:
+  - -16.486698373997445
+  - -61.84002568502725
+  vertex_conflicts:
+  - SNL_[4, 5, 3, 4, 2, 3, 7]
+- name: NEL_5
+  pos:
+  - 59.34938103531018
+  - -23.95101189356233
+  vertex_conflicts:
+  - ESL_[4, 5, 3, 4, 2, 3, 7]
+- name: NEL_6
+  pos:
+  - -31.999999999999726
+  - -55.42562584220423
+  vertex_conflicts:
+  - SNR_[4, 5, 3, 4, 2, 3, 7]
+- name: NEL_7
+  pos:
+  - 64.0
+  - -3.7625111145880854e-13
+  vertex_conflicts:
+  - WEL_[4, 5, 3, 4, 2, 3, 7]
+- name: ENR_0
+  pos:
+  - 53.0
+  - 21.0
+  vertex_conflicts:
+  - EWR_0
+- name: ENR_1
+  pos:
+  - 21.0
+  - 53.0
+  vertex_conflicts:
+  - SNR_7
+- name: EWR_0
+  pos:
+  - 53.0
+  - 21.0
+  vertex_conflicts:
+  - ENR_0
+- name: EWR_1
+  pos:
+  - 21.0
+  - 21.0
+  vertex_conflicts:
+  - SNR_6
+- name: EWR_2
+  pos:
+  - 11.0
+  - 21.0
+  vertex_conflicts:
+  - SNL_6
+- name: EWR_3
+  pos:
+  - 2.42562584220407
+  - 21.0
+  vertex_conflicts:
+  - WNL_6
+- name: EWR_4
+  pos:
+  - -2.42562584220407
+  - 21.0
+  vertex_conflicts:
+  - NEL_1
+- name: EWR_5
+  pos:
+  - -11.0
+  - 21.0
+  vertex_conflicts:
+  - NSL_1
+- name: EWR_6
+  pos:
+  - -21.0
+  - 21.0
+  vertex_conflicts:
+  - NSR_1
+- name: EWR_7
+  pos:
+  - -53.0
+  - 21.0
+  vertex_conflicts:
+  - NWR_1
+- name: EWL_0
+  pos:
+  - 53.0
+  - 11.0
+  vertex_conflicts:
+  - ESL_0
+- name: EWL_1
+  pos:
+  - 21.0
+  - 11.0
+  vertex_conflicts:
+  - SNR_5
+- name: EWL_2
+  pos:
+  - 11.0
+  - 11.0
+  vertex_conflicts:
+  - SNL_5
+- name: EWL_3
+  pos:
+  - 4.7092141294014525
+  - 11.0
+  vertex_conflicts:
+  - NEL_3
+- name: EWL_4
+  pos:
+  - -4.7092141294014525
+  - 11.0
+  vertex_conflicts:
+  - WNL_4
+- name: EWL_5
+  pos:
+  - -11.0
+  - 11.0
+  vertex_conflicts:
+  - NSL_2
+- name: EWL_6
+  pos:
+  - -21.0
+  - 11.0
+  vertex_conflicts:
+  - NSR_2
+- name: EWL_7
+  pos:
+  - -53.0
+  - 11.0
+  vertex_conflicts:
+  - SWL_7
+- name: ESL_0
+  pos:
+  - 53.0
+  - 11.0
+  vertex_conflicts:
+  - EWL_0
+- name: ESL_1
+  pos:
+  - -55.42562584220403
+  - -32.00000000000008
+  vertex_conflicts:
+  - SNR_[4, 5, 3, 4, 2, 3, 7]
+- name: ESL_2
+  pos:
+  - -23.95101189356229
+  - 59.3493810353102
+  vertex_conflicts:
+  - NEL_[4, 5, 3, 4, 2, 3, 7]
+- name: ESL_3
+  pos:
+  - -61.84002568502738
+  - -16.48669837399696
+  vertex_conflicts:
+  - SNL_[4, 5, 3, 4, 2, 3, 7]
+- name: ESL_4
+  pos:
+  - 61.84002568502725
+  - -16.486698373997445
+  vertex_conflicts:
+  - WEL_[4, 5, 3, 4, 2, 3, 7]
+- name: ESL_5
+  pos:
+  - 23.95101189356233
+  - 59.34938103531018
+  vertex_conflicts:
+  - SWL_[4, 5, 3, 4, 2, 3, 7]
+- name: ESL_6
+  pos:
+  - 55.42562584220423
+  - -31.999999999999726
+  vertex_conflicts:
+  - WER_[4, 5, 3, 4, 2, 3, 7]
+- name: ESL_7
+  pos:
+  - 3.7625111145880854e-13
+  - 64.0
+  vertex_conflicts:
+  - NSL_[4, 5, 3, 4, 2, 3, 7]
+- name: SER_0
+  pos:
+  - -21.0
+  - 53.0
+  vertex_conflicts:
+  - SNR_0
+- name: SER_1
+  pos:
+  - -53.0
+  - 21.0
+  vertex_conflicts:
+  - WER_7
+- name: SNR_0
+  pos:
+  - -21.0
+  - 53.0
+  vertex_conflicts:
+  - SER_0
+- name: SNR_1
+  pos:
+  - -21.0
+  - 21.0
+  vertex_conflicts:
+  - WER_6
+- name: SNR_2
+  pos:
+  - -21.0
+  - 11.0
+  vertex_conflicts:
+  - WEL_6
+- name: SNR_3
+  pos:
+  - -21.0
+  - 2.42562584220407
+  vertex_conflicts:
+  - NEL_6
+- name: SNR_4
+  pos:
+  - -21.0
+  - -2.42562584220407
+  vertex_conflicts:
+  - ESL_1
+- name: SNR_5
+  pos:
+  - -21.0
+  - -11.0
+  vertex_conflicts:
+  - EWL_1
+- name: SNR_6
+  pos:
+  - -21.0
+  - -21.0
+  vertex_conflicts:
+  - EWR_1
+- name: SNR_7
+  pos:
+  - -21.0
+  - -53.0
+  vertex_conflicts:
+  - ENR_1
+- name: SNL_0
+  pos:
+  - -11.0
+  - 53.0
+  vertex_conflicts:
+  - SWL_0
+- name: SNL_1
+  pos:
+  - -11.0
+  - 21.0
+  vertex_conflicts:
+  - WER_5
+- name: SNL_2
+  pos:
+  - -11.0
+  - 11.0
+  vertex_conflicts:
+  - WEL_5
+- name: SNL_3
+  pos:
+  - -11.0
+  - 4.7092141294014525
+  vertex_conflicts:
+  - ESL_3
+- name: SNL_4
+  pos:
+  - -11.0
+  - -4.7092141294014525
+  vertex_conflicts:
+  - NEL_4
+- name: SNL_5
+  pos:
+  - -11.0
+  - -11.0
+  vertex_conflicts:
+  - EWL_2
+- name: SNL_6
+  pos:
+  - -11.0
+  - -21.0
+  vertex_conflicts:
+  - EWR_2
+- name: SNL_7
+  pos:
+  - -11.0
+  - -53.0
+  vertex_conflicts:
+  - WNL_7
+- name: SWL_0
+  pos:
+  - -11.0
+  - 53.0
+  vertex_conflicts:
+  - SNL_0
+- name: SWL_1
+  pos:
+  - 32.00000000000008
+  - -55.42562584220403
+  vertex_conflicts:
+  - WER_[4, 5, 3, 4, 2, 3, 7]
+- name: SWL_2
+  pos:
+  - -59.3493810353102
+  - -23.95101189356229
+  vertex_conflicts:
+  - ESL_[4, 5, 3, 4, 2, 3, 7]
+- name: SWL_3
+  pos:
+  - 16.48669837399696
+  - -61.84002568502738
+  vertex_conflicts:
+  - WEL_[4, 5, 3, 4, 2, 3, 7]
+- name: SWL_4
+  pos:
+  - 16.486698373997445
+  - 61.84002568502725
+  vertex_conflicts:
+  - NSL_[4, 5, 3, 4, 2, 3, 7]
+- name: SWL_5
+  pos:
+  - -59.34938103531018
+  - 23.95101189356233
+  vertex_conflicts:
+  - WNL_[4, 5, 3, 4, 2, 3, 7]
+- name: SWL_6
+  pos:
+  - 31.999999999999726
+  - 55.42562584220423
+  vertex_conflicts:
+  - NSR_[4, 5, 3, 4, 2, 3, 7]
+- name: SWL_7
+  pos:
+  - -64.0
+  - 3.7625111145880854e-13
+  vertex_conflicts:
+  - EWL_[4, 5, 3, 4, 2, 3, 7]
+edges:
+- name: WSR_0_1
+  fro: WSR_0
+  to: WSR_1
+  value: 50.26548245743669
+- name: WER_0_1
+  fro: WER_0
+  to: WER_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    AAAAAAAAQEA=
+- name: WER_1_2
+  fro: WER_1
+  to: WER_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: WER_2_3
+  fro: WER_2
+  to: WER_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: WER_3_4
+  fro: WER_3
+  to: WER_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    oMqEha5nE0A=
+- name: WER_4_5
+  fro: WER_4
+  to: WER_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: WER_5_6
+  fro: WER_5
+  to: WER_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: WER_6_7
+  fro: WER_6
+  to: WER_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: WEL_0_1
+  fro: WEL_0
+  to: WEL_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: WEL_1_2
+  fro: WEL_1
+  to: WEL_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: WEL_2_3
+  fro: WEL_2
+  to: WEL_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: WEL_3_4
+  fro: WEL_3
+  to: WEL_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    uI+OOjzWIkA=
+- name: WEL_4_5
+  fro: WEL_4
+  to: WEL_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: WEL_5_6
+  fro: WEL_5
+  to: WEL_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: WEL_6_7
+  fro: WEL_6
+  to: WEL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: WNL_0_1
+  fro: WNL_0
+  to: WNL_1
+  value: 33.51032163829113
+- name: WNL_1_2
+  fro: WNL_1
+  to: WNL_2
+  value: 4.572361422671683
+- name: WNL_2_3
+  fro: WNL_2
+  to: WNL_3
+  value: 7.7309527934443025
+- name: WNL_3_4
+  fro: WNL_3
+  to: WNL_4
+  value: 8.903693206059145
+- name: WNL_4_5
+  fro: WNL_4
+  to: WNL_5
+  value: 7.73095279344431
+- name: WNL_5_6
+  fro: WNL_5
+  to: WNL_6
+  value: 4.57236142267169
+- name: WNL_6_7
+  fro: WNL_6
+  to: WNL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    ZHMtOFLBQEA=
+- name: NWR_0_1
+  fro: NWR_0
+  to: NWR_1
+  value: 50.26548245743669
+- name: NSR_0_1
+  fro: NSR_0
+  to: NSR_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: NSR_1_2
+  fro: NSR_1
+  to: NSR_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: NSR_2_3
+  fro: NSR_2
+  to: NSR_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: NSR_3_4
+  fro: NSR_3
+  to: NSR_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    oMqEha5nE0A=
+- name: NSR_4_5
+  fro: NSR_4
+  to: NSR_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: NSR_5_6
+  fro: NSR_5
+  to: NSR_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: NSR_6_7
+  fro: NSR_6
+  to: NSR_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: NSL_0_1
+  fro: NSL_0
+  to: NSL_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: NSL_1_2
+  fro: NSL_1
+  to: NSL_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: NSL_2_3
+  fro: NSL_2
+  to: NSL_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: NSL_3_4
+  fro: NSL_3
+  to: NSL_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    uI+OOjzWIkA=
+- name: NSL_4_5
+  fro: NSL_4
+  to: NSL_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: NSL_5_6
+  fro: NSL_5
+  to: NSL_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: NSL_6_7
+  fro: NSL_6
+  to: NSL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: NEL_0_1
+  fro: NEL_0
+  to: NEL_1
+  value: 33.51032163829113
+- name: NEL_1_2
+  fro: NEL_1
+  to: NEL_2
+  value: 4.572361422671683
+- name: NEL_2_3
+  fro: NEL_2
+  to: NEL_3
+  value: 7.7309527934443025
+- name: NEL_3_4
+  fro: NEL_3
+  to: NEL_4
+  value: 8.903693206059145
+- name: NEL_4_5
+  fro: NEL_4
+  to: NEL_5
+  value: 7.73095279344431
+- name: NEL_5_6
+  fro: NEL_5
+  to: NEL_6
+  value: 4.57236142267169
+- name: NEL_6_7
+  fro: NEL_6
+  to: NEL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    ZHMtOFLBQEA=
+- name: ENR_0_1
+  fro: ENR_0
+  to: ENR_1
+  value: 50.26548245743669
+- name: EWR_0_1
+  fro: EWR_0
+  to: EWR_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: EWR_1_2
+  fro: EWR_1
+  to: EWR_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: EWR_2_3
+  fro: EWR_2
+  to: EWR_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: EWR_3_4
+  fro: EWR_3
+  to: EWR_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    oMqEha5nE0A=
+- name: EWR_4_5
+  fro: EWR_4
+  to: EWR_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: EWR_5_6
+  fro: EWR_5
+  to: EWR_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: EWR_6_7
+  fro: EWR_6
+  to: EWR_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: EWL_0_1
+  fro: EWL_0
+  to: EWL_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: EWL_1_2
+  fro: EWL_1
+  to: EWL_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: EWL_2_3
+  fro: EWL_2
+  to: EWL_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: EWL_3_4
+  fro: EWL_3
+  to: EWL_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    uI+OOjzWIkA=
+- name: EWL_4_5
+  fro: EWL_4
+  to: EWL_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: EWL_5_6
+  fro: EWL_5
+  to: EWL_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: EWL_6_7
+  fro: EWL_6
+  to: EWL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: ESL_0_1
+  fro: ESL_0
+  to: ESL_1
+  value: 33.51032163829113
+- name: ESL_1_2
+  fro: ESL_1
+  to: ESL_2
+  value: 4.572361422671683
+- name: ESL_2_3
+  fro: ESL_2
+  to: ESL_3
+  value: 7.7309527934443025
+- name: ESL_3_4
+  fro: ESL_3
+  to: ESL_4
+  value: 8.903693206059145
+- name: ESL_4_5
+  fro: ESL_4
+  to: ESL_5
+  value: 7.73095279344431
+- name: ESL_5_6
+  fro: ESL_5
+  to: ESL_6
+  value: 4.57236142267169
+- name: ESL_6_7
+  fro: ESL_6
+  to: ESL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    ZHMtOFLBQEA=
+- name: SER_0_1
+  fro: SER_0
+  to: SER_1
+  value: 50.26548245743669
+- name: SNR_0_1
+  fro: SNR_0
+  to: SNR_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: SNR_1_2
+  fro: SNR_1
+  to: SNR_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: SNR_2_3
+  fro: SNR_2
+  to: SNR_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: SNR_3_4
+  fro: SNR_3
+  to: SNR_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    oMqEha5nE0A=
+- name: SNR_4_5
+  fro: SNR_4
+  to: SNR_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    WM2eXhQmIUA=
+- name: SNR_5_6
+  fro: SNR_5
+  to: SNR_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: SNR_6_7
+  fro: SNR_6
+  to: SNR_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: SNL_0_1
+  fro: SNL_0
+  to: SNL_1
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: SNL_1_2
+  fro: SNL_1
+  to: SNL_2
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: SNL_2_3
+  fro: SNL_2
+  to: SNL_3
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: SNL_3_4
+  fro: SNL_3
+  to: SNL_4
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    uI+OOjzWIkA=
+- name: SNL_4_5
+  fro: SNL_4
+  to: SNL_5
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    SHBxxcMpGUA=
+- name: SNL_5_6
+  fro: SNL_5
+  to: SNL_6
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAJEA=
+- name: SNL_6_7
+  fro: SNL_6
+  to: SNL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAAAAQEA=
+- name: SWL_0_1
+  fro: SWL_0
+  to: SWL_1
+  value: 33.51032163829113
+- name: SWL_1_2
+  fro: SWL_1
+  to: SWL_2
+  value: 4.572361422671683
+- name: SWL_2_3
+  fro: SWL_2
+  to: SWL_3
+  value: 7.7309527934443025
+- name: SWL_3_4
+  fro: SWL_3
+  to: SWL_4
+  value: 8.903693206059145
+- name: SWL_4_5
+  fro: SWL_4
+  to: SWL_5
+  value: 7.73095279344431
+- name: SWL_5_6
+  fro: SWL_5
+  to: SWL_6
+  value: 4.57236142267169
+- name: SWL_6_7
+  fro: SWL_6
+  to: SWL_7
+  value: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    ZHMtOFLBQEA=

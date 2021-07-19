@@ -1,0 +1,30 @@
+vertices:
+- name: ABC_DEF
+    A = incoming direction for path 1
+    B = outgoing direction for path 1
+    C = right/left lane for path 1
+    D = incoming direction for path 2
+    E = outgoing direction for path 2
+    C = right/left lane for path 2
+
+    Path 1 has priority for straight paths (E-W, or N-S).
+    If both paths are straight, whichever path has least conflict points up to that point is path 1
+    If both paths are turns, whichever path has least conflict points up to that point is path 1
+    Example is in path_1_labels.png, colored dots correspond to direction
+  pos:
+    x coordinate
+    y coordinate
+edges:
+- name: ABC_D_E
+    A = incoming direction for path
+    B = outgoing direction for path
+    C = right/left lane for path
+    D = indexed conflict point edge came from
+    E = indexed conflict point edge is going to
+  fro: ABC_DEF
+    vertex it is coming from
+    (labeled as "fro" because "from" is a keyword in python!)
+  to: ABC_DEF
+    vertex it is going to
+  value: double
+    cost to traverse this edge

@@ -321,10 +321,34 @@ void PBS::initializePriority(std::map<int, std::set<int> >& p,std::map<int, std:
 		for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2){
 			for(auto it3 = it2->second.begin(); it3 != it2->second.end(); ++it3){
 				for(auto it4 = next(it3); it4 != it2->second.end(); ++it4){
-					p[*it3].insert(*it4);
+                    if (instance.getAgents()[*it3].earliest_start_time < instance.getAgents()[*it4].earliest_start_time){
+                        p[*it3].insert(*it4);
+                    }
 				}
+
+
+                int conflictPointID = instance.getConflictPoints(it->first)[0];
+                for(auto it5 = trajectoryToAgent.begin(); it5 != trajectoryToAgent.end(); ++it5){
+                    if (conflictPointID == it5->first){
+                        // std::cout <<  conflictPointID << "--" << it5->first << std::endl;
+                        for(auto it6 = it5->second.begin(); it6 != it5->second.end(); ++it6){
+                            for(auto it7 = it6->second.begin(); it7 != it6->second.end(); ++it7){
+                                // std::cout << "agent: " << *it3 << "-" << *it7 << std::endl;
+                                if (instance.getAgents()[*it3].earliest_start_time < instance.getAgents()[*it7].earliest_start_time){
+                                    p[*it3].insert(*it7);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
 			}
 		}
+
+
+
+
 	}
 }
 

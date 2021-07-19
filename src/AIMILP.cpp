@@ -14,12 +14,12 @@
 using namespace std::chrono;
 
 
-float turnRadiusRight = 16*0.6;
-float turnRadiusLeft = 32*0.6;
+float turnRadiusRight = 10*0.3048;
+float turnRadiusLeft = 40*0.3048;
 
 float vehicleLength = 5;
 
-float w = 5;
+float w = 7;
 
 position_t nodeAsPos(const float x, const float y)
 {  
@@ -235,8 +235,9 @@ void loadVehicleArriving(
 int main(int argc, char *argv[])
 {
     std::string lanes[8] = {"WR", "WL", "ER", "EL", "NR", "NL", "SR", "SL"};
-    std::string fileName = "intro_graph.json";
-    std::string pDFileName = "pairDistance2.json";
+
+    std::string fileName = "intro_graph_3.json";
+    std::string pDFileName = "pairDistance_3.json";
     searchGraph_t searchGraph;
     std::unordered_map<std::string, vertex_t> vNameToV;
 
@@ -361,18 +362,27 @@ int main(int argc, char *argv[])
         for(int i = 0, ci = 0; i < vehicles.size(); ci += vehicles[i].size(), ++i){
             int last = vehicles[i].size() - 1;
             for(int j = 0, cj = 0; j < vehicles.size(); cj += vehicles[j].size(), ++j){
-                if(i != j && vehicles[i].front() == vehicles[j].front() && e[i] < e[j]){
+                std::set<vertex_t> iconflicts = searchGraph[vehicles[j].front()].generalizedVertexConflicts;
+                for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
+                    bool samePoint =  (vehicles[i].front()==*it || vehicles[i].front() == vehicles[j].front());
+                    // std::cout << samePoint << "==" << vehicles[i].front() << "=---" << vehicles[j].front() << "=---" << *it<< std::endl;
+                    if(i != j && samePoint && e[i] < e[j]){
 
-                    // Tau of entry conflict point
-                    int direction = vNameToDirection.find(std::to_string(vehicles[i][0]))->second; 
-                    IloExpr Tau = Li(direction)/w + (var[ci + last ] - var[ci])*Li(direction)/(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble());
-                    con.add(var[ci] 
-                        + Tau
-                        - var[cj] <= 0);
+                        // std::cout << *it<< "=---" << searchGraph[*it].name << "=---" << searchGraph[vehicles[j][vj]].name << "\n\n"<< std::endl;
+
+                        // Tau of entry conflict point
+                        int direction = vNameToDirection.find(std::to_string(vehicles[i][0]))->second; 
+                        IloExpr Tau = Li(direction)/w + (var[ci + last ] - var[ci])*Li(direction)/(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble());
+                        con.add(var[ci] 
+                            + Tau
+                            - var[cj] <= 0);
+                    }
                 }
+                // std::cout << "\n\n" << std::endl;
+
+
             }
         }
-        // std::cout << con << "\n";
 
 
         // //18 without w and Li (buggggggggggggggg)
@@ -430,55 +440,76 @@ int main(int argc, char *argv[])
         // std::cout << "21\n";
         for(int i = 0, ci = 0; i < vehicles.size(); ci += vehicles[i].size(), ++i){
             for(int j = 0, cj = 0; j < vehicles.size(); cj += vehicles[j].size(), ++j){
-                if(i != j && vehicles[i].front() == vehicles[j].front() && e[i] < e[j]){
-                    for(int vi = 0; vi < vehicles[i].size(); ++vi){
-                        std::set<vertex_t> iconflicts = searchGraph[vehicles[i][vi]].generalizedVertexConflicts;
-                        for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
-                            for(int vj = 0; vj < vehicles[j].size(); ++vj){
-                                if(searchGraph[*it].name == searchGraph[vehicles[j][vj]].name){
 
-                                    // Tau of conflict point vi
-                                    int direction = vNameToDirection.find(std::to_string(vehicles[i][vi]))->second; 
-                                    IloExpr Tau = Li(direction)/w + (var[ci + vehicles[i].size() -1 ] - var[ci])*Li(direction)/(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble());
+                std::set<vertex_t> vehicleJFirstConflicts = searchGraph[vehicles[j].front()].generalizedVertexConflicts;
+                for(auto jcp = vehicleJFirstConflicts.begin(); jcp != vehicleJFirstConflicts.end(); ++jcp){
+                    bool samePoint =  (vehicles[i].front()==*jcp || vehicles[i].front() == vehicles[j].front());
+                
+                    if(i != j && samePoint && e[i] < e[j]){
+                        for(int vi = 0; vi < vehicles[i].size(); ++vi){
+                            std::set<vertex_t> iconflicts = searchGraph[vehicles[i][vi]].generalizedVertexConflicts;
+                            for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
+                                for(int vj = 0; vj < vehicles[j].size(); ++vj){
 
-                                    con.add(var[ci + vi] 
-                                        // + var[ci*2+ vi*2 + 1] 
-                                        + Tau
-                                        - var[cj + vj] <= 0);
+    
+
+                                    if(searchGraph[*it].name == searchGraph[vehicles[j][vj]].name ||  searchGraph[vehicles[i][vi]].name == searchGraph[vehicles[j][vj]].name){
+                                        // std::cout << searchGraph[*it].name<< "=---" << searchGraph[vehicles[i][vi]].name << "=---" << searchGraph[vehicles[j][vj]].name << std::endl;
+                                        // std::cout << *it<< "=---" << vi << "=---" << vj << "\n\n"<< std::endl;
+
+                                        // Tau of conflict point vi
+                                        int direction = vNameToDirection.find(std::to_string(vehicles[i][vi]))->second; 
+                                        IloExpr Tau = Li(direction)/w + (var[ci + vehicles[i].size() -1 ] - var[ci])*Li(direction)/(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble());
+
+                                        con.add(var[ci + vi] 
+                                            // + var[ci*2+ vi*2 + 1] 
+                                            + Tau
+                                            - var[cj + vj] <= 0);
+                                    }
                                 }
                             }
                         }
-                    }
+                    }                
+                
                 }
+
+
+
+
             }
         }
         //22
         // std::cout << "22\n";
         for(int i = 0, ci = 0; i < vehicles.size(); ci += vehicles[i].size(), ++i){
             for(int j = 0, cj = 0; j < vehicles.size(); cj += vehicles[j].size(), ++j){
-                if(i != j && vehicles[i].front() != vehicles[j].front()){
-                    for(int vi = 0; vi < vehicles[i].size(); ++vi){
+                std::set<vertex_t> vehicleJFirstConflicts = searchGraph[vehicles[j].front()].generalizedVertexConflicts;
+                for(auto jcp = vehicleJFirstConflicts.begin(); jcp != vehicleJFirstConflicts.end(); ++jcp){
+                    bool samePoint =  (vehicles[i].front()==*jcp || vehicles[i].front() == vehicles[j].front());
+                    if(i != j && !samePoint){
+                        for(int vi = 0; vi < vehicles[i].size(); ++vi){
 
-                        std::set<vertex_t> iconflicts = searchGraph[vehicles[i][vi]].generalizedVertexConflicts;
-                        for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
-                            for(int vj = 0; vj < vehicles[j].size(); ++vj){
-                                if(searchGraph[*it].name == searchGraph[vehicles[j][vj]].name){
-                                    
-                                    // Tau of conflict point vi
-                                    int direction = vNameToDirection.find(std::to_string(vehicles[i][vi]))->second; 
-                                    // std::cout << "        Conflict points: " << i << "-" << j  << "-" << searchGraph[vehicles[i][vi]].name << "-" << searchGraph[vehicles[j][vj]].name << "-" << ci + vi << "-" << cj + vj << std::endl;
-                                    IloExpr Tau = Li(direction)/w + (var[ci + vehicles[i].size() -1 ] - var[ci])*Li(direction)/(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble());
+                            std::set<vertex_t> iconflicts = searchGraph[vehicles[i][vi]].generalizedVertexConflicts;
+                            for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
+                                for(int vj = 0; vj < vehicles[j].size(); ++vj){
+                                    if(searchGraph[*it].name == searchGraph[vehicles[j][vj]].name){
+                                        
+                                        // Tau of conflict point vi
+                                        int direction = vNameToDirection.find(std::to_string(vehicles[i][vi]))->second; 
+                                        // std::cout << "        Conflict points: " << i << "-" << j  << "-" << searchGraph[vehicles[i][vi]].name << "-" << searchGraph[vehicles[j][vj]].name << "-" << ci + vi << "-" << cj + vj << std::endl;
+                                        IloExpr Tau = Li(direction)/w + (var[ci + vehicles[i].size() -1 ] - var[ci])*Li(direction)/(pairDistances[searchGraph[vehicles[i].front()].name.c_str()][searchGraph[vehicles[i].back()].name.c_str()].GetDouble());
 
-                                    con.add(var[ci + vi] 
-                                        + Tau
-                                        - var[cj + vj]
-                                        - (1 - var[offset + i*vehicles.size() + j])*Mij[i][j]<= 0);
+                                        con.add(var[ci + vi] 
+                                            + Tau
+                                            - var[cj + vj]
+                                            - (1 - var[offset + i*vehicles.size() + j])*Mij[i][j]<= 0);
 
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
             }
         }
 
@@ -488,21 +519,28 @@ int main(int argc, char *argv[])
         // std::cout << "23\n";
         for(int i = 0, ci = 0; i < vehicles.size(); ci += vehicles[i].size(), ++i){
             for(int j = 0, cj = 0; j < vehicles.size(); cj += vehicles[j].size(), ++j){
-                if(i < j && vehicles[i].front() != vehicles[j].front()){
-                    for(int vi = 0; vi < vehicles[i].size(); ++vi){
-                        std::set<vertex_t> iconflicts = searchGraph[vehicles[i][vi]].generalizedVertexConflicts;
-                        for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
-                            for(int vj = 0; vj < vehicles[j].size(); ++vj){
-                                if(searchGraph[*it].name == searchGraph[vehicles[j][vj]].name){
-                                    con.add(var[offset + i*vehicles.size() + j]
-                                        +   var[offset + j*vehicles.size() + i]
-                                        - 1 == 0);
+                std::set<vertex_t> vehicleJFirstConflicts = searchGraph[vehicles[j].front()].generalizedVertexConflicts;
+                for(auto jcp = vehicleJFirstConflicts.begin(); jcp != vehicleJFirstConflicts.end(); ++jcp){
+                    bool samePoint =  (vehicles[i].front()==*jcp || vehicles[i].front() == vehicles[j].front());
 
+                    if(i < j && !samePoint){
+                        for(int vi = 0; vi < vehicles[i].size(); ++vi){
+                            std::set<vertex_t> iconflicts = searchGraph[vehicles[i][vi]].generalizedVertexConflicts;
+                            for(auto it = iconflicts.begin(); it != iconflicts.end(); ++it){
+                                for(int vj = 0; vj < vehicles[j].size(); ++vj){
+                                    if(searchGraph[*it].name == searchGraph[vehicles[j][vj]].name){
+                                        con.add(var[offset + i*vehicles.size() + j]
+                                            +   var[offset + j*vehicles.size() + i]
+                                            - 1 == 0);
+
+                                    }
                                 }
                             }
                         }
                     }
+
                 }
+
             }
         }
         

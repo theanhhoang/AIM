@@ -46,9 +46,9 @@ lane = ['R', 'L']
 # l_radius = left turn radius
 # omega = distance from start to end CP's going straight
 # constraint: lambda < r_radius < l_radius < omega, l_radius + r_radius + lambda = omega
-lmda = 10
-r_radius = 32
-l_radius = 64
+lmda = 15*0.3048
+r_radius = 10*0.3048
+l_radius = 40*0.3048
 omega = lmda + r_radius + l_radius
 
 
@@ -208,7 +208,7 @@ for i in range(0, 4):
         rotate_3_left_turn_path,
         rotate_3_left_straight_path,
         rotate_3_right_straight_path,
-        rotate_2_right_turn_path
+        rotate_3_right_turn_path
     ]
 
     right_straight_conflict_index = [6, 6, 6, 1, 1, 1, 1]
@@ -414,5 +414,5 @@ for i in range(0, 4):
         left_turn_dist[6] - left_turn_dist[5].item()
     )
 
-with open("intro_graph.json", 'w') as f:
+with open("intro_graph_2.json", 'w') as f:
     json.dump(graph, f, indent=4)

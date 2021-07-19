@@ -11,7 +11,7 @@
 Instance::Instance(const string& map_name)
 {
     // string arrFile = "vehicleArrival.json";
-    string PDFile = "pairDistance2.json";
+    string PDFile = "pairDistance_3.json";
     // int step = 39;
     fileName = map_name;
     loadSearchGraph(searchGraph, vNameToID, vIDToName, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);

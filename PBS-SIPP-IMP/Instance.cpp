@@ -10,13 +10,13 @@
 
 Instance::Instance(const string& map_name)
 {
-    string arrFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS-IMP/vehicleArrival.json";
-    string PDFile = "/media/zijun/Data/Documents/2020Summer/AIM/PBS-IMP/pairDistance2.json";
-    int step = 35;
+    string arrFile = "vehicleArrival.json";
+    string PDFile = "pairDistance2.json";
+    // int step = 35;
     fileName = map_name;
     loadSearchGraph(searchGraph, vNameToID, vIDToName, vNameToV, vNameToDirection, vIDToConflictPoints, fileName, pairDistances, pairDistancesMap, PDFile);
     //std::cout << "Instance: graph loaded\n";
-    loadVehicles(arrFile, step);
+    // loadVehicles(arrFile, step);
     loadSamePoint();
     //std::cout << "Instance: vehicle loaded\n";
     // std::cout << "getNumOfVertices(): " << getNumOfVertices() << std::endl;
