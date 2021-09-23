@@ -191,6 +191,48 @@ std::tuple<int, int, int> PTNode::getFirstCollision(Instance& instance){
 	return result;
 }
 
+std::tuple<int, int, int> PTNode::getEarliestCollision(Instance& instance){
+	//std::cout << "running getFirstCollision\n";
+	std::vector<std::tuple<double, int, int, int> > allCollisions;
+	ReservationTable table(instance.getNumOfVertices());
+	//vector<list<TimeInterval> >
+	std::set<int> s;
+	for(int i = 0; i < (signed) plan.size();++i) s.insert(i);
+	getRTFromP(instance, table, s);
+
+	int vehicle1ID = 0;
+	for(Path vehicle1Path : plan){
+		//iterating points in path
+		for(PathEntry vehicle1PathEntry : vehicle1Path){
+			//it2 is path entry
+			std::list<TimeInterval> conflictPointTimeTable = table[vehicle1PathEntry.conflict_point];
+			for(TimeInterval vehicle2AtConflictPoint : conflictPointTimeTable){
+				if(vehicle1ID == vehicle2AtConflictPoint.agent_id)
+					continue;
+				//if  collision
+				if(!(vehicle1PathEntry.leaving_time_tail - vehicle2AtConflictPoint.t_min < EPSILON) && !(vehicle2AtConflictPoint.t_max - vehicle1PathEntry.arrival_time < EPSILON)
+				){
+					allCollisions.push_back(std::make_tuple(std::max(vehicle1PathEntry.arrival_time, vehicle2AtConflictPoint.t_min), vehicle1ID, vehicle2AtConflictPoint.agent_id, vehicle1PathEntry.conflict_point));
+				}
+			}
+		}
+		++vehicle1ID;
+	}
+
+	if(allCollisions.empty()){
+		return std::make_tuple(-1, -1, -1);
+	}
+
+	std::tuple<double, int, int, int> * earliestCollision = &allCollisions[0];
+	for(std::tuple<double, int, int, int> collision : allCollisions){
+		if(std::get<0>(collision) < std::get<0>(*earliestCollision)){
+			earliestCollision = &collision;
+		}
+	}
+	return std::make_tuple(get<1>(*earliestCollision), get<2>(*earliestCollision), get<3>(*earliestCollision));
+}
+
+
 /*
 void PTNode::getRT(ReservationTable &rt, int index){
 	for (int i = 0; i < plan.size(); ++i){
