@@ -24,6 +24,7 @@ public:
 	std::list<int> topologicalSort();
 	std::list<int> topologicalSort(int);
 	std::tuple<int, int, int> getFirstCollision(Instance&);
+	std::tuple<int, int, int> getEarliestCollision(Instance&);
 	//void getRT(ReservationTable&, int);
 	void getRTP(std::set<int>&, int);
 	void getRTFromP(Instance&, ReservationTable&, std::set<int>);
