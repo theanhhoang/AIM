@@ -249,7 +249,8 @@ void PBS::run(const string& outputFileName)
 		// printPriority(N.priority);
 		// std::cout << "node cost: "  << N.cost << "\n";
 		//use list 12 13 14 agent1 agent2 point
-		std::tuple<int, int, int> C = N.getFirstCollision(instance);
+		//std::tuple<int, int, int> C = N.getFirstCollision(instance);
+		std::tuple<int, int, int> C = N.getEarliestCollision(instance);
 		if(std::get<0> (C) == -1){
 			N.writeToFile(instance, outputFileName);
 			// std::cout << "$$FOUND SOLUTION$$\n";
