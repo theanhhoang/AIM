@@ -16,8 +16,8 @@ int main(int argc, char** argv)
    string introGraphFile = sourcePath + "/intro_graph_3.json";
    string pairDistanceFile = sourcePath + "/pairDistance_3.json";
 
-   // default to using step 35
-   int step = 35;
+   // default to using step 0
+   int step = 0;
    if(argc > 2){
     step = atoi(argv[1]);
    }
