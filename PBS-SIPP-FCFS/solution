@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes"?>
+<CPLEXSolution version="1.2">
+ <header
+   problemName="IloCplex"
+   objectiveValue="31.88176156008911"
+   solutionTypeValue="1"
+   solutionTypeString="basic"
+   solutionStatusValue="1"
+   solutionStatusString="optimal"
+   solutionMethodString="dual"
+   primalFeasible="1"
+   dualFeasible="1"
+   simplexIterations="1"
+   writeLevel="1"/>
+ <quality
+   epRHS="9.9999999999999995e-07"
+   epOpt="9.9999999999999995e-07"
+   maxPrimalInfeas="0"
+   maxDualInfeas="0"
+   maxPrimalResidual="8.7417873504205823e-12"
+   maxDualResidual="0"
+   maxX="27.930757706726073"
+   maxPi="1"
+   maxSlack="99969.394982439917"
+   maxRedCost="10.028474807739258"
+   kappa="8.0800000000000001"/>
+ <linearConstraints>
+  <constraint index="0" status="BS" slack="99969.394982439917" dual="0"/>
+  <constraint index="1" status="BS" slack="-3.6251239999999996" dual="-0"/>
+  <constraint index="2" status="BS" slack="99969.189603773251" dual="0"/>
+  <constraint index="3" status="BS" slack="-3.625123999999996" dual="-0"/>
+  <constraint index="4" status="BS" slack="99968.889121106578" dual="0"/>
+  <constraint index="5" status="BS" slack="-2.5108466666666693" dual="-0"/>
+  <constraint index="6" status="BS" slack="99968.846235106583" dual="0"/>
+  <constraint index="7" status="BS" slack="-2.5108466666666658" dual="-0"/>
+  <constraint index="8" status="BS" slack="99968.666985773249" dual="0"/>
+  <constraint index="9" status="BS" slack="-2.5108466666666658" dual="-0"/>
+  <constraint index="10" status="BS" slack="99968.624099773253" dual="0"/>
+  <constraint index="11" status="BS" slack="-2.5108466666666658" dual="-0"/>
+  <constraint index="12" status="BS" slack="99968.32361710658" dual="0"/>
+  <constraint index="13" status="LL" slack="0" dual="1"/>
+  <constraint index="14" status="BS" slack="99968.118238439914" dual="0"/>
+ </linearConstraints>
+ <variables>
+  <variable index="0" status="BS" value="27.930757706726073" reducedCost="0"/>
+  <variable index="1" status="LL" value="0.066666666666666666" reducedCost="10.028474807739258"/>
+ </variables>
+</CPLEXSolution>

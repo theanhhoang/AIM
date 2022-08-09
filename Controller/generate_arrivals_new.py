@@ -27,14 +27,14 @@ arrivalTime = np.random.poisson(0.5625,6400)
 arrivalTime = np.cumsum(arrivalTime)
 trajectory = np.random.randint(0,10,6400)
 lane = np.random.randint(0,8, 6400)
-importance = np.random.randint(0,30,6400)
+importance = np.random.randint(0,10,6400)
 
 # 500vph
 # arrivalTime = np.random.poisson(0.9,4000)
 # arrivalTime = np.cumsum(arrivalTime)
 # trajectory = np.random.randint(0,10,4000)
 # lane = np.random.randint(0,8, 4000)
-# importance = np.random.randint(0,30,4000)
+# importance = np.random.randint(0,10,4000)
 
 # print(arrivalTime)
 
@@ -56,11 +56,14 @@ for i in range(len(arrivalTime)):
         veh["trajectory"] = laneDirections[lane[i]][1]
     veh["id"] = i
     veh["lane"] = lane[i]
-    if (importance[i] > 1):
+    if (importance[i] >= 1):
         veh["importance"] = 1
     else:
         veh["importance"] = 2
 
+    # Bus with length 15m cannot turn right in this scenario
+    if (veh["importance"] == 2 and len(veh["trajectory"])== 2):
+        veh["trajectory"] = laneDirections[lane[i]][0]
 
 
 

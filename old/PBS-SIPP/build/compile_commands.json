@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/build",
+  "command": "/usr/bin/g++-7 -DIL_STD -I\"/home/theanhhoang/Desktop/AIM/PBS-SIPP/./*.h\" -I/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include -I/opt/ibm/ILOG/CPLEX_Studio1210/concert/include  -pthread -g -Wall -ldl -g -std=gnu++14 -o CMakeFiles/AIMPBS.dir/Driver.cpp.o -c /home/theanhhoang/Desktop/AIM/PBS-SIPP/Driver.cpp",
+  "file": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/Driver.cpp"
+},
+{
+  "directory": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/build",
+  "command": "/usr/bin/g++-7 -DIL_STD -I\"/home/theanhhoang/Desktop/AIM/PBS-SIPP/./*.h\" -I/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include -I/opt/ibm/ILOG/CPLEX_Studio1210/concert/include  -pthread -g -Wall -ldl -g -std=gnu++14 -o CMakeFiles/AIMPBS.dir/Instance.cpp.o -c /home/theanhhoang/Desktop/AIM/PBS-SIPP/Instance.cpp",
+  "file": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/Instance.cpp"
+},
+{
+  "directory": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/build",
+  "command": "/usr/bin/g++-7 -DIL_STD -I\"/home/theanhhoang/Desktop/AIM/PBS-SIPP/./*.h\" -I/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include -I/opt/ibm/ILOG/CPLEX_Studio1210/concert/include  -pthread -g -Wall -ldl -g -std=gnu++14 -o CMakeFiles/AIMPBS.dir/PBS.cpp.o -c /home/theanhhoang/Desktop/AIM/PBS-SIPP/PBS.cpp",
+  "file": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/PBS.cpp"
+},
+{
+  "directory": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/build",
+  "command": "/usr/bin/g++-7 -DIL_STD -I\"/home/theanhhoang/Desktop/AIM/PBS-SIPP/./*.h\" -I/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include -I/opt/ibm/ILOG/CPLEX_Studio1210/concert/include  -pthread -g -Wall -ldl -g -std=gnu++14 -o CMakeFiles/AIMPBS.dir/PTNode.cpp.o -c /home/theanhhoang/Desktop/AIM/PBS-SIPP/PTNode.cpp",
+  "file": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/PTNode.cpp"
+},
+{
+  "directory": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/build",
+  "command": "/usr/bin/g++-7 -DIL_STD -I\"/home/theanhhoang/Desktop/AIM/PBS-SIPP/./*.h\" -I/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include -I/opt/ibm/ILOG/CPLEX_Studio1210/concert/include  -pthread -g -Wall -ldl -g -std=gnu++14 -o CMakeFiles/AIMPBS.dir/SIPP.cpp.o -c /home/theanhhoang/Desktop/AIM/PBS-SIPP/SIPP.cpp",
+  "file": "/home/theanhhoang/Desktop/AIM/PBS-SIPP/SIPP.cpp"
+}
+]

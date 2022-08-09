@@ -29,7 +29,7 @@ laneDirections = [["WER_0", "WER_1", "WER_2", "WER_3", "WER_4", "WER_5", "WER_6"
                     ["SWL_0", "SWL_1", "SWL_2", "SWL_3", "SWL_4", "SWL_5", "SWL_6", "SWL_7"]  \
                 ]
 
-with open('intro_graph_3.json') as f:
+with open('intro_graph_4.json') as f:
     graph = json.load(f)
     vertices = graph['vertices']
     edges = graph['edges']
@@ -63,6 +63,6 @@ for lane in laneDirections:
                         # print(e["value"])
                         # print(i)
 # print(pairDistance)
-with open('pairDistance_3.json', 'w') as outfile:
+with open('pairDistance_4.json', 'w') as outfile:
     json.dump(pairDistance, outfile, indent=4)
 

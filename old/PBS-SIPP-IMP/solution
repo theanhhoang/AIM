@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes"?>
+<CPLEXSolution version="1.2">
+ <header
+   problemName="IloCplex"
+   objectiveValue="48.220002000000008"
+   solutionTypeValue="1"
+   solutionTypeString="basic"
+   solutionStatusValue="1"
+   solutionStatusString="optimal"
+   solutionMethodString="dual"
+   primalFeasible="1"
+   dualFeasible="1"
+   simplexIterations="1"
+   writeLevel="1"/>
+ <quality
+   epRHS="9.9999999999999995e-07"
+   epOpt="9.9999999999999995e-07"
+   maxPrimalInfeas="7.1054273576010019e-15"
+   maxDualInfeas="0"
+   maxPrimalResidual="8.375179239364372e-12"
+   maxDualResidual="0"
+   maxX="45.565868000000002"
+   maxPi="1"
+   maxSlack="99953.100798666666"
+   maxRedCost="17.19201"
+   kappa="4.1509433962264151"/>
+ <linearConstraints>
+  <constraint index="0" status="BS" slack="99953.100798666666" dual="0"/>
+  <constraint index="1" status="BS" slack="-10.015868000000005" dual="-0"/>
+  <constraint index="2" status="BS" slack="99952.897598666663" dual="0"/>
+  <constraint index="3" status="LL" slack="0" dual="1"/>
+  <constraint index="4" status="BS" slack="99952.592798666665" dual="0"/>
+  <constraint index="5" status="BS" slack="-0" dual="-0"/>
+  <constraint index="6" status="BS" slack="99952.566988666658" dual="0"/>
+  <constraint index="7" status="BS" slack="-0" dual="-0"/>
+  <constraint index="8" status="BS" slack="99952.313807999992" dual="0"/>
+  <constraint index="9" status="BS" slack="-0" dual="-0"/>
+  <constraint index="10" status="BS" slack="99952.287998" dual="0"/>
+  <constraint index="11" status="BS" slack="-0" dual="-0"/>
+  <constraint index="12" status="BS" slack="99951.983198000002" dual="0"/>
+  <constraint index="13" status="BS" slack="7.1054273576010019e-15" dual="-0"/>
+  <constraint index="14" status="BS" slack="99951.779997999998" dual="0"/>
+ </linearConstraints>
+ <variables>
+  <variable index="0" status="BS" value="45.565868000000002" reducedCost="0"/>
+  <variable index="1" status="LL" value="0.066666666666666666" reducedCost="17.19201"/>
+ </variables>
+</CPLEXSolution>
