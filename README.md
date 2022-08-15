@@ -4,4 +4,6 @@ This script will run 100 simulations in total (but you can change the number of 
 
 The current code is set for the demand of 800vphpl; then, all results will be stored in ```Controller/result/800vph``` folder. If you wish to change the demand to a different value, please update accordingly to in the ```controller.py``` and ```generate_arrivals_new.py``` files.
 
+The  ```Controller/result``` is currently storing our results of our simulations in the cases of 500vphpl and 800vphpl.
+
 We include an Excel file, which is used to analyse our results. The file is located in ```Controller/result``` folder.
