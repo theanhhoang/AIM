@@ -1,3 +1,0 @@
-/home/theanhhoang/Desktop/AIM/PBS-SIPP-ver2-Priority/CMakeFiles/rebuild_cache.dir
-/home/theanhhoang/Desktop/AIM/PBS-SIPP-ver2-Priority/CMakeFiles/AIMPBS.dir
-/home/theanhhoang/Desktop/AIM/PBS-SIPP-ver2-Priority/CMakeFiles/edit_cache.dir

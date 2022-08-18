@@ -1,3 +1,0 @@
-/home/theanhhoang/Desktop/AIM/src/CMakeFiles/rebuild_cache.dir
-/home/theanhhoang/Desktop/AIM/src/CMakeFiles/AIMILP.dir
-/home/theanhhoang/Desktop/AIM/src/CMakeFiles/edit_cache.dir
