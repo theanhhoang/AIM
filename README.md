@@ -5,7 +5,7 @@ Our algorithm is developed in Ubuntu OS. However, it should work properly in oth
 To complile the PSL Algorithm, please go to folder ```PBS-SIPP-ver2/```. You can then follow the below information.
 
 The code requires the external library [boost](https://www.boost.org/).
-If you are using Ubantu, you can install it simply by
+If you are using Ubuntu, you can install it simply by
 ```shell script
 sudo apt install libboost-all-dev
 ``` 
