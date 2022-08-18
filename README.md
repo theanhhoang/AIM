@@ -28,8 +28,11 @@ on the [boost](https://www.boost.org/) website and install it manually.
 The code also requires the external library Cplex from IBM. You can follow this Youtube [link](https://www.youtube.com/watch?v=c9uVSaQkd8o) to install the package.
 
 
-After you installed boost and cplex and downloaded the source code, go into the directory of the source code (```PBS-SIPP-ver2```) and compile it with CMake:
+After you installed boost and cplex and downloaded the source code, go into the directory of the source code (```PBS-SIPP-ver2/```) and compile it with CMake:
 ```shell script
 cmake .
 make
 ```
+
+## Other baseline Algorithms
+If you wish to modify or recompile our baseline Algorithms (MILP in ```src/``` and MILP-FCFS in ```MILP-FCFS/```), please follow the same instructions in section PSL Algorithm above. Again you Boost and Cplex are required library.
